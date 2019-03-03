@@ -25,7 +25,13 @@ You can add authorization rules to a Client VPN endpoint using the console and t
 
 1. Specify which clients are allowed to access the specified network\. For **For grant access to**, do one of the following:
    + To grant access to all clients, choose **Allow access to all users**\.
-   + To restrict access to specific clients, choose **Allow access to users in a specific Active Directory group**, and then for **Active Directory group name**, enter the name of the Active Directory group to grant access\.
+   + To restrict access to specific clients, choose **Allow access to users in a specific Active Directory group**, and then for **Active Directory group name**, enter the security identifier \(SID\) of the Active Directory group to grant access\.
+
+   You can use the Microsoft Powershell Get\-ADGroup cmdlet to get the SID\. For more information about Get\-ADGroup, see the [Get\-ADGroup command page](https://docs.microsoft.com/en-us/powershell/module/addsadministration/get-adgroup?view=win10-ps) in the * Microsoft Windows 10 and Windows Server 2016 PowerShell Module Reference*\.
+
+   Example
+
+   `Get-ADGroup -Filter 'Name -eq "<Name of the AD Group>"'`
 
 1. For **Description**, enter a brief description of the authorization rule\.
 

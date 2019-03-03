@@ -15,6 +15,8 @@ You must create a Client VPN endpoint to enable your clients to establish a VPN 
 
 The Client VPN must be created in the same AWS account in which the intended target network is provisioned\.
 
+Make sure that you have the client certificate and the client private key before you add a Client VPN endpoint\.
+
 You can create a Client VPN endpoint using the console or the AWS CLI\.
 
 **To create a Client VPN endpoint \(console\)**
@@ -39,13 +41,13 @@ The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
    + To use Active Directory authentication, select **Use Active Directory authentication**, and then for **Directory ID**, specify the ID of the Active Directory to use\.
    + To use mutual certificate authentication, select **Use mutual authentication**, and then for **Client certificate ARN**, specify the ARN of the client certificate\.
 **Note**  
-The client certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
+If the client certificate has been issued by the same Certificate Authority \(Issuer\) as the server certificate, then you can continue to use the server certificate ARN for the client certificate ARN\. The client certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 
 1. Specify whether to log data about client connections using Amazon CloudWatch Logs\. For **Do you want to log the details on clients connections?**, do one of the following:
    + To enable client connection logging, choose **Yes**, for **CloudWatch Logs log group name** enter the name of the log group to use, and for **CloudWatch Logs log stream name**, enter the name of the log stream to use\.
    + To disable client connection logging, choose **No**\.
 
-1. \(Optional\) Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\.
+1. Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use VPC DNS Server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, add the VPC DNS server IP address\.
 **Note**  
 Ensure that the DNS servers can be reached by clients\.
 
@@ -80,6 +82,8 @@ Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/r
 ## Export Client Configuration<a name="cvpn-working-endpoint-export"></a>
 
 The Client VPN endpoint configuration file is the file clients use to establish a VPN connection with the Client VPN endpoint\. You must download this file and distribute it to all clients who need access to the VPN\.
+
+ If you chose to use Mutual Authentication when you created the client vpn endpoint, then you need to add the client certificate and the client private key \(by using the <cert></cert> tag and the <key></key tag\)\) to the \.ovpm configuration file that you downloaded\. After you add the information, you can import the \.ovpn file into the OpenVPN client software\. 
 
 You can export the client configuration using the console or the AWS CLI\.
 

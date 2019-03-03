@@ -26,7 +26,7 @@ Client VPN offers the following features:
 The following are the key concepts for Client VPN:
 
 **Client VPN endpoint**  
-The Client VPN endpoint is the resource you create and conﬁgure to enable and manage client VPN sessions\. It is the resource where all client VPN sessions are terminated\.
+The Client VPN endpoint is the resource that you create and conﬁgure to enable and manage client VPN sessions\. It is the resource where all client VPN sessions are terminated\.
 
 **Target network**  
 A target network is the network that you associate with a Client VPN endpoint\. A subnet from a VPC is a target network\. Associating a subnet with a Client VPN endpoint enables you to establish VPN sessions\. You can associate multiple subnets with a Client VPN endpoint\. All subnets must be from the same VPC\. Each subnet must belong to a different Availability Zone\.
@@ -38,7 +38,7 @@ Each Client VPN endpoint has a route table that describes the available destinat
 An authorization rule restricts the users who can access a network\. For a specified network, you configure the Active Directory group that is allowed access\. Only users belonging to this Active Directory group can access the specified network\. By default, there are no authorization rules and you must configure authorization rules to enable users to access resources and networks\. 
 
 **Client**  
-The end user connecting to the Client VPN endpoint to establish a VPN session\. Clients must use an OpenVPN\-based client to establish a VPN session\.
+The end user connecting to the Client VPN endpoint to establish a VPN session\. End users need to download an OpenVPN client and use the Client VPN configuration file that you created to establish a VPN session\.
 
 ## Accessing Client VPN<a name="what-is-access"></a>
 

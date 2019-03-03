@@ -45,7 +45,7 @@ After you create the Client VPN endpoint, take note of the following:
 
 1. For **Client IPv4 CIDR**, specify the IP address range, in CIDR notation, from which to assign client IP addresses\.
 **Note**  
-The IP address range cannot overlap with the target network or any of the routes that will be associated with the Client VPN endpoint\. The client CIDR range must have a block size of at least /22, and it must not be greater than /16\.
+The IP address range cannot overlap with the target network or any of the routes that will be associated with the Client VPN endpoint\. The client CIDR range must have a block size that is between /16 and /22 and not overlap with VPC CIDR or any other route in the route table\.
 **Important**  
 The IP address range cannot be changed after the Client VPN endpoint has been created\.
 
@@ -59,7 +59,7 @@ The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
    + To enable client connection logging, choose **Yes**, for **CloudWatch Logs log group name** enter the name of the log group to use, and for **CloudWatch Logs log stream name**, enter the name of the log stream to use\.
    + To disable client connection logging, choose **No**\.
 
-1. \(Optional\) Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\.
+1. \(Optional\) Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use a VPC DNS Server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, add the VPC DNS server IP address\.
 **Note**  
 Ensure that the DNS servers can be reached by clients\.
 
@@ -153,14 +153,14 @@ The final step is to download and prepare the Client VPN endpoint configuration 
 1. Select the Client VPN endpoint for which to download the Client VPN configuration file and choose **Download Client Configuration**\.
 
 1. Copy the client certificate and key to the same folder as the downloaded Client VPN endpoint configuration file\. The client certificate and key can be found in the following locations in the cloned OpenVPN easy\-rsa repo:
-   + Client certificate — `easy-rsa/easyrsa3/pki/issued/client1.crt`
-   + Client key — `easy-rsa/easyrsa3/pki/private/client1.key`
+   + Client certificate — `easy-rsa/easyrsa3/pki/issued/client1.domain.tld.crt`
+   + Client key — `easy-rsa/easyrsa3/pki/private/client1.domain.tld.key`
 
 1. Open the Client VPN endpoint configuration file using your preferred editor and add the following to the end of the file\.
 
    ```
-   cert /path/client1.crt
-   key /path/client1.key
+   cert /path/client1.domain.tld.crt
+   key /path/client1.domain.tld.key
    ```
 
 1. Save and close the Client VPN endpoint configuration file\.
@@ -176,15 +176,15 @@ The final step is to download and prepare the Client VPN endpoint configuration 
    ```
 
 1. Copy the client certificate and key, which were generated in Step 1, to the same folder as the downloaded Client VPN endpoint configuration file\. The client certificate and key can be found in the following locations in the cloned OpenVPN easy\-rsa repo :
-   + Client certificate — `easy-rsa/easyrsa3/pki/issued/client1.crt`
-   + Client key — `easy-rsa/easyrsa3/pki/private/client1.key`
+   + Client certificate — `easy-rsa/easyrsa3/pki/issued/client1.domain.tld.crt`
+   + Client key — `easy-rsa/easyrsa3/pki/private/client1.domain.tld.key`
 
 1. Append the client certificate and key to the Client VPN endpoint configuration file\.
 
    ```
    $ cat >> client-config.ovpn
-   cert/path/client1.crt
-   key /path/client1.key
+   cert /path/client1.domain.tld.crt
+   key /path/client1.domain.tld.key
    ```
 
 1. Distribute the Client VPN endpoint configuration file to your clients\.
