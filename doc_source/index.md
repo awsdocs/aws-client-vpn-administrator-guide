@@ -16,7 +16,7 @@ Amazon's trademarks and trade dress may not be used in
 ## Contents
 + [What Is AWS Client VPN?](what-is.md)
 + [How AWS Client VPN Works](how-it-works.md)
-   + [Client Authentication and Authorization](authentication-authrization.md)
+   + [Client Authentication and Authorization](authentication-authorization.md)
 + [Getting Started with Client VPN](cvpn-getting-started.md)
 + [Scenarios and Examples](scenario.md)
    + [Access to a VPC](scenario-vpc.md)

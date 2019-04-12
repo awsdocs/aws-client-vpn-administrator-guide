@@ -3,7 +3,7 @@
 The following tasks help you become familiar with Client VPN\. In this tutorial, you will create a Client VPN endpoint that does the following:
 + Provides access to a single VPC\.
 + Provides access to the internet\.
-+ Use mutual authentication\. For more information, see [Mutual Authentication](authentication-authrization.md#mutual)\.
++ Use mutual authentication\. For more information, see [Mutual Authentication](authentication-authorization.md#mutual)\.
 
 **Topics**
 + [Prerequisites](#cvpn-getting-started-prereq)
@@ -24,7 +24,7 @@ To complete this getting started tutorial, you need the following:
 
 This tutorial uses mutual authentication\. With mutual authorization, Client VPN uses certificates to perform authentication between the client and the server\.
 
-For the steps to generate the server and client certificates and keys, see [Mutual Authentication](authentication-authrization.md#mutual)\.
+For the steps to generate the server and client certificates and keys, see [Mutual Authentication](authentication-authorization.md#mutual)\.
 
 ## Step 2: Create a Client VPN Endpoint<a name="cvpn-getting-started-endpoint"></a>
 

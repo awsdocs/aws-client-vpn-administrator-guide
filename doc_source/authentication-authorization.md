@@ -1,4 +1,4 @@
-# Client Authentication and Authorization<a name="authentication-authrization"></a>
+# Client Authentication and Authorization<a name="authentication-authorization"></a>
 
 Client VPN provides authentication and authorization capabilities\.
 
