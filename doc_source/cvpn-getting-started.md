@@ -138,7 +138,7 @@ In this tutorial, we add a route to the internet and add an authorization rule t
 
 1. Choose **Create Route**\.
 
-1. Add an authorization rule for the network to specify which clients have access\. Perform the steps at [Step 4: Authorize Clients to Access a Network](#cvpn-getting-started-rules), for **Step 5** enter `0.0.0.0/0`, and for **Step 6** choose **Allow access to all users**\.
+1. Add an authorization rule for the network to specify which clients have access\. Perform the steps at [Step 4: Authorize Clients to Access a Network](#cvpn-getting-started-rules), for **Step 4** enter `0.0.0.0/0`, and for **Step 6** choose **Allow access to all users**\.
 
 ## Step 6: Download the Client VPN Endpoint Configuration File<a name="cvpn-getting-started-config"></a>
 
