@@ -140,6 +140,8 @@ In this tutorial, we add a route to the internet and add an authorization rule t
 
 1. Add an authorization rule for the network to specify which clients have access\. Perform the steps at [Step 4: Authorize Clients to Access a Network](#cvpn-getting-started-rules), for **Step 5** enter `0.0.0.0/0`, and for **Step 6** choose **Allow access to all users**\.
 
+1. Ensure that the security group, associated with subnet you are routing traffic through, allows inbound and outbound traffic to and from the internet\. To do this, add inbound and outbound rules that allow traffic to and from 0.0.0.0/0\.
+
 ## Step 6: Download the Client VPN Endpoint Configuration File<a name="cvpn-getting-started-config"></a>
 
 The final step is to download and prepare the Client VPN endpoint configuration file\. The configuration file includes the Client VPN endpoint and certificate information required to establish a VPN connection\. You must provide this file to the clients who need to connect to the Client VPN endpoint to establish a VPN connection\. The client uploads this file into their VPN client application\.
