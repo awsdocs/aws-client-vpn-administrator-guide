@@ -163,8 +163,8 @@ After you created the client vpn endpoint in Step 2, the console displays the DN
    key /path/client1.domain.tld.key
    ```
 
-1. Also modify the line that says **remote cvpn-endpoint-<randomid>.prod.clientvpn.<region>.amazonaws.com 443** 
-   + Add a random string before the hostname, for example **random.cvpn-endpoint-0c4497ef6791aa184.prod.clientvpn.us-east-1.amazonaws.com**
+1. Also modify the line that says **remote cvpn-endpoint-<randomid>.prod.clientvpn.<region>.amazonaws.com 443**\.
+   + Add a random string before the hostname, for example `random.cvpn-endpoint-0c4497ef6791aa184.prod.clientvpn.us-east-1.amazonaws.com`\.
 
 1. Save and close the Client VPN endpoint configuration file\.
 
@@ -190,7 +190,7 @@ After you created the client vpn endpoint in Step 2, the console displays the DN
    key /path/client1.domain.tld.key
    ```
 
-1. Also modify the line that says **remote cvpn-endpoint-<randomid>.prod.clientvpn.<region>.amazonaws.com 443** 
-   + Add a random string before the hostname, for example **random.cvpn-endpoint-0c4497ef6791aa184.prod.clientvpn.us-east-1.amazonaws.com**
+1. Also modify the line that says **remote cvpn-endpoint-<randomid>.prod.clientvpn.<region>.amazonaws.com 443**\.
+   + Add a random string before the hostname, for example `random.cvpn-endpoint-0c4497ef6791aa184.prod.clientvpn.us-east-1.amazonaws.com`\.
 
 1. Distribute the Client VPN endpoint configuration file to your clients\.
