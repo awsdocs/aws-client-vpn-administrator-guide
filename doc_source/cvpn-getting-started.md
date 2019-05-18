@@ -69,8 +69,6 @@ UDP typically offers better performance than TCP\.
 
 1. Choose **Create Client VPN Endpoint**\.
 
-After you create the client vpn endpoint, the console displays the DNS name, for example, " cvpn\-endpoint\-0102bc4c2e49f1e44\.prod\.clientvpn\.us\-west\-2\.amazonaws\.com"\. When you need to specify the DNS name, you must specify a random string in front of the displayed name so that the format is “\[*random string*\]\.displayed DNS name, for example, “asdfa\.cvpn\-endpoint\-0102bc4c2e49f1e44\.prod\.clientvpn\.us\-west\-2\.amazonaws\.com"\.
-
 ## Step 3: Enable VPN Connectivity for Clients<a name="cvpn-getting-started-target"></a>
 
 To enable clients to establish a VPN session, you must associate a target network with the Client VPN endpoint\. A target network is a subnet in a VPC\. 
@@ -144,6 +142,8 @@ In this tutorial, we add a route to the internet and add an authorization rule t
 
 The final step is to download and prepare the Client VPN endpoint configuration file\. The configuration file includes the Client VPN endpoint and certificate information required to establish a VPN connection\. You must provide this file to the clients who need to connect to the Client VPN endpoint to establish a VPN connection\. The client uploads this file into their VPN client application\.
 
+After you created the client vpn endpoint in Step 2, the console displays the DNS name, for example, " cvpn\-endpoint\-0102bc4c2e49f1e44\.prod\.clientvpn\.us\-west\-2\.amazonaws\.com"\. When you need to specify the DNS name, you must specify a random string in front of the displayed name so that the format is “\[*random string*\]\.displayed DNS name, for example, “asdfa\.cvpn\-endpoint\-0102bc4c2e49f1e44\.prod\.clientvpn\.us\-west\-2\.amazonaws\.com"\.
+
 **To download and prepare the Client VPN endpoint configuration file \(console\)**
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
@@ -162,6 +162,9 @@ The final step is to download and prepare the Client VPN endpoint configuration 
    cert /path/client1.domain.tld.crt
    key /path/client1.domain.tld.key
    ```
+
+1. Also modify the line that says **remote cvpn-endpoint-<randomid>.prod.clientvpn.<region>.amazonaws.com 443** 
+   + Add a random string before the hostname, for example **random.cvpn-endpoint-0c4497ef6791aa184.prod.clientvpn.us-east-1.amazonaws.com**
 
 1. Save and close the Client VPN endpoint configuration file\.
 
@@ -186,5 +189,8 @@ The final step is to download and prepare the Client VPN endpoint configuration 
    cert /path/client1.domain.tld.crt
    key /path/client1.domain.tld.key
    ```
+
+1. Also modify the line that says **remote cvpn-endpoint-<randomid>.prod.clientvpn.<region>.amazonaws.com 443** 
+   + Add a random string before the hostname, for example **random.cvpn-endpoint-0c4497ef6791aa184.prod.clientvpn.us-east-1.amazonaws.com**
 
 1. Distribute the Client VPN endpoint configuration file to your clients\.
