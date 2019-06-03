@@ -14,7 +14,9 @@ Client VPN offers two types of client authentication: Active Directory authentic
 
 ### Active Directory Authentication<a name="ad"></a>
 
-Client VPN provides Active Directory support by integrating with AWS Directory Service\. With Active Directory authentication, clients are authenticated against existing Active Directory groups\. Using AWS Directory Service, Client VPN can connect to existing Active Directories provisioned in AWS or in your on\-premises network\. This allows you to use your existing client authentication infrastructure\. If you are using an on\-premises Active Directory, you must configure an Active Directory Connector\. For more information about Active Directory integration, see the [AWS Directory Service Administration Guide](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/)\.
+Client VPN provides Active Directory support by integrating with AWS Directory Service\. With Active Directory authentication, clients are authenticated against existing Active Directory groups\. Using AWS Directory Service, Client VPN can connect to existing Active Directories provisioned in AWS or in your on\-premises network\. This allows you to use your existing client authentication infrastructure\. If you are using an on\-premises Active Directory, you must configure an Active Directory Connector\. You can use one Active Directory server to authenticate the users\. For more information about Active Directory integration, see the [AWS Directory Service Administration Guide](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/)\.
+
+Active Directory authentication is currently not supported in the Asia Pacific \(Mumbai\) Region\.
 
 ### Mutual Authentication<a name="mutual"></a>
 
@@ -68,11 +70,14 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
 
 1. Copy the server certificate and key and the client certificate and key to a custom folder and then navigate into the custom folder\.
 
+   Before you copy the certificates and keys, create the custom folder by using the `mkdir /custom_folder` command\.
+
    ```
+   $ mkdir /custom_folder/
    $ cp pki/ca.crt /custom_folder/
    $ cp pki/issued/server.crt /custom_folder/
    $ cp pki/private/server.key /custom_folder/
-   $ cp pki/issued/client1.domain.tld.crt custom_folder
+   $ cp pki/issued/client1.domain.tld.crt /custom_folder
    $ cp pki/private/client1.domain.tld.key /custom_folder/
    $ cd /custom_folder/
    ```
