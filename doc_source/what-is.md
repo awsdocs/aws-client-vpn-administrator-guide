@@ -64,6 +64,8 @@ Client VPN has the following limitations:
 + The subnets associated with a Client VPN endpoint must be in the same VPC\.
 + You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\. 
 + Client VPN supports IPv4 traffic only\.
++ Client VPN is not Health Insurance Portability and Accountability Act \(HIPAA\) or Federal Information Processing Standards \(FIPS\) compliant\.
++ Client VPN does not natively support Multi\-Factor Authentication \(MFA\)\.
 
 ## Pricing of Client VPN<a name="what-is-pricing"></a>
 
