@@ -85,6 +85,8 @@ The Client VPN endpoint configuration file is the file clients use to establish 
 
  If you chose to use Mutual Authentication when you created the client vpn endpoint, then you need to add the client certificate and the client private key \(by using the <cert></cert> tag and the <key></key tag\)\) to the \.ovpm configuration file that you downloaded\. After you add the information, you can import the \.ovpn file into the OpenVPN client software\. 
 
+By default, the “\-\-remote\-random\-hostname” option in the OpenVPN client configuration enables wild card DNS\. Because wild card DNS is enabled, the client does not cache the IP address of the endpoint and you will not be able to ping the DNS name of the endpoint\. 
+
 You can export the client configuration using the console or the AWS CLI\.
 
 **To export client configuration \(console\)**
