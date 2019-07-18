@@ -37,4 +37,5 @@ Amazon's trademarks and trade dress may not be used in
    + [Amazon CloudWatch](monitoring-cloudwatch.md)
    + [AWS CloudTrail](monitoring-cloudtrail.md)
 + [AWS Client VPN Limits](limits.md)
++ [Troubleshooting Client VPN](troubleshooting.md)
 + [Document History](WhatsNew.md)
