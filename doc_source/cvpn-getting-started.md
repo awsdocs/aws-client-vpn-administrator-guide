@@ -96,7 +96,7 @@ For the first subnet you associate, you can choose any subnet in any VPC that ex
 
 1. Choose **Associate**\.
 **Note**  
-One subnet association is enough for clients to access VPC's entire network if authorization rules allow it\. Additional subnets provide high availability in case one of zones goes down\.
+One subnet association is enough for clients to access a VPC's entire network if authorization rules allow it\. Additional subnets provide high availability in case one of the zones goes down\.
 
 ## Step 4: Authorize Clients to Access a Network<a name="cvpn-getting-started-rules"></a>
 
