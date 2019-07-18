@@ -29,7 +29,7 @@ The following are the key concepts for Client VPN:
 The Client VPN endpoint is the resource that you create and conﬁgure to enable and manage client VPN sessions\. It is the resource where all client VPN sessions are terminated\.
 
 **Target network**  
-A target network is the network that you associate with a Client VPN endpoint\. A subnet from a VPC is a target network\. Associating a subnet with a Client VPN endpoint enables you to establish VPN sessions\. You can associate multiple subnets with a Client VPN endpoint\. All subnets must be from the same VPC\. Each subnet must belong to a different Availability Zone\.
+A target network is the network that you associate with a Client VPN endpoint\. A subnet from a VPC is a target network\. Associating a subnet with a Client VPN endpoint enables you to establish VPN sessions\. You can associate multiple subnets with a Client VPN endpoint for high availability\. All subnets must be from the same VPC\. Each subnet must belong to a different Availability Zone\.
 
 **Route**  
 Each Client VPN endpoint has a route table that describes the available destination network routes\. Each route in the route table specifies the path for traﬃc to speciﬁc resources or networks\.
@@ -64,6 +64,8 @@ Client VPN has the following limitations:
 + The subnets associated with a Client VPN endpoint must be in the same VPC\.
 + You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\. 
 + Client VPN supports IPv4 traffic only\.
++ Client VPN is not Health Insurance Portability and Accountability Act \(HIPAA\) or Federal Information Processing Standards \(FIPS\) compliant\.
++ Client VPN does not natively support Multi\-Factor Authentication \(MFA\)\.
 
 ## Pricing of Client VPN<a name="what-is-pricing"></a>
 
