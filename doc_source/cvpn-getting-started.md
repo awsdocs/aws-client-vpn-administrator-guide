@@ -95,6 +95,8 @@ For the first subnet you associate, you can choose any subnet in any VPC that ex
 1. For **Subnet to associate**, choose the subnet to associate with the Client VPN endpoint\.
 
 1. Choose **Associate**\.
+**Note**  
+One subnet association is enough for clients to access a VPC's entire network if authorization rules allow it\. Additional subnets provide high availability in case one of the zones goes down\.
 
 ## Step 4: Authorize Clients to Access a Network<a name="cvpn-getting-started-rules"></a>
 
@@ -196,4 +198,3 @@ The final step is to download and prepare the Client VPN endpoint configuration 
    + Modified DNS name: `asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
 
 1. Distribute the Client VPN endpoint configuration file to your clients\.
-
