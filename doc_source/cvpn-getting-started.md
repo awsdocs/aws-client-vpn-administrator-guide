@@ -3,7 +3,7 @@
 The following tasks help you become familiar with Client VPN\. In this tutorial, you will create a Client VPN endpoint that does the following:
 + Provides access to a single VPC\.
 + Provides access to the internet\.
-+ Uses mutual authentication\. For more information, see [Mutual Authentication](authentication-authrization.md#mutual)\.
++ Uses mutual authentication\. For more information, see [Mutual Authentication](authentication-authorization.md#mutual)\.
 
 **Topics**
 + [Prerequisites](#cvpn-getting-started-prereq)
@@ -24,7 +24,7 @@ To complete this getting started tutorial, you need the following:
 
 This tutorial uses mutual authentication\. With mutual authorization, Client VPN uses certificates to perform authentication between the client and the server\.
 
-For detailed steps to generate the server and client certificates and keys, see [Mutual Authentication](authentication-authrization.md#mutual)\.
+For detailed steps to generate the server and client certificates and keys, see [Mutual Authentication](authentication-authorization.md#mutual)\.
 
 ## Step 2: Create a Client VPN Endpoint<a name="cvpn-getting-started-endpoint"></a>
 
@@ -49,7 +49,7 @@ The IP address range cannot overlap with the target network or any of the routes
 **Important**  
 The IP address range cannot be changed after the Client VPN endpoint has been created\.
 
-1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\. 
+1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\.
 **Note**  
 The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 
@@ -71,11 +71,11 @@ UDP typically offers better performance than TCP\.
 
 ## Step 3: Enable VPN Connectivity for Clients<a name="cvpn-getting-started-target"></a>
 
-To enable clients to establish a VPN session, you must associate a target network with the Client VPN endpoint\. A target network is a subnet in a VPC\. 
+To enable clients to establish a VPN session, you must associate a target network with the Client VPN endpoint\. A target network is a subnet in a VPC\.
 
 When you associate the first subnet with the Client VPN endpoint, the following happens:
 + The state of the Client VPN endpoint changes to `available`\. Clients can now establish a VPN connection, but they cannot access any resources in the VPC until you add the authorization rules\.
-+ The local route of the VPC is automatically added to the Client VPN endpoint route table\. 
++ The local route of the VPC is automatically added to the Client VPN endpoint route table\.
 + The VPC's default security group is automatically applied for the subnet association\. You can modify the security group after associating the subnet\.
 
 **To associate a subnet with the Client VPN endpoint \(console\)**
@@ -156,7 +156,7 @@ After you created the client vpn endpoint in Step 2, the console displays the DN
 
 1. Select the Client VPN endpoint for which to download the Client VPN configuration file and choose **Download Client Configuration**\.
 
-1. Copy the client certificate and key, which were generated in **Step 1**, to the same folder as the downloaded Client VPN endpoint configuration file\. The client certificate and key can be found in the following locations in the cloned OpenVPN easy\-rsa repo: 
+1. Copy the client certificate and key, which were generated in **Step 1**, to the same folder as the downloaded Client VPN endpoint configuration file\. The client certificate and key can be found in the following locations in the cloned OpenVPN easy\-rsa repo:
    + Client certificate — `easy-rsa/easyrsa3/pki/issued/client1.domain.tld.crt`
    + Client key — `easy-rsa/easyrsa3/pki/private/client1.domain.tld.key`
 
