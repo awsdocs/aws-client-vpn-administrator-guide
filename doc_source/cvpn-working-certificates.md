@@ -1,6 +1,6 @@
 # Client Certificate Revocation Lists<a name="cvpn-working-certificates"></a>
 
-You can use client certificate revocation lists to blacklist specific client certificates\. Blacklisting clients revokes their access to Client VPN endpoint\.
+You can use client certificate revocation lists to blacklist specific client certificates\. Blacklisting clients revokes their access to a Client VPN endpoint\.
 
 **Note**  
 For more information about generating the server and client certificates and keys, see [Mutual Authentication](authentication-authorization.md#mutual)
@@ -28,7 +28,7 @@ You must generate a client certificate revocation list using the OpenVPN easy\-r
    $ cd easy-rsa/easyrsa3
    ```
 
-1. Generate the client revocation list\.
+1. Revoke the client certificate and generate the client revocation list\.
 
    ```
    $ ./easyrsa revoke client_certificate_name

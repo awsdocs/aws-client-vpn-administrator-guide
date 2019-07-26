@@ -8,6 +8,7 @@ The following topic can help you troubleshoot problems that you might have with 
 + [Authorization Rules for Active Directory Groups Not Working as Expected](#ad-group-auth-rules)
 + [Clients Can't Access a Peered VPC, Amazon S3, or the Internet](#no-internat-access)
 + [Access to a Peered VPC, Amazon S3, or the Internet Is Intermittent](#intermittent-access)
++ [Clients Unable to Connect to a Client VPN Endpoint](#client-cannot-connect)
 
 ## Unable to Resolve Client VPN Endpoint DNS Name<a name="resolve-host-name"></a>
 
@@ -28,9 +29,9 @@ Open the Client VPN endpoint configuration file using your preferred text editor
 I am trying to split network traffic between two subnets\. Private traffic should be routed through a private subnet, while internet traffic should be routed through a public subnet\. However, only one route is being used even though I have added both routes to the Client VPN endpoint route table\.
 
 **Cause**  
-You can associate multiple subnets with a Client VPN endpoint, but you can associate only one subnet per Availability Zone\. However, multiple subnet association in this context, is to provide high availability and Availability Zone redundancy for clients\. Client VPN does not enable you to selectively split traffic between the subnets associated with the Client VPN endpoint\.
+You can associate multiple subnets with a Client VPN endpoint, but you can associate only one subnet per Availability Zone\. The purpose of multiple subnet association is to provide high availability and Availability Zone redundancy for clients\. However, Client VPN does not enable you to selectively split traffic between the subnets that are associated with the Client VPN endpoint\.
 
-Clients connect to a Client VPN endpoint based on the DNS round\-robin algorithm\. This means that their traffic can be routed through any of the associated subnets when they establish a connection\. Therefore, they could experience connectivity issues if they land on an associated subnet that does not have the required route entries\.
+Clients connect to a Client VPN endpoint based on the DNS round\-robin algorithm\. This means that their traffic can be routed through any of the associated subnets when they establish a connection\. Therefore, they might experience connectivity issues if they land on an associated subnet that does not have the required route entries\.
 
 For example, say that you configure the following subnet associations and routes:
 + Subnet associations
@@ -43,7 +44,7 @@ For example, say that you configure the following subnet associations and routes
 In this example, clients that land on Subnet\-A when they connect cannot access Route 2, while clients that land on Subnet\-B when they connect cannot access Route 1\.
 
 **Solution**  
-Ensure that the Client VPN endpoint has the same route entries with targets for each associated network\. This ensures that clients have access to all routes regardless of the subnet through which their traffic is routed\.
+Verify that the Client VPN endpoint has the same route entries with targets for each associated network\. This ensures that clients have access to all routes regardless of the subnet through which their traffic is routed\.
 
 ## Authorization Rules for Active Directory Groups Not Working as Expected<a name="ad-group-auth-rules"></a>
 
@@ -51,7 +52,7 @@ Ensure that the Client VPN endpoint has the same route entries with targets for 
 I have configured authorization rules for my Active Directory groups, but they are not working as I expected\. I have added an authorization rule for `0.0.0.0/0` to authorize traffic for all networks, but traffic still fails for specific destination CIDRs\.
 
 **Cause**  
-Authorization rules are indexed on network CIDRs\. Authorization rules must grant Active Directory groups access to specific network CIDRS\. Authorization rules for `0.0.0.0/0` are handled as a special case, and are therefore evaluated last, regardless of the order in which the authorization rules are created\.
+Authorization rules are indexed on network CIDRs\. Authorization rules must grant Active Directory groups access to specific network CIDRs\. Authorization rules for `0.0.0.0/0` are handled as a special case, and are therefore evaluated last, regardless of the order in which the authorization rules are created\.
 
 For example, say that you create three authorization rules in the following order:
 + Rule 1: Group 1 access to `10.1.0.0/16`
@@ -63,7 +64,7 @@ In this example, Rule 2 is evaluated last\. Group 1 has access to `10.1.0.0/16` 
 In addition, Client VPN uses longest prefix matching when evaluating authorization rules\.
 
 **Solution**  
-Ensure that you create authorization rules that explicitly grant Active Directory groups access to specific network CIDRs\. If you add an authorization rule for `0.0.0.0/0`, keep in mind that it will be evaluated last, and that previous authorization rules may limit the networks to which it grants access\.
+Verify that you create authorization rules that explicitly grant Active Directory groups access to specific network CIDRs\. If you add an authorization rule for `0.0.0.0/0`, keep in mind that it will be evaluated last, and that previous authorization rules may limit the networks to which it grants access\.
 
 ## Clients Can't Access a Peered VPC, Amazon S3, or the Internet<a name="no-internat-access"></a>
 
@@ -83,15 +84,15 @@ The following flow chart contains the steps to diagnose internet, peered VPC, an
 
 1. Check whether you are able to resolve the DNS name\.
 
-   If you are unable to resolve the DNS name, verify that you have specified the DNS servers for the Client VPN endpoint\. If you manage you own DNS server, specify its IP address\. Ensure that the DNS server is accessible from the VPC\. 
+   If you are unable to resolve the DNS name, verify that you have specified the DNS servers for the Client VPN endpoint\. If you manage your own DNS server, specify its IP address\. Verify that the DNS server is accessible from the VPC\. 
 
    If you're unsure about which IP address to use, use *VPC DNS resolver \.2 IP*\.
 
-1. Check whether you are able to ping an IP address\. If you do not get a response, make sure that the route table for the associated subnets has a default route that targets either an internet gateway or a NAT gateway\. If the default route is in place, ensure that the associated subnet does not have network access control list \(NACL\) rules that block ingress and egress traffic\.
+1. Check whether you are able to ping an IP address\. If you do not get a response, make sure that the route table for the associated subnets has a default route that targets either an internet gateway or a NAT gateway\. If the default route is in place, verify that the associated subnet does not have network access control list rules that block inbound and outbound traffic\.
 
-   If you are unable to reach a peered VPC, ensure that the associated subnet's route table has a route entry for the peered VPC\.
+   If you are unable to reach a peered VPC, verify that the associated subnet's route table has a route entry for the peered VPC\.
 
-   If you are unable to reach Amazon S3, ensure that the associated subnet's route table has a route entry for the gateway VPC endpoint\.
+   If you are unable to reach Amazon S3, verify that the associated subnet's route table has a route entry for the gateway VPC endpoint\.
 
 1. Check whether you can ping a public IP address with a payload larger than 1400 bytes\. Use one of the following commands:
    + Windows
@@ -105,7 +106,7 @@ The following flow chart contains the steps to diagnose internet, peered VPC, an
      $ ping -s 1480 8.8.8.8 -M do
      ```
 
-   If you cannot ping an IP address with a payload larger than 1400 bytes, open the Client VPN endpoint `.ovpn` configuration file using your preferred text editor, and add the following:
+   If you cannot ping an IP address with a payload larger than 1400 bytes, open the Client VPN endpoint `.ovpn` configuration file using your preferred text editor, and add the following\.
 
    ```
    mssfix 1328
@@ -117,12 +118,34 @@ The following flow chart contains the steps to diagnose internet, peered VPC, an
 I have intermittent connectivity issues when connecting to a peered VPC, Amazon S3, or the internet, but access to associated subnets is unaffected\. I need to disconnect and reconnect in order to resolve the connectivity issues\.
 
 **Cause**  
-Clients connect to a Client VPN endpoint based on the DNS round\-robin algorithm\. This means that their traffic can be routed through any of the associated subnets when they establish a connection\. Therefore, they could experience connectivity issues if they land on an associated subnet that does not have the required route entries\.
+Clients connect to a Client VPN endpoint based on the DNS round\-robin algorithm\. This means that their traffic can be routed through any of the associated subnets when they establish a connection\. Therefore, they might experience connectivity issues if they land on an associated subnet that does not have the required route entries\.
 
 **Solution**  
-Ensure that the Client VPN endpoint has the same route entries with targets for each associated network\. This ensures that clients have access to all routes regardless of the associated subnet through which their traffic is routed\.
+Verify that the Client VPN endpoint has the same route entries with targets for each associated network\. This ensures that clients have access to all routes regardless of the associated subnet through which their traffic is routed\.
 
 For example, say that your Client VPN endpoint has three associated subnets \(Subnet A, B, and C\), and you want to enable internet access for your clients\. To do this, you must add three `0.0.0.0/0` routes \- one that targets each associated subnet:
 + Route 1: `0.0.0.0/0` for Subnet A
 + Route 2: `0.0.0.0/0` for Subnet B
 + Route 3: `0.0.0.0/0` for Subnet C
+
+## Clients Unable to Connect to a Client VPN Endpoint<a name="client-cannot-connect"></a>
+
+**Problem**  
+I used to be able to connect my clients to the Client VPN successfully, but now the OpenVPN\-based client returns the following error when it tries to connect: 
+
+```
+TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity) 
+TLS Error: TLS handshake failed
+```
+
+**Possible Cause**  
+If you use mutual authentication and you imported a client certificate revocation list, the client certificate revocation list might have expired\. During the authentication phase, the Client VPN endpoint checks the client certificate against the client certificate revocation list that you imported\. If the client certificate revocation list has expired, you cannot connect to the Client VPN endpoint\.
+
+**Solution**  
+Check the expiry date of your client certificate revocation list by using the OpenSSL tool\. 
+
+```
+$ openssl crl -in path_to_crl_pem_file -noout -nextupdate
+```
+
+The output displays the expiry date and time\. If the client certificate revocation list has expired, you must create a new one and import it to the Client VPN endpoint\. For more information, see [Client Certificate Revocation Lists](cvpn-working-certificates.md)\.

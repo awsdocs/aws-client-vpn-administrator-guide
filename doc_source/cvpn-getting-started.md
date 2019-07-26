@@ -43,13 +43,13 @@ After you create the Client VPN endpoint, take note of the following:
 
 1. \(Optional\) For **Description**, enter a brief description for the Client VPN endpoint\.
 
-1. For **Client IPv4 CIDR**, specify the IP address range, in CIDR notation, from which to assign client IP addresses\.
+1. For **Client IPv4 CIDR**, specify an IP address range, in CIDR notation, from which to assign client IP addresses\.
 **Note**  
 The IP address range cannot overlap with the target network or any of the routes that will be associated with the Client VPN endpoint\. The client CIDR range must have a block size that is between /16 and /22 and not overlap with VPC CIDR or any other route in the route table\.
 **Important**  
 The IP address range cannot be changed after the Client VPN endpoint has been created\.
 
-1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\.
+1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\. 
 **Note**  
 The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 
@@ -59,9 +59,13 @@ The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
    + To enable client connection logging, choose **Yes**\. For **CloudWatch Logs log group name**, enter the name of the log group to use, and for **CloudWatch Logs log stream name**, enter the name of the log stream to use\.
    + To disable client connection logging, choose **No**\.
 
-1. \(Optional\) Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use a VPC DNS Server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.
+1. \(Optional\) Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use a VPC DNS server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.
 **Note**  
 Ensure that the DNS servers can be reached by clients\.
+
+1. \(Optional\) To enable split\-tunnel on a VPN endpoint, select **Enable split\-tunnel**\.
+
+   By default, split\-tunnel on a VPN endpoint is disabled\.
 
 1. \(Optional\) By default, the Client VPN server uses the `UDP` transport protocol\. To use the `TCP` transport protocol instead, for **Transport Protocol**, select **TCP**\.
 **Note**  
@@ -71,11 +75,11 @@ UDP typically offers better performance than TCP\.
 
 ## Step 3: Enable VPN Connectivity for Clients<a name="cvpn-getting-started-target"></a>
 
-To enable clients to establish a VPN session, you must associate a target network with the Client VPN endpoint\. A target network is a subnet in a VPC\.
+To enable clients to establish a VPN session, you must associate a target network with the Client VPN endpoint\. A target network is a subnet in a VPC\. 
 
 When you associate the first subnet with the Client VPN endpoint, the following happens:
 + The state of the Client VPN endpoint changes to `available`\. Clients can now establish a VPN connection, but they cannot access any resources in the VPC until you add the authorization rules\.
-+ The local route of the VPC is automatically added to the Client VPN endpoint route table\.
++ The local route of the VPC is automatically added to the Client VPN endpoint route table\. 
 + The VPC's default security group is automatically applied for the subnet association\. You can modify the security group after associating the subnet\.
 
 **To associate a subnet with the Client VPN endpoint \(console\)**
@@ -94,7 +98,7 @@ For the first subnet you associate, you can choose any subnet in any VPC that ex
 
 1. Choose **Associate**\.
 **Note**  
-One subnet association is enough for clients to access a VPC's entire network if authorization rules allow it\. Additional subnets provide high availability in case one of the zones goes down\.
+One subnet association is enough for clients to access a VPC's entire network if authorization rules allow it\. You can associate additional subnets to provide high availability in case one of the zones goes down\.
 
 ## Step 4: Authorize Clients to Access a Network<a name="cvpn-getting-started-rules"></a>
 
@@ -120,7 +124,7 @@ To authorize clients to access the VPC in which the associated subnet is located
 
 You can enable access to additional networks connected to the VPC, such as AWS services, peered VPCs, and on\-premises networks\. For each additional network, you must add a route to the network and configure an authorization rule to give clients access\.
 
-In this tutorial, we add a route to the internet and add an authorization rule that grants access to all users\.
+In this tutorial, we add a route to the internet \(`0.0.0.0/0`\) and add an authorization rule that grants access to all users\.
 
 **To enable access to additional networks \(console\)**
 
@@ -138,15 +142,15 @@ In this tutorial, we add a route to the internet and add an authorization rule t
 
 1. Choose **Create Route**\.
 
-1. Add an authorization rule for the network to specify which clients have access\. Perform the steps at [Step 4: Authorize Clients to Access a Network](#cvpn-getting-started-rules), for **Step 4** enter `0.0.0.0/0`, and for **Step 6** choose **Allow access to all users**\.
+1. Add an authorization rule for the network to specify which clients have access\. Perform the steps at [Step 4: Authorize Clients to Access a Network](#cvpn-getting-started-rules), for **Step 4** enter `0.0.0.0/0`, and for **Step 5** choose **Allow access to all users**\.
 
-1. Ensure that the security group, associated with subnet you are routing traffic through, allows inbound and outbound traffic to and from the internet\. To do this, add inbound and outbound rules that allow traffic to and from 0.0.0.0/0\.
+1. Ensure that the security group that's associated with subnet you are routing traffic through allows inbound and outbound traffic to and from the internet\. To do this, add inbound and outbound rules that allow internet traffic to and from 0\.0\.0\.0/0\.
 
 ## Step 6: Download the Client VPN Endpoint Configuration File<a name="cvpn-getting-started-config"></a>
 
 The final step is to download and prepare the Client VPN endpoint configuration file\. The configuration file includes the Client VPN endpoint and certificate information required to establish a VPN connection\. You must provide this file to the clients who need to connect to the Client VPN endpoint to establish a VPN connection\. The client uploads this file into their VPN client application\.
 
-After you created the client vpn endpoint in Step 2, the console displays the DNS name, for example, " cvpn\-endpoint\-0102bc4c2e49f1e44\.prod\.clientvpn\.us\-west\-2\.amazonaws\.com"\. When you need to specify the DNS name, you must specify a random string in front of the displayed name so that the format is “\[*random string*\]\.displayed DNS name, for example, “asdfa\.cvpn\-endpoint\-0102bc4c2e49f1e44\.prod\.clientvpn\.us\-west\-2\.amazonaws\.com"\.
+After you create the Client VPN endpoint in Step 2, the console displays the DNS name, for example, "`cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`\." To specify the DNS name, you must specify a random string in front of the displayed name so that the format is “*random\_string*\.*displayed\_DNS\_name*," for example, "`asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`\."
 
 **To download and prepare the Client VPN endpoint configuration file \(console\)**
 
@@ -156,7 +160,7 @@ After you created the client vpn endpoint in Step 2, the console displays the DN
 
 1. Select the Client VPN endpoint for which to download the Client VPN configuration file and choose **Download Client Configuration**\.
 
-1. Copy the client certificate and key, which were generated in **Step 1**, to the same folder as the downloaded Client VPN endpoint configuration file\. The client certificate and key can be found in the following locations in the cloned OpenVPN easy\-rsa repo:
+1. Copy the client certificate and key, which were generated in **Step 1**, to the same folder as the downloaded Client VPN endpoint configuration file\. The client certificate and key can be found in the following locations in the cloned OpenVPN easy\-rsa repo: 
    + Client certificate — `easy-rsa/easyrsa3/pki/issued/client1.domain.tld.crt`
    + Client key — `easy-rsa/easyrsa3/pki/private/client1.domain.tld.key`
 
@@ -173,7 +177,7 @@ After you created the client vpn endpoint in Step 2, the console displays the DN
 
 1. Save and close the Client VPN endpoint configuration file\.
 
-1. Distribute the Client VPN endpoint configuration file to your clients\.
+1. Distribute the Client VPN endpoint configuration file and the client certificate and key to your clients\.
 
 **To download and prepare the Client VPN endpoint configuration file \(AWS CLI\)**
 
@@ -199,4 +203,4 @@ After you created the client vpn endpoint in Step 2, the console displays the DN
    + Original DNS name: `cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
    + Modified DNS name: `asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
 
-1. Distribute the Client VPN endpoint configuration file to your clients\.
+1. Distribute the Client VPN endpoint configuration file and the client certificate and key to your clients\.

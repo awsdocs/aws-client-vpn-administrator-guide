@@ -17,7 +17,7 @@ The Client VPN must be created in the same AWS account in which the intended tar
 
 Make sure that you have the client certificate and the client private key before you add a Client VPN endpoint\.
 
-You can create a Client VPN endpoint using the console or the AWS CLI\.
+You can create a Client VPN endpoint by using the console or the AWS CLI\.
 
 **To create a Client VPN endpoint \(console\)**
 
@@ -27,13 +27,13 @@ You can create a Client VPN endpoint using the console or the AWS CLI\.
 
 1. \(Optional\) For **Description**, enter a brief description for the Client VPN endpoint\.
 
-1. For **Client IPv4 CIDR**, specify the IP address range, in CIDR notation, from which to assign client IP addresses\.
+1. For **Client IPv4 CIDR**, specify an IP address range, in CIDR notation, from which to assign client IP addresses\.
 **Note**  
-The IP address range cannot overlap with the target network or any of the routes that will be associated with the Client VPN endpoint\. The client CIDR range must have a block size of at least /22, and it must not be greater than /16\.
+The IP address range cannot overlap with the target network or with any of the routes that will be associated with the Client VPN endpoint\. The client CIDR range must have a block size of at least /22, and it must not be greater than /16\.
 **Important**  
 The IP address range cannot be changed after the Client VPN endpoint has been created\. 
 
-1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certiﬁcate to authenticate the Client VPN endpoint to which they are connecting\.
+1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\.
 **Note**  
 The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 
@@ -47,9 +47,13 @@ If the client certificate has been issued by the same Certificate Authority \(Is
    + To enable client connection logging, choose **Yes**, for **CloudWatch Logs log group name** enter the name of the log group to use, and for **CloudWatch Logs log stream name**, enter the name of the log stream to use\.
    + To disable client connection logging, choose **No**\.
 
-1. Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use VPC DNS Server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, add the VPC DNS server IP address\.
+1. Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use VPC DNS server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.
 **Note**  
 Ensure that the DNS servers can be reached by clients\.
+
+1. \(Optional\) To have the endpoint be a split\-tunnel VPN endpoint, select **Enable split\-tunnel**\.
+
+   By default, split\-tunnel on a VPN endpoint is disabled\.
 
 1. \(Optional\) By default, the Client VPN server uses the `UDP` transport protocol\. To use the `TCP` transport protocol instead, for **Transport Protocol**, select **TCP**\.
 **Note**  
@@ -62,9 +66,9 @@ Use the [create\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/r
 
 ## Modify a Client VPN Endpoint<a name="cvpn-working-endpoint-modify"></a>
 
-You can modify the server certificate, client connection logging options, DNS servers, and the description after the Client VPN endpoint has been created\. You cannot modify the client IPv4 CIDR range, authentication options, and transport protocol after the Client VPN endpoint has been created\.
+You can modify the server certificate, client connection logging options, DNS servers, and the description after the Client VPN endpoint has been created\. You cannot modify the client IPv4 CIDR range, authentication options, or transport protocol after the Client VPN endpoint has been created\.
 
-You can modify a Client VPN endpoint using the console or the AWS CLI\. 
+You can modify a Client VPN endpoint by using the console or the AWS CLI\. 
 
 **To modify a Client VPN endpoint \(console\)**
 
@@ -77,17 +81,17 @@ You can modify a Client VPN endpoint using the console or the AWS CLI\.
 1. Make the required changes and choose **Modify Client VPN Endpoint**\.
 
 **To modify a Client VPN endpoint \(AWS CLI\)**  
-Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-client-vpn-endpoints.html) command\.
+Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-client-vpn-endpoint.html) command\.
 
 ## Export Client Configuration<a name="cvpn-working-endpoint-export"></a>
 
 The Client VPN endpoint configuration file is the file clients use to establish a VPN connection with the Client VPN endpoint\. You must download this file and distribute it to all clients who need access to the VPN\.
 
- If you chose to use Mutual Authentication when you created the client vpn endpoint, then you need to add the client certificate and the client private key \(by using the <cert></cert> tag and the <key></key tag\)\) to the \.ovpm configuration file that you downloaded\. After you add the information, you can import the \.ovpn file into the OpenVPN client software\. 
+ If you chose to use Mutual Authentication when you created the Client VPN endpoint, then you need to add the client certificate and the client private key \(by using the <cert></cert> tag and the <key></key tag\)\) to the \.ovpm configuration file that you downloaded\. After you add the information, you can import the \.ovpn file into the OpenVPN client software\. 
 
 By default, the “\-\-remote\-random\-hostname” option in the OpenVPN client configuration enables wild card DNS\. Because wild card DNS is enabled, the client does not cache the IP address of the endpoint and you will not be able to ping the DNS name of the endpoint\. 
 
-You can export the client configuration using the console or the AWS CLI\.
+You can export the client configuration by using the console or the AWS CLI\.
 
 **To export client configuration \(console\)**
 
@@ -106,7 +110,7 @@ $ aws ec2 export-client-vpn-client-configuration --client-vpn-endpoint-id endpoi
 
 ## View Client VPN Endpoints<a name="cvpn-working-endpoint-view"></a>
 
-You can view information about Client VPN endpoints using the console or the AWS CLI\.
+You can view information about Client VPN endpoints by using the console or the AWS CLI\.
 
 **To view Client VPN endpoints using the console**
 
@@ -125,7 +129,7 @@ Use the [describe\-client\-vpn\-endpoints](https://docs.aws.amazon.com/cli/lates
 
 When you delete a Client VPN endpoint, its state is changed to `deleting` and clients can no longer connect to it\. You must disassociate all associated target networks before you can delete a Client VPN endpoint\.
 
-You can delete a Client VPN endpoint using the console or the AWS CLI\.
+You can delete a Client VPN endpoint by using the console or the AWS CLI\.
 
 **To delete a Client VPN endpoint \(console\)**
 
@@ -136,4 +140,4 @@ You can delete a Client VPN endpoint using the console or the AWS CLI\.
 1. Select the Client VPN endpoint to delete, choose **Actions**, choose **Delete Client VPN Endpoint**, and then **Yes, Delete**\.
 
 **To delete a Client VPN endpoint \(AWS CLI\)**  
-Use the [delete\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-client-vpn-endpoints.html) command\.
+Use the [delete\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-client-vpn-endpoint.html) command\.

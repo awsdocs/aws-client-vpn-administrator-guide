@@ -104,7 +104,7 @@ Client VPN supports two types of authorization: security groups and network\-bas
 
 ### Security Groups<a name="security-groups"></a>
 
-Client VPN automatically integrates with security groups\. When you associate a subnet with a Client VPN endpoint, we automatically apply the VPC's default security group\. You can change the security group after you associate the first target network\. You can enable Client VPN users to access your applications in a VPC, by adding a rule to allow traffic from the security group that was applied to the association\. Conversely, you can restrict access for Client VPN users, by not specifying the security group that was applied to the association\. For more information, see [Apply a Security Group to a Target Network](cvpn-working-target.md#cvpn-working-target-apply)\.
+Client VPN automatically integrates with security groups\. When you associate a subnet with a Client VPN endpoint, we automatically apply the VPC's default security group\. You can change the security group after you associate the first target network\. You can enable Client VPN users to access your applications in a VPC, by adding a rule to allow traffic from the security group that was applied to the association\. Conversely, you can restrict access for Client VPN users, by not specifying the security group that was applied to the association\. For more information, see [Apply a Security Group to a Target Network](cvpn-working-target.md#cvpn-working-target-apply)\. The security group rules you require might also depend on the kind of VPN access you want to configure\. For more information, see [Scenarios and Examples](scenario.md)\.
 
 ### Network\-based Authorization<a name="auth-rules"></a>
 
