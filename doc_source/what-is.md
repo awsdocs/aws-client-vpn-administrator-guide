@@ -62,7 +62,8 @@ Client VPN has the following limitations:
 + Client CIDR ranges cannot overlap with the local CIDR of the VPC in which the associated subnet is located, or any routes manually added to the Client VPN endpoint's route table\.
 + The Client VPN endpoint and the VPC in which the associated subnet is located must belong to the same account\.
 + The subnets associated with a Client VPN endpoint must be in the same VPC\.
-+ You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\. 
++ You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\.
++ The Client VPN endpoint supports TCP on port 443 or UDP on port 443 for transport\.
 + Client VPN supports IPv4 traffic only\.
 + Client VPN is not Health Insurance Portability and Accountability Act \(HIPAA\) or Federal Information Processing Standards \(FIPS\) compliant\.
 + Client VPN does not natively support Multi\-Factor Authentication \(MFA\)\.
