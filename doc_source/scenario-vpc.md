@@ -6,7 +6,9 @@ The configuration for this scenario includes a single target VPC\. We recommend 
 
 1. Ensure that you have a VPC with at least one subnet\. Identify the subnet in the VPC that you want to associate with the Client VPN endpoint and note its IPv4 CIDR ranges\. For more information, see [ VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html.html) in the *Amazon VPC User Guide*\.
 
-1. Ensure that the VPC's default security group allows inbound and outbound traffic to and from your clients\. For more information, see [ Security Groups for Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) in the *Amazon VPC User Guide*\.
+1. Ensure that the VPC's default security group allows inbound and outbound traffic to and from the elastic network interface IP address, or the VPC CIDR range \(this option allows you to scale when you add additional elastic network interfaces\)\. \. For more information, see [ Security Groups for Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) in the *Amazon VPC User Guide*\.
+
+   Ensure the subnet you choose does not overlap with the resources that you want to access via the Client VPN endpoint, because the endpoint uses the source NAT \(SNAT\) to connect to resources in the associated VPCs\.
 
 1. Create a Client VPN endpoint in the same region as the VPC\. To do this, perform the steps described in [Create a Client VPN Endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.
 

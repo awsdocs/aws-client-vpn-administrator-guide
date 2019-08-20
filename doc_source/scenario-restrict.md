@@ -14,4 +14,4 @@ On the instance on which your resource is running, create a security group rule 
 
 This configuration prevents Client VPN clients from accessing a specific resource in a VPC\.
 
-On the instance on which your resource is running, that does not allow traffic  from the security group that was applied to the target network association\.
+On the instance on which your resource is running, that does not allow traffic from the security group that was applied to the target network association\.

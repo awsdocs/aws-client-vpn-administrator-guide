@@ -40,6 +40,9 @@ An authorization rule restricts the users who can access a network\. For a speci
 **Client**  
 The end user connecting to the Client VPN endpoint to establish a VPN session\. End users need to download an OpenVPN client and use the Client VPN configuration file that you created to establish a VPN session\.
 
+**Client VPN Ports**  
+AWS Client VPN only supports port 443 for both TCP and UDP\.
+
 ## Accessing Client VPN<a name="what-is-access"></a>
 
 You can work with Client VPN in any of the following ways:
