@@ -1,6 +1,8 @@
 # Troubleshooting Client VPN<a name="troubleshooting"></a>
 
-The following topic can help you troubleshoot problems that you might have with Client VPN\.
+The following topic can help you troubleshoot problems that you might have with a Client VPN endpoint\.
+
+For more information about troubleshooting OpenVPN\-based software that clients use to connect to a Client VPN, see [Troubleshooting Your Client VPN Connection](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/troubleshooting.html) in the *AWS Client VPN User Guide*\.
 
 **Topics**
 + [Unable to Resolve Client VPN Endpoint DNS Name](#resolve-host-name)
@@ -138,8 +140,10 @@ TLS Error: TLS key negotiation failed to occur within 60 seconds (check your net
 TLS Error: TLS handshake failed
 ```
 
-**Possible Cause**  
+**Possible Causes**  
 If you use mutual authentication and you imported a client certificate revocation list, the client certificate revocation list might have expired\. During the authentication phase, the Client VPN endpoint checks the client certificate against the client certificate revocation list that you imported\. If the client certificate revocation list has expired, you cannot connect to the Client VPN endpoint\.
+
+Alternatively, there might be an issue with the OpenVPN\-based software that the client is using to connect to the Client VPN\.
 
 **Solution**  
 Check the expiry date of your client certificate revocation list by using the OpenSSL tool\. 
@@ -149,3 +153,5 @@ $ openssl crl -in path_to_crl_pem_file -noout -nextupdate
 ```
 
 The output displays the expiry date and time\. If the client certificate revocation list has expired, you must create a new one and import it to the Client VPN endpoint\. For more information, see [Client Certificate Revocation Lists](cvpn-working-certificates.md)\.
+
+For more information about troubleshooting OpenVPN\-based software, see [Troubleshooting Your Client VPN Connection](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/troubleshooting.html) in the *AWS Client VPN User Guide*\.

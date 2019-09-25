@@ -18,9 +18,11 @@ Client VPN provides Active Directory support by integrating with AWS Directory S
 
 ### Mutual Authentication<a name="mutual"></a>
 
-With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. The server uses client certificates to authenticate clients when they attempt to connect to the Client VPN endpoint\. The server and client certificates must be provisioned in AWS Certificate Manager \(ACM\)\. For more information about provisioning certificates in ACM, see the [AWS Certificate Manager User Guide](https://docs.aws.amazon.com/acm/latest/userguide/)\. 
+With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. The server uses client certificates to authenticate clients when they attempt to connect to the Client VPN endpoint\. The server and client certificates must be uploaded to AWS Certificate Manager \(ACM\)\. For more information about provisioning and uploading certificates in ACM, see the [AWS Certificate Manager User Guide](https://docs.aws.amazon.com/acm/latest/userguide/)\. 
 
 You only need to upload the client certificate to ACM when the Certificate Authority \(Issuer\) of the client certificate is different from the Certificate Authority \(Issuer\) of the server certificate\.
+
+You can create a separate client certificate and key for each client that will connect to the Client VPN endpoint\. This enables you to revoke a specific client certificate if a user leaves your organization\.
 
 The following procedure uses OpenVPN easy\-rsa to generate the server and client certificates and keys, and then uploads the server certificate and key to ACM\. For more information, see the [Easy\-RSA 3 Quickstart README](https://github.com/OpenVPN/easy-rsa/blob/v3.0.6/README.quickstart.md)\.
 
@@ -66,6 +68,8 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    $ ./easyrsa build-client-full client1.domain.tld nopass
    ```
 
+   You can optionally repeat this step for each client \(end\-user\) that requires a client certificate and key\.
+
 1. Copy the server certificate and key and the client certificate and key to a custom folder and then navigate into the custom folder\.
 
    Before you copy the certificates and keys, create the custom folder by using the `mkdir /custom_folder` command\.
@@ -86,7 +90,7 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    $ aws acm import-certificate --certificate file://server.crt --private-key file://server.key --certificate-chain file://ca.crt --region region
    ```
 **Note**  
-Be sure to upload the certificate and key in the same region in which you intend to create the Client VPN endpoint\.
+Be sure to upload the certificate and key in the same Region in which you intend to create the Client VPN endpoint\.
 
 1. Upload the client certificate and key to ACM\.
 
@@ -94,7 +98,7 @@ Be sure to upload the certificate and key in the same region in which you intend
    $ aws acm import-certificate --certificate file://client1.domain.tld.crt --private-key file://client1.domain.tld.key --certificate-chain file://ca.crt --region region
    ```
 **Note**  
-Be sure to upload the certificate and key in the same region in which you intend to create the Client VPN endpoint\.
+Be sure to upload the certificate and key in the same Region in which you intend to create the Client VPN endpoint\.
 
 ## Authorization<a name="client-authorization"></a>
 
