@@ -16,7 +16,7 @@ Client VPN offers the following features:
 + **Managed service** — It is an AWS managed service, so it removes the operational burden of deploying and managing a third\-party remote access VPN solution\.
 + **Highly available and elastic** — It automatically scales to the number of users connecting to your AWS resources and on\-premises resources\.
 + **Authentication** — It supports client authentication using Active Directory and certificate\-based authentication\.
-+ **Granular control** — It enables you to implement custom security controls by deﬁning network\-based access rules\. These rules can be configured at the granularity of Active Directory groups\. You can also implement access control using security groups\.
++ **Granular control** — It enables you to implement custom security controls by defining network\-based access rules\. These rules can be configured at the granularity of Active Directory groups\. You can also implement access control using security groups\.
 + **Ease of use** — It enables you to access your AWS resources and on\-premises resources using a single VPN tunnel\.
 + **Manageability** — It enables you to view connection logs, which provide details on client connection attempts\. You can also manage active client connections, with the ability to terminate active client connections\.
 + **Deep integration** — It integrates with existing AWS services, including AWS Directory Service and Amazon VPC\.
@@ -26,13 +26,13 @@ Client VPN offers the following features:
 The following are the key concepts for Client VPN:
 
 **Client VPN endpoint**  
-The Client VPN endpoint is the resource that you create and conﬁgure to enable and manage client VPN sessions\. It is the resource where all client VPN sessions are terminated\.
+The Client VPN endpoint is the resource that you create and configure to enable and manage client VPN sessions\. It is the resource where all client VPN sessions are terminated\.
 
 **Target network**  
 A target network is the network that you associate with a Client VPN endpoint\. A subnet from a VPC is a target network\. Associating a subnet with a Client VPN endpoint enables you to establish VPN sessions\. You can associate multiple subnets with a Client VPN endpoint for high availability\. All subnets must be from the same VPC\. Each subnet must belong to a different Availability Zone\.
 
 **Route**  
-Each Client VPN endpoint has a route table that describes the available destination network routes\. Each route in the route table specifies the path for traﬃc to speciﬁc resources or networks\.
+Each Client VPN endpoint has a route table that describes the available destination network routes\. Each route in the route table specifies the path for traffic to specific resources or networks\.
 
 **Authorization rules**  
 An authorization rule restricts the users who can access a network\. For a specified network, you configure the Active Directory group that is allowed access\. Only users belonging to this Active Directory group can access the specified network\. By default, there are no authorization rules and you must configure authorization rules to enable users to access resources and networks\. 
@@ -68,7 +68,11 @@ Client VPN has the following limitations:
 + You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\. 
 + Client VPN supports IPv4 traffic only\.
 + Client VPN is not Health Insurance Portability and Accountability Act \(HIPAA\) or Federal Information Processing Standards \(FIPS\) compliant\.
-+ Client VPN does not natively support Multi\-Factor Authentication \(MFA\)\.
++ If multi\-factor authentication \(MFA\) is disabled for your Active Directory, a user password cannot be in the following format\.
+
+  ```
+  SCRV1:<base64_encoded_string>:<base64_encoded_string>
+  ```
 
 ## Pricing of Client VPN<a name="what-is-pricing"></a>
 

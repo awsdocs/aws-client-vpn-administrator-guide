@@ -10,7 +10,8 @@ For more information about troubleshooting OpenVPN\-based software that clients 
 + [Authorization Rules for Active Directory Groups Not Working as Expected](#ad-group-auth-rules)
 + [Clients Can't Access a Peered VPC, Amazon S3, or the Internet](#no-internat-access)
 + [Access to a Peered VPC, Amazon S3, or the Internet Is Intermittent](#intermittent-access)
-+ [Clients Unable to Connect to a Client VPN Endpoint](#client-cannot-connect)
++ [Client Software Returns TLS Error](#client-cannot-connect)
++ [Client Software Returns User Name and Password Errors](#client-user-name-password-mfa)
 
 ## Unable to Resolve Client VPN Endpoint DNS Name<a name="resolve-host-name"></a>
 
@@ -130,7 +131,7 @@ For example, say that your Client VPN endpoint has three associated subnets \(Su
 + Route 2: `0.0.0.0/0` for Subnet B
 + Route 3: `0.0.0.0/0` for Subnet C
 
-## Clients Unable to Connect to a Client VPN Endpoint<a name="client-cannot-connect"></a>
+## Client Software Returns TLS Error<a name="client-cannot-connect"></a>
 
 **Problem**  
 I used to be able to connect my clients to the Client VPN successfully, but now the OpenVPN\-based client returns the following error when it tries to connect: 
@@ -155,3 +156,20 @@ $ openssl crl -in path_to_crl_pem_file -noout -nextupdate
 The output displays the expiry date and time\. If the client certificate revocation list has expired, you must create a new one and import it to the Client VPN endpoint\. For more information, see [Client Certificate Revocation Lists](cvpn-working-certificates.md)\.
 
 For more information about troubleshooting OpenVPN\-based software, see [Troubleshooting Your Client VPN Connection](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/troubleshooting.html) in the *AWS Client VPN User Guide*\.
+
+## Client Software Returns User Name and Password Errors<a name="client-user-name-password-mfa"></a>
+
+**Problem**  
+I use Active Directory authentication for my Client VPN endpoint and I used to be able to connect my clients to the Client VPN successfully\. But now, clients are getting invalid user name and password errors\.
+
+**Possible Causes**  
+If you use Active Directory authentication and if you enabled multi\-factor authentication \(MFA\) after you distributed the client configuration file, the file does not contain the necessary information to prompt users to enter their MFA code\. Users are prompted to enter their user name and password only, and authentication fails\.
+
+**Solution**  
+Download a new client configuration file and distribute it to your clients\. Verify that the new file contains the following line\.
+
+```
+static-challenge "Enter MFA code " 1
+```
+
+For more information, see [Export Client Configuration](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\. Test the MFA configuration for your Active Directory without using the Client VPN endpoint to verify that MFA is working as expected\.
