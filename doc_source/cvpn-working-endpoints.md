@@ -87,7 +87,7 @@ Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/r
 
 The Client VPN endpoint configuration file is the file clients use to establish a VPN connection with the Client VPN endpoint\. You must download this file and distribute it to all clients who need access to the VPN\.
 
-If your Client VPN endpoint uses Mutual Authentication, then you need to add the client certificate and the client private key \(by using the <cert></cert> tag and the <key></key tag\)\) to the \.ovpm configuration file that you downloaded\. After you add the information, you can import the \.ovpn file into the OpenVPN client software\. 
+If your Client VPN endpoint uses Mutual Authentication, then you need to add the client certificate and the client private key \(by using the <cert></cert> tag and the <key></key tag\)\) to the \.ovpn configuration file that you downloaded\. After you add the information, you can import the \.ovpn file into the OpenVPN client software\. 
 
 By default, the “\-\-remote\-random\-hostname” option in the OpenVPN client configuration enables wild card DNS\. Because wild card DNS is enabled, the client does not cache the IP address of the endpoint and you will not be able to ping the DNS name of the endpoint\. 
 

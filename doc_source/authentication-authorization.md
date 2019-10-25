@@ -76,16 +76,16 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
 
 1. Copy the server certificate and key and the client certificate and key to a custom folder and then navigate into the custom folder\.
 
-   Before you copy the certificates and keys, create the custom folder by using the `mkdir /custom_folder` command\.
+   Before you copy the certificates and keys, create the custom folder by using the `mkdir` command\. The following example creates a custom folder in your home directory\.
 
    ```
-   $ mkdir /custom_folder/
-   $ cp pki/ca.crt /custom_folder/
-   $ cp pki/issued/server.crt /custom_folder/
-   $ cp pki/private/server.key /custom_folder/
-   $ cp pki/issued/client1.domain.tld.crt /custom_folder
-   $ cp pki/private/client1.domain.tld.key /custom_folder/
-   $ cd /custom_folder/
+   $ mkdir ~/custom_folder/
+   $ cp pki/ca.crt ~/custom_folder/
+   $ cp pki/issued/server.crt ~/custom_folder/
+   $ cp pki/private/server.key ~/custom_folder/
+   $ cp pki/issued/client1.domain.tld.crt ~/custom_folder
+   $ cp pki/private/client1.domain.tld.key ~/custom_folder/
+   $ cd ~/custom_folder/
    ```
 
 1. Upload the server certificate and key to ACM\.

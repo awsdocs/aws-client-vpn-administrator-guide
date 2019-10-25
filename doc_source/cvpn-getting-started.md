@@ -148,9 +148,9 @@ In this tutorial, we add a route to the internet \(`0.0.0.0/0`\) and add an auth
 
 ## Step 6: Download the Client VPN Endpoint Configuration File<a name="cvpn-getting-started-config"></a>
 
-The final step is to download and prepare the Client VPN endpoint configuration file\. The configuration file includes the Client VPN endpoint and certificate information required to establish a VPN connection\. You must provide this file to the clients who need to connect to the Client VPN endpoint to establish a VPN connection\. The client uploads this file into their VPN client application\.
+The final step is to download and prepare the Client VPN endpoint configuration file\. The configuration file includes the Client VPN endpoint and certificate information required to establish a VPN connection\. You must provide this file to the clients who need to connect to the Client VPN endpoint to establish a VPN connection\. The client uploads this file into their VPN client application\. For more information about using a client application to connect to the Client VPN endpoint, see the [AWS Client VPN User Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/)\.
 
-After you create the Client VPN endpoint in Step 2, the console displays the DNS name, for example, "`cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`\." To specify the DNS name, you must specify a random string in front of the displayed name so that the format is “*random\_string*\.*displayed\_DNS\_name*," for example, "`asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`\."
+After you create the Client VPN endpoint in Step 2, the console displays the DNS name, for example, `cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`\. To specify the DNS name, you must specify a random string in front of the displayed name so that the format is *random\_string*\.*displayed\_DNS\_name*, for example, `asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`\.
 
 **To download and prepare the Client VPN endpoint configuration file \(console\)**
 
@@ -164,7 +164,7 @@ After you create the Client VPN endpoint in Step 2, the console displays the DNS
    + Client certificate — `easy-rsa/easyrsa3/pki/issued/client1.domain.tld.crt`
    + Client key — `easy-rsa/easyrsa3/pki/private/client1.domain.tld.key`
 
-1. Open the Client VPN endpoint configuration file using your preferred editor and add the following to the end of the file\.
+1. Open the Client VPN endpoint configuration file using your preferred text editor and add the following to the end of the file\. Replace */path/* with the location of the client certificate and key \(the location is relative to the client that's connecting to the endpoint\)\.
 
    ```
    cert /path/client1.domain.tld.crt
@@ -191,10 +191,9 @@ After you create the Client VPN endpoint in Step 2, the console displays the DNS
    + Client certificate — `easy-rsa/easyrsa3/pki/issued/client1.domain.tld.crt`
    + Client key — `easy-rsa/easyrsa3/pki/private/client1.domain.tld.key`
 
-1. Append the client certificate and key to the Client VPN endpoint configuration file\.
+1. Open the Client VPN endpoint configuration file using your preferred text editor \(such as vim or nano\) or use the cat >> client\-config\.ovpn command and add the following to the end of the file\. Replace */path/* with the location of the client certificate and key \(the location is relative to the client that's connecting to the endpoint\)\.
 
    ```
-   $ cat >> client-config.ovpn
    cert /path/client1.domain.tld.crt
    key /path/client1.domain.tld.key
    ```
@@ -203,4 +202,4 @@ After you create the Client VPN endpoint in Step 2, the console displays the DNS
    + Original DNS name: `cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
    + Modified DNS name: `asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
 
-1. Distribute the Client VPN endpoint configuration file and the client certificate and key to your clients\.
+1. Distribute the Client VPN endpoint configuration file and the client certificate and key to your clients\. 
