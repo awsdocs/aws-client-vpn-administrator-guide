@@ -91,7 +91,7 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
 1. Upload the server certificate and key to ACM\.
 
    ```
-   $ aws acm import-certificate --certificate file://server.crt --private-key file://server.key --certificate-chain file://ca.crt --region region
+   $ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt --region region
    ```
 **Note**  
 Be sure to upload the certificate and key in the same Region in which you intend to create the Client VPN endpoint\.
@@ -99,7 +99,7 @@ Be sure to upload the certificate and key in the same Region in which you intend
 1. Upload the client certificate and key to ACM\.
 
    ```
-   $ aws acm import-certificate --certificate file://client1.domain.tld.crt --private-key file://client1.domain.tld.key --certificate-chain file://ca.crt --region region
+   $ aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt --region region
    ```
 **Note**  
 Be sure to upload the certificate and key in the same Region in which you intend to create the Client VPN endpoint\.
