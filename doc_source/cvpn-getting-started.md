@@ -22,13 +22,13 @@ To complete this getting started tutorial, you need the following:
 
 ## Step 1: Generate Server and Client Certificates and Keys<a name="cvpn-getting-started-certs"></a>
 
-This tutorial uses mutual authentication\. With mutual authorization, Client VPN uses certificates to perform authentication between the client and the server\.
+This tutorial uses mutual authentication\. With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\.
 
 For detailed steps to generate the server and client certificates and keys, see [Mutual Authentication](authentication-authorization.md#mutual)\.
 
 ## Step 2: Create a Client VPN Endpoint<a name="cvpn-getting-started-endpoint"></a>
 
-When you create a Client VPN endpoint, you create the VPN construct to which clients can connect to establish a VPN connection\.
+When you create a Client VPN endpoint, you create the VPN construct to which clients can connect in order to establish a VPN connection\.
 
 After you create the Client VPN endpoint, take note of the following:
 + The initial state of the Client VPN endpoint is `pending-associate`\. Clients can only establish a VPN connection after you associate at least one target network\.
@@ -39,7 +39,7 @@ After you create the Client VPN endpoint, take note of the following:
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 
-1. In the navigation pane, choose **Client VPN Endpoints** and choose **Create Client VPN Endpoint\.**
+1. In the navigation pane, choose **Client VPN Endpoints** and then choose **Create Client VPN Endpoint**\.
 
 1. \(Optional\) For **Description**, enter a brief description for the Client VPN endpoint\.
 
@@ -61,7 +61,7 @@ The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 
 1. \(Optional\) Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use a VPC DNS server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.
 **Note**  
-Ensure that the DNS servers can be reached by clients\.
+Verify that the DNS servers can be reached by clients\.
 
 1. \(Optional\) To enable split\-tunnel on a VPN endpoint, select **Enable split\-tunnel**\.
 
@@ -70,6 +70,10 @@ Ensure that the DNS servers can be reached by clients\.
 1. \(Optional\) By default, the Client VPN server uses the `UDP` transport protocol\. To use the `TCP` transport protocol instead, for **Transport Protocol**, select **TCP**\.
 **Note**  
 UDP typically offers better performance than TCP\.
+
+1. \(Optional\) For **VPC ID**, choose the VPC to associate with the Client VPN endpoint\. For **Security Group IDs**, choose one or more of the VPC's security groups to apply to the Client VPN endpoint\.
+
+1. \(Optional\) For **VPN port**, choose the VPN port number\. The default is 443\.
 
 1. Choose **Create Client VPN Endpoint**\.
 
@@ -90,15 +94,13 @@ When you associate the first subnet with the Client VPN endpoint, the following 
 
 1. Select the Client VPN endpoint with which to associate the subnet and choose **Associations**, **Associate**\.
 
-1. For **VPC**, choose the VPC in which the subnet is provisioned\.
-**Note**  
-For the first subnet you associate, you can choose any subnet in any VPC that exists in the same account as the Client VPN endpoint\. After you associate the first subnet with the Client VPN endpoint, all further subnet associations must be from the same VPC, but they must belong to different Availability Zones\.
+1. For **VPC**, choose the VPC in which the subnet is located\. If you specified a VPC when you created the Client VPN endpoint, it must be the same VPC\.
 
 1. For **Subnet to associate**, choose the subnet to associate with the Client VPN endpoint\.
 
 1. Choose **Associate**\.
 **Note**  
-One subnet association is enough for clients to access a VPC's entire network if authorization rules allow it\. You can associate additional subnets to provide high availability in case one of the zones goes down\.
+If authorization rules allow it, one subnet association is enough for clients to access a VPC's entire network\. You can associate additional subnets to provide high availability in case one of the Availability Zones goes down\.
 
 ## Step 4: Authorize Clients to Access a Network<a name="cvpn-getting-started-rules"></a>
 
@@ -110,11 +112,11 @@ To authorize clients to access the VPC in which the associated subnet is located
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint to which to add the authorization rule, choose **Authorization**, and then choose **Authorize ingress**\.
+1. Select the Client VPN endpoint to which to add the authorization rule, choose **Authorization**, and then choose **Authorize Ingress**\.
 
-1. For **Destination network**, enter the IP address, in CIDR notation, of the network for which you want to allow access\.
+1. For **Destination network to enable**, enter the IP address, in CIDR notation, of the network for which you want to allow access\.
 
-1. Specify which clients are allowed to access the specified network\. To grant access to all users, for  **For grant access to**, choose **Allow access to all users**\.
+1. Specify which clients are allowed to access the specified network\. To grant access to all users, for **Grant access to**, choose **Allow access to all users**\.
 
 1. For **Description**, enter a brief description of the authorization rule\.
 

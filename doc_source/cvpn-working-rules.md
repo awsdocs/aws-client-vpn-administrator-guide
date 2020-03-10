@@ -21,7 +21,7 @@ You can add authorization rules to a Client VPN endpoint using the console and t
 
 1. Select the Client VPN endpoint to which to add the authorization rule, choose **Authorization**, and choose **Authorize ingress**\.
 
-1. For **Destination network**, enter the IP address, in CIDR notation, of the network for which you want to allow access\.
+1. For **Destination network**, enter the IP address, in CIDR notation, of the network that you want users to access \(for example, the CIDR block of your VPC\)\.
 
 1. Specify which clients are allowed to access the specified network\. For **For grant access to**, do one of the following:
    + To grant access to all clients, choose **Allow access to all users**\.

@@ -1,7 +1,7 @@
 # AWS Client VPN Administrator Guide
 
 -----
-*****Copyright &copy; 2019 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -37,6 +37,6 @@ Amazon's trademarks and trade dress may not be used in
 + [Monitoring Client VPN](monitoring-overview.md)
    + [Amazon CloudWatch](monitoring-cloudwatch.md)
    + [AWS CloudTrail](monitoring-cloudtrail.md)
-+ [AWS Client VPN Limits](limits.md)
++ [AWS Client VPN Quotas](limits.md)
 + [Troubleshooting Client VPN](troubleshooting.md)
 + [Document History](WhatsNew.md)

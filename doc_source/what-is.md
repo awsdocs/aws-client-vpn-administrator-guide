@@ -11,10 +11,10 @@ AWS Client VPN is a managed client\-based VPN service that enables you to secure
 
 ## Features of Client VPN<a name="what-is-features"></a>
 
-Client VPN offers the following features:
-+ **Secure** — It provides a secure TLS connection from any location using the OpenVPN client\.
+Client VPN offers the following features and functionality:
++ **Secure connections** — It provides a secure TLS connection from any location using the OpenVPN client\.
 + **Managed service** — It is an AWS managed service, so it removes the operational burden of deploying and managing a third\-party remote access VPN solution\.
-+ **Highly available and elastic** — It automatically scales to the number of users connecting to your AWS resources and on\-premises resources\.
++ **High availability and elasticity** — It automatically scales to the number of users connecting to your AWS resources and on\-premises resources\.
 + **Authentication** — It supports client authentication using Active Directory and certificate\-based authentication\.
 + **Granular control** — It enables you to implement custom security controls by defining network\-based access rules\. These rules can be configured at the granularity of Active Directory groups\. You can also implement access control using security groups\.
 + **Ease of use** — It enables you to access your AWS resources and on\-premises resources using a single VPN tunnel\.
@@ -40,8 +40,8 @@ An authorization rule restricts the users who can access a network\. For a speci
 **Client**  
 The end user connecting to the Client VPN endpoint to establish a VPN session\. End users need to download an OpenVPN client and use the Client VPN configuration file that you created to establish a VPN session\.
 
-**Client VPN Ports**  
-AWS Client VPN only supports port 443 for both TCP and UDP\.
+**Client VPN ports**  
+AWS Client VPN supports ports 443 and 1194 for both TCP and UDP\. The default is port 443\.
 
 ## Accessing Client VPN<a name="what-is-access"></a>
 

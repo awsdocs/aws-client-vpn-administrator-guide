@@ -16,6 +16,8 @@ Client VPN offers two types of client authentication: Active Directory authentic
 
 Client VPN provides Active Directory support by integrating with AWS Directory Service\. With Active Directory authentication, clients are authenticated against existing Active Directory groups\. Using AWS Directory Service, Client VPN can connect to existing Active Directories provisioned in AWS or in your on\-premises network\. This allows you to use your existing client authentication infrastructure\. If you are using an on\-premises Active Directory, you must configure an Active Directory Connector \(AD Connector\)\. You can use one Active Directory server to authenticate the users\. For more information about Active Directory integration, see the [AWS Directory Service Administration Guide](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/)\.
 
+To create a Client VPN endpoint, you must provision a server certificate in AWS Certificate Manager\. For more information about creating and provisioning a server certificate, see the steps in [Mutual Authentication](#mutual)\.
+
 Client VPN supports multi\-factor authentication \(MFA\) when it's enabled for AWS Managed Microsoft AD or AD Connector\. If MFA is enabled, clients must enter a user name, password, and MFA code when they connect to a Client VPN endpoint\. For more information about enabling MFA, see [Enable Multi\-Factor Authentication for AWS Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_mfa.html) and [Enable Multi\-Factor Authentication for AD Connector](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_connector_mfa.html) in the *AWS Directory Service Administration Guide*\. 
 
 ### Mutual Authentication<a name="mutual"></a>
@@ -32,17 +34,17 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
 
 **To generate the server and client certificates and keys and upload them to ACM**
 
-1. Clone the OpenVPN easy\-rsa repo to your local computer\.
+1. \(Linux\) Clone the OpenVPN easy\-rsa repo to your local computer and navigate to the `easy-rsa/easyrsa3` folder\.
 
    ```
    $ git clone https://github.com/OpenVPN/easy-rsa.git
    ```
 
-1. Navigate into the `easy-rsa/easyrsa3` folder in your local repo\.
-
    ```
    $ cd easy-rsa/easyrsa3
    ```
+
+   \(Windows\) Download the latest release for Windows at [https://github\.com/OpenVPN/easy\-rsa/releases](https://github.com/OpenVPN/easy-rsa/releases)\. Unzip the folder and run the EasyRSA\-Start\.bat file\.
 
 1. Initialize a new PKI environment\.
 
@@ -88,21 +90,20 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    $ cd ~/custom_folder/
    ```
 
-1. Upload the server certificate and key to ACM\.
+1. Upload the server certificate and key and the client certificate and key to ACM\. The following commands use the AWS CLI\.
 
    ```
    $ aws acm import-certificate --certificate file://server.crt --private-key file://server.key --certificate-chain file://ca.crt --region region
    ```
-**Note**  
-Be sure to upload the certificate and key in the same Region in which you intend to create the Client VPN endpoint\.
-
-1. Upload the client certificate and key to ACM\.
 
    ```
    $ aws acm import-certificate --certificate file://client1.domain.tld.crt --private-key file://client1.domain.tld.key --certificate-chain file://ca.crt --region region
    ```
+
+   To upload the certificates using the ACM console, see [Import a Certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
 **Note**  
-Be sure to upload the certificate and key in the same Region in which you intend to create the Client VPN endpoint\.
+Be sure to upload the certificates and keys in the same Region in which you intend to create the Client VPN endpoint\.  
+If you're using the AWS CLI version 2, use the `fileb://` prefix instead of the `file://` prefix\. For more information, see the [AWS CLI version 2 migration information](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration.html#cliv2-migration-binaryparam) in the *AWS Command Line Interface User Guide*\.
 
 ## Authorization<a name="client-authorization"></a>
 
@@ -110,7 +111,9 @@ Client VPN supports two types of authorization: security groups and network\-bas
 
 ### Security Groups<a name="security-groups"></a>
 
-Client VPN automatically integrates with security groups\. When you associate a subnet with a Client VPN endpoint, we automatically apply the VPC's default security group\. You can change the security group after you associate the first target network\. You can enable Client VPN users to access your applications in a VPC, by adding a rule to allow traffic from the security group that was applied to the association\. Conversely, you can restrict access for Client VPN users, by not specifying the security group that was applied to the association\. For more information, see [Apply a Security Group to a Target Network](cvpn-working-target.md#cvpn-working-target-apply)\. The security group rules you require might also depend on the kind of VPN access you want to configure\. For more information, see [Scenarios and Examples](scenario.md)\.
+Client VPN automatically integrates with security groups\. When you create a Client VPN endpoint, you can specify the security groups from a specific VPC to apply to the Client VPN endpoint\. When you associate a subnet with a Client VPN endpoint, we automatically apply the VPC's default security group\. You can change the security groups after you create the Client VPN endpoint\. 
+
+You can enable Client VPN users to access your applications in a VPC by adding a rule to allow traffic from the security group that was applied to the association\. Conversely, you can restrict access for Client VPN users, by not specifying the security group that was applied to the association\. For more information, see [Apply a Security Group to a Target Network](cvpn-working-target.md#cvpn-working-target-apply)\. The security group rules that you require might also depend on the kind of VPN access you want to configure\. For more information, see [Scenarios and Examples](scenario.md)\.
 
 ### Network\-based Authorization<a name="auth-rules"></a>
 

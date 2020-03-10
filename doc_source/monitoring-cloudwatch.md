@@ -1,6 +1,6 @@
 # Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
 
-AWS Client VPN publishes the following metrics to Amazon CloudWatch for your Client VPN endpoints\. 
+AWS Client VPN publishes the following metrics to Amazon CloudWatch for your Client VPN endpoints\. Metrics are published to Amazon CloudWatch every five minutes\.
 
 
 | Metric | Description | 
