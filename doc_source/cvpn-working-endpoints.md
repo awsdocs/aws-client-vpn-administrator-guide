@@ -59,6 +59,9 @@ Verify that the DNS servers can be reached by clients\.
 **Note**  
 UDP typically offers better performance than TCP\.
 
+**Important**
+The transport protocol cannot be changed after creation.
+
 1. \(Optional\) For **VPC ID**, choose the VPC to associate with the Client VPN endpoint\. For **Security Group IDs**, choose one or more of the VPC's security groups to apply to the Client VPN endpoint\.
 
 1. \(Optional\) For **VPN port**, choose the VPN port number\. The default is 443\.
