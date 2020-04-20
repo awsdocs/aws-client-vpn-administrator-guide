@@ -1,4 +1,4 @@
-# What Is AWS Client VPN?<a name="what-is"></a>
+# What is AWS Client VPN?<a name="what-is"></a>
 
 AWS Client VPN is a managed client\-based VPN service that enables you to securely access your AWS resources and resources in your on\-premises network\. With Client VPN, you can access your resources from any location using an OpenVPN\-based VPN client\.
 
@@ -7,7 +7,7 @@ AWS Client VPN is a managed client\-based VPN service that enables you to secure
 + [Components of Client VPN](#what-is-components)
 + [Accessing Client VPN](#what-is-access)
 + [Limitations of Client VPN](#what-is-limitations)
-+ [Pricing of Client VPN](#what-is-pricing)
++ [Pricing for Client VPN](#what-is-pricing)
 
 ## Features of Client VPN<a name="what-is-features"></a>
 
@@ -43,6 +43,9 @@ The end user connecting to the Client VPN endpoint to establish a VPN session\. 
 **Client VPN ports**  
 AWS Client VPN supports ports 443 and 1194 for both TCP and UDP\. The default is port 443\.
 
+**Client VPN network interfaces**  
+When you associate a subnet with your Client VPN endpoint, we create Client VPN network interfaces in that subnet\. Traffic that's sent to the VPC from the Client VPN endpoint is sent through a Client VPN network interface\. Source network address translation \(SNAT\) is then applied, where the source IP address is translated to the Client VPN network interface IP address\.
+
 ## Accessing Client VPN<a name="what-is-access"></a>
 
 You can work with Client VPN in any of the following ways:
@@ -61,8 +64,11 @@ The Client VPN HTTPS Query API gives you programmatic access to Client VPN and A
 
 ## Limitations of Client VPN<a name="what-is-limitations"></a>
 
-Client VPN has the following limitations:
+Client VPN has the following rules and limitations:
 + Client CIDR ranges cannot overlap with the local CIDR of the VPC in which the associated subnet is located, or any routes manually added to the Client VPN endpoint's route table\.
++ Client CIDR ranges must have a block size of at least /22 and must not be greater than /12\.
++ A portion of the addresses in the client CIDR range are used to support the availability model of the Client VPN endpoint, and cannot be assigned to clients\. Therefore, we recommend that you assign a CIDR block that contains twice the number of IP addresses that are required to enable the maximum number of concurrent connections that you plan to support on the Client VPN endpoint\.
++ The client CIDR range cannot be changed after you create the Client VPN endpoint\.
 + The Client VPN endpoint and the VPC in which the associated subnet is located must belong to the same account\.
 + The subnets associated with a Client VPN endpoint must be in the same VPC\.
 + You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\. 
@@ -74,7 +80,7 @@ Client VPN has the following limitations:
   SCRV1:<base64_encoded_string>:<base64_encoded_string>
   ```
 
-## Pricing of Client VPN<a name="what-is-pricing"></a>
+## Pricing for Client VPN<a name="what-is-pricing"></a>
 
 You are billed per active association per Client VPN endpoint on an hourly basis\. Billing is pro\-rated for the hour\.
 

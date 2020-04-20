@@ -1,4 +1,4 @@
-# Restrict Access to Specific Resources in your VPC<a name="scenario-restrict"></a>
+# Restrict access to specific resources in your VPC<a name="scenario-restrict"></a>
 
 You can grant or deny access to specific resources in your VPC\. 
 
@@ -8,7 +8,7 @@ This configuration expands on the scenario described in [Access to a VPC](scenar
 
 This configuration grants only Client VPN clients access to a specific resource in a VPC\.
 
-On the instance on which your resource is running, create a security group rule that allows only traffic from the security group that was applied to the target network association\.
+On the security group that's associated with the instance on which your resource is running, create a security group rule that allows only traffic from the security group that was applied to the target network association\.
 
 ## Deny Client VPN clients access<a name="scenario-restrict-deny"></a>
 

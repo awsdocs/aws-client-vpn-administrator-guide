@@ -1,23 +1,23 @@
-# Client VPN Endpoints<a name="cvpn-working-endpoints"></a>
+# Client VPN endpoints<a name="cvpn-working-endpoints"></a>
 
 All client VPN sessions terminate at the Client VPN endpoint\. You configure the Client VPN endpoint to manage and control all client VPN sessions\. 
 
 **Topics**
-+ [Create a Client VPN Endpoint](#cvpn-working-endpoint-create)
-+ [Modify a Client VPN Endpoint](#cvpn-working-endpoint-modify)
-+ [Export Client Configuration](#cvpn-working-endpoint-export)
-+ [View Client VPN Endpoints](#cvpn-working-endpoint-view)
-+ [Delete a Client VPN Endpoint](#cvpn-working-endpoint-delete)
++ [Create a Client VPN endpoint](#cvpn-working-endpoint-create)
++ [Modify a Client VPN endpoint](#cvpn-working-endpoint-modify)
++ [Export client configuration](#cvpn-working-endpoint-export)
++ [View Client VPN endpoints](#cvpn-working-endpoint-view)
++ [Delete a Client VPN endpoint](#cvpn-working-endpoint-delete)
 
-## Create a Client VPN Endpoint<a name="cvpn-working-endpoint-create"></a>
+## Create a Client VPN endpoint<a name="cvpn-working-endpoint-create"></a>
 
 You must create a Client VPN endpoint to enable your clients to establish a VPN session\. After you create a new Client VPN endpoint, its status is `pending-associate`\. Clients can only connect to the Client VPN endpoint after you associate the first target network\.
 
 The Client VPN must be created in the same AWS account in which the intended target network is provisioned\.
 
-Make sure that you have the server certificate, and if required, the client certificate, before you create the Client VPN endpoint\. For more information, see [Authentication](authentication-authorization.md#client-authentication)\.
-
-You can create a Client VPN endpoint by using the console or the AWS CLI\.
+Before you begin, ensure that you do the following:
++ Review the rules and limitations in [Limitations of Client VPN](what-is.md#what-is-limitations)\.
++ Get the server certificate, and if required, the client certificate\. For more information, see [Authentication](authentication-authorization.md#client-authentication)\.
 
 **To create a Client VPN endpoint \(console\)**
 
@@ -28,10 +28,6 @@ You can create a Client VPN endpoint by using the console or the AWS CLI\.
 1. \(Optional\) For **Description**, enter a brief description for the Client VPN endpoint\.
 
 1. For **Client IPv4 CIDR**, specify an IP address range, in CIDR notation, from which to assign client IP addresses\.
-**Note**  
-The IP address range cannot overlap with the target network or with any of the routes that will be associated with the Client VPN endpoint\. The client CIDR range must have a block size of at least /22, and it must not be greater than /16\.
-**Important**  
-The IP address range cannot be changed after the Client VPN endpoint has been created\. 
 
 1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\.
 **Note**  
@@ -57,10 +53,7 @@ Verify that the DNS servers can be reached by clients\.
 
 1. \(Optional\) By default, the Client VPN server uses the `UDP` transport protocol\. To use the `TCP` transport protocol instead, for **Transport Protocol**, select **TCP**\.
 **Note**  
-UDP typically offers better performance than TCP\.
-
-**Important**
-The transport protocol cannot be changed after creation.
+UDP typically offers better performance than TCP\. You cannot change the transport protocol after you create the Client VPN endpoint\.
 
 1. \(Optional\) For **VPC ID**, choose the VPC to associate with the Client VPN endpoint\. For **Security Group IDs**, choose one or more of the VPC's security groups to apply to the Client VPN endpoint\.
 
@@ -71,7 +64,7 @@ The transport protocol cannot be changed after creation.
 **To create a Client VPN endpoint \(AWS CLI\)**  
 Use the [create\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-client-vpn-endpoint.html) command\.
 
-## Modify a Client VPN Endpoint<a name="cvpn-working-endpoint-modify"></a>
+## Modify a Client VPN endpoint<a name="cvpn-working-endpoint-modify"></a>
 
 After a Client VPN has been created, you can modify any of the following settings: 
 + The description
@@ -99,11 +92,14 @@ You can modify a Client VPN endpoint by using the console or the AWS CLI\.
 **To modify a Client VPN endpoint \(AWS CLI\)**  
 Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-client-vpn-endpoint.html) command\.
 
-## Export Client Configuration<a name="cvpn-working-endpoint-export"></a>
+## Export client configuration<a name="cvpn-working-endpoint-export"></a>
 
 The Client VPN endpoint configuration file is the file that clients \(users\) use to establish a VPN connection with the Client VPN endpoint\. You must download this file and distribute it to all clients who need access to the VPN\.
 
 If your Client VPN endpoint uses mutual authentication, you must add the client certificate and the client private key to the \.ovpn configuration file that you download\. After you add the information, clients can import the \.ovpn file into the OpenVPN client software\.
+
+**Important**  
+You must add the client certificate and the client private key information to the \.ovpn configuration file\. If not, clients cannot connect to the Client VPN endpoint\.
 
 By default, the “\-\-remote\-random\-hostname” option in the OpenVPN client configuration enables wildcard DNS\. Because wildcard DNS is enabled, the client does not cache the IP address of the endpoint and you will not be able to ping the DNS name of the endpoint\. 
 
@@ -136,7 +132,7 @@ key /path/client1.domain.tld.key
 
 Alternatively, add the contents of the client certificate between `<cert>``</cert>` tags and the contents of the private key between `<key>``</key>` tags to the configuration file\. If you choose this option, you distribute only the configuration file to your clients\.
 
-## View Client VPN Endpoints<a name="cvpn-working-endpoint-view"></a>
+## View Client VPN endpoints<a name="cvpn-working-endpoint-view"></a>
 
 You can view information about Client VPN endpoints by using the console or the AWS CLI\.
 
@@ -153,7 +149,7 @@ You can view information about Client VPN endpoints by using the console or the 
 **To view Client VPN endpoints using the AWS CLI**  
 Use the [describe\-client\-vpn\-endpoints](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-endpoints.html) command\.
 
-## Delete a Client VPN Endpoint<a name="cvpn-working-endpoint-delete"></a>
+## Delete a Client VPN endpoint<a name="cvpn-working-endpoint-delete"></a>
 
 When you delete a Client VPN endpoint, its state is changed to `deleting` and clients can no longer connect to it\. You must disassociate all associated target networks before you can delete a Client VPN endpoint\.
 

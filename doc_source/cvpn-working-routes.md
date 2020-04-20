@@ -4,19 +4,19 @@ Each Client VPN endpoint has a route table that describes the available destinat
 
 When you associate a subnet from a VPC with a Client VPN endpoint, a route for the VPC is automatically added to the Client VPN endpoint's route table\. To enable access for additional networks, such as peered VPCs, on\-premises networks, and the internet, you must manually add a route to the Client VPN endpoint's route table\.
 
-## Split\-Tunnel on AWS Client VPN Endpoint Considerations<a name="split-tunnel-routes"></a>
+**Topics**
++ [Split\-tunnel on AWS Client VPN endpoint considerations](#split-tunnel-routes)
++ [Create an endpoint route](#cvpn-working-routes-create)
++ [View endpoint routes](#cvpn-working-routes-view)
++ [Delete an endpoint route](#cvpn-working-routes-delete)
+
+## Split\-tunnel on AWS Client VPN endpoint considerations<a name="split-tunnel-routes"></a>
 
 When you use split\-tunnel on an AWS Client VPN endpoint, all of the routes that are in the AWS Client VPN route tables are added to the client route table when the VPN is established\. If you add a route after the VPN is established, you must reset the connection so that the new route is sent to the client\.
 
 We recommend that you account for the number of routes that the client device can handle before you modify the Client VPN endpoint route table\.
 
-**Topics**
-+ [Split\-Tunnel on AWS Client VPN Endpoint Considerations](#split-tunnel-routes)
-+ [Create an Endpoint Route](#cvpn-working-routes-create)
-+ [View Endpoint Routes](#cvpn-working-routes-view)
-+ [Delete an Endpoint Route](#cvpn-working-routes-delete)
-
-## Create an Endpoint Route<a name="cvpn-working-routes-create"></a>
+## Create an endpoint route<a name="cvpn-working-routes-create"></a>
 
 When you create a route, you specify how traffic for the destination network should be directed\.
 
@@ -46,7 +46,7 @@ You can add routes to a Client VPN endpoint by using the console and the AWS CLI
 **To create a Client VPN endpoint route \(AWS CLI\)**  
 Use the [create\-client\-vpn\-route](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-client-vpn-route.html) command\.
 
-## View Endpoint Routes<a name="cvpn-working-routes-view"></a>
+## View endpoint routes<a name="cvpn-working-routes-view"></a>
 
 You can view the routes for a specific Client VPN endpoint by using the console or the AWS CLI\.
 
@@ -59,7 +59,7 @@ You can view the routes for a specific Client VPN endpoint by using the console 
 **To view Client VPN endpoint routes \(AWS CLI\)**  
 Use the [describe\-client\-vpn\-routes](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-routes.html) command\.
 
-## Delete an Endpoint Route<a name="cvpn-working-routes-delete"></a>
+## Delete an endpoint route<a name="cvpn-working-routes-delete"></a>
 
 You can only delete routes that you added manually\. You can't delete routes that were automatically added when you associated a subnet with the Client VPN endpoint\. To delete routes that were automatically added, you must disassociate the subnet that initiated its creation from the Client VPN endpoint\.
 

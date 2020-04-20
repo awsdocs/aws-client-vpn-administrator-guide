@@ -1,13 +1,13 @@
-# Authorization Rules<a name="cvpn-working-rules"></a>
+# Authorization rules<a name="cvpn-working-rules"></a>
 
 Authorization rules act as ﬁrewall rules that grant access to networks\. You should have an authorization rule for each network for which you want to grant access\.
 
 **Topics**
-+ [Add an Authorization Rule to a Client VPN Endpoint](#cvpn-working-rule-authorize)
-+ [Remove an Authorization Rule from a Client VPN Endpoint](#cvpn-working-rule-revoke)
-+ [View Authorization Rules](#cvpn-working-rule-view)
++ [Add an authorization rule to a Client VPN endpoint](#cvpn-working-rule-authorize)
++ [Remove an authorization rule from a Client VPN endpoint](#cvpn-working-rule-revoke)
++ [View authorization rules](#cvpn-working-rule-view)
 
-## Add an Authorization Rule to a Client VPN Endpoint<a name="cvpn-working-rule-authorize"></a>
+## Add an authorization rule to a Client VPN endpoint<a name="cvpn-working-rule-authorize"></a>
 
 By adding authorization rules, you grant the specific clients access to the specified network\. 
 
@@ -40,7 +40,7 @@ You can add authorization rules to a Client VPN endpoint using the console and t
 **To add an authorization rule to a Client VPN endpoint \(AWS CLI\)**  
 Use the [authorize\-client\-vpn\-ingress](https://docs.aws.amazon.com/cli/latest/reference/ec2/authorize-client-vpn-ingress.html) command\.
 
-## Remove an Authorization Rule from a Client VPN Endpoint<a name="cvpn-working-rule-revoke"></a>
+## Remove an authorization rule from a Client VPN endpoint<a name="cvpn-working-rule-revoke"></a>
 
 By deleting an authorization rule, you remove access to the specified network\. 
 
@@ -59,7 +59,7 @@ You can remove authorization rules from a Client VPN endpoint using the console 
 **To remove an authorization rule from a Client VPN endpoint \(AWS CLI\)**  
 Use the [revoke\-client\-vpn\-ingress](https://docs.aws.amazon.com/cli/latest/reference/ec2/revoke-client-vpn-ingress.html) command\.
 
-## View Authorization Rules<a name="cvpn-working-rule-view"></a>
+## View authorization rules<a name="cvpn-working-rule-view"></a>
 
 You can view authorization rules for a specific Client VPN endpoint using the console and the AWS CLI\.
 

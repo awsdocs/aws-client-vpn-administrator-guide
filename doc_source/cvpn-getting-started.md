@@ -1,18 +1,19 @@
-# Getting Started with Client VPN<a name="cvpn-getting-started"></a>
+# Getting started with Client VPN<a name="cvpn-getting-started"></a>
 
 The following tasks help you become familiar with Client VPN\. In this tutorial, you will create a Client VPN endpoint that does the following:
 + Provides access to a single VPC\.
 + Provides access to the internet\.
-+ Uses mutual authentication\. For more information, see [Mutual Authentication](authentication-authorization.md#mutual)\.
++ Uses mutual authentication\. For more information, see [Mutual authentication](authentication-authorization.md#mutual)\.
 
 **Topics**
 + [Prerequisites](#cvpn-getting-started-prereq)
-+ [Step 1: Generate Server and Client Certificates and Keys](#cvpn-getting-started-certs)
-+ [Step 2: Create a Client VPN Endpoint](#cvpn-getting-started-endpoint)
-+ [Step 3: Enable VPN Connectivity for Clients](#cvpn-getting-started-target)
-+ [Step 4: Authorize Clients to Access a Network](#cvpn-getting-started-rules)
-+ [Step 5: \(Optional\) Enable Access to Additional Networks](#cvpn-getting-started-routes)
-+ [Step 6: Download the Client VPN Endpoint Configuration File](#cvpn-getting-started-config)
++ [Step 1: Generate server and client certificates and keys](#cvpn-getting-started-certs)
++ [Step 2: Create a Client VPN endpoint](#cvpn-getting-started-endpoint)
++ [Step 3: Enable VPN connectivity for clients](#cvpn-getting-started-target)
++ [Step 4: Authorize clients to access a network](#cvpn-getting-started-rules)
++ [Step 5: \(Optional\) Enable access to additional networks](#cvpn-getting-started-routes)
++ [Step 6: Download the Client VPN endpoint configuration file](#cvpn-getting-started-config)
++ [Step 7: Connect to the Client VPN endpoint](#cvpn-getting-started-connect)
 
 ## Prerequisites<a name="cvpn-getting-started-prereq"></a>
 
@@ -20,13 +21,13 @@ To complete this getting started tutorial, you need the following:
 + The permissions required to work with Client VPN endpoints\.
 + A VPC with at least one subnet, an internet gateway, and a route to the internet gateway\.
 
-## Step 1: Generate Server and Client Certificates and Keys<a name="cvpn-getting-started-certs"></a>
+## Step 1: Generate server and client certificates and keys<a name="cvpn-getting-started-certs"></a>
 
 This tutorial uses mutual authentication\. With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\.
 
-For detailed steps to generate the server and client certificates and keys, see [Mutual Authentication](authentication-authorization.md#mutual)\.
+For detailed steps to generate the server and client certificates and keys, see [Mutual authentication](authentication-authorization.md#mutual)\.
 
-## Step 2: Create a Client VPN Endpoint<a name="cvpn-getting-started-endpoint"></a>
+## Step 2: Create a Client VPN endpoint<a name="cvpn-getting-started-endpoint"></a>
 
 When you create a Client VPN endpoint, you create the VPN construct to which clients can connect in order to establish a VPN connection\.
 
@@ -45,9 +46,7 @@ After you create the Client VPN endpoint, take note of the following:
 
 1. For **Client IPv4 CIDR**, specify an IP address range, in CIDR notation, from which to assign client IP addresses\.
 **Note**  
-The IP address range cannot overlap with the target network or any of the routes that will be associated with the Client VPN endpoint\. The client CIDR range must have a block size that is between /16 and /22 and not overlap with VPC CIDR or any other route in the route table\.
-**Important**  
-The IP address range cannot be changed after the Client VPN endpoint has been created\.
+The IP address range cannot overlap with the target network or any of the routes that will be associated with the Client VPN endpoint\. The client CIDR range must have a block size that is between /12 and /22 and not overlap with VPC CIDR or any other route in the route table\. You cannot change the IP address range after you create the Client VPN endpoint\.
 
 1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\. 
 **Note**  
@@ -77,7 +76,7 @@ UDP typically offers better performance than TCP\.
 
 1. Choose **Create Client VPN Endpoint**\.
 
-## Step 3: Enable VPN Connectivity for Clients<a name="cvpn-getting-started-target"></a>
+## Step 3: Enable VPN connectivity for clients<a name="cvpn-getting-started-target"></a>
 
 To enable clients to establish a VPN session, you must associate a target network with the Client VPN endpoint\. A target network is a subnet in a VPC\. 
 
@@ -102,7 +101,7 @@ When you associate the first subnet with the Client VPN endpoint, the following 
 **Note**  
 If authorization rules allow it, one subnet association is enough for clients to access a VPC's entire network\. You can associate additional subnets to provide high availability in case one of the Availability Zones goes down\.
 
-## Step 4: Authorize Clients to Access a Network<a name="cvpn-getting-started-rules"></a>
+## Step 4: Authorize clients to access a network<a name="cvpn-getting-started-rules"></a>
 
 To authorize clients to access the VPC in which the associated subnet is located, you must create an authorization rule\. The authorization rule specifies which clients have access to the VPC\. In this tutorial, we grant access to all users\.
 
@@ -122,7 +121,7 @@ To authorize clients to access the VPC in which the associated subnet is located
 
 1. Choose **Add authorization rule**\.
 
-## Step 5: \(Optional\) Enable Access to Additional Networks<a name="cvpn-getting-started-routes"></a>
+## Step 5: \(Optional\) Enable access to additional networks<a name="cvpn-getting-started-routes"></a>
 
 You can enable access to additional networks connected to the VPC, such as AWS services, peered VPCs, and on\-premises networks\. For each additional network, you must add a route to the network and configure an authorization rule to give clients access\.
 
@@ -144,11 +143,11 @@ In this tutorial, we add a route to the internet \(`0.0.0.0/0`\) and add an auth
 
 1. Choose **Create Route**\.
 
-1. Add an authorization rule for the network to specify which clients have access\. Perform the steps at [Step 4: Authorize Clients to Access a Network](#cvpn-getting-started-rules), for **Step 4** enter `0.0.0.0/0`, and for **Step 5** choose **Allow access to all users**\.
+1. Add an authorization rule for the network to specify which clients have access\. Perform the steps at [Step 4: Authorize clients to access a network](#cvpn-getting-started-rules), for **Step 4** enter `0.0.0.0/0`, and for **Step 5** choose **Allow access to all users**\.
 
 1. Ensure that the security group that's associated with subnet you are routing traffic through allows inbound and outbound traffic to and from the internet\. To do this, add inbound and outbound rules that allow internet traffic to and from 0\.0\.0\.0/0\.
 
-## Step 6: Download the Client VPN Endpoint Configuration File<a name="cvpn-getting-started-config"></a>
+## Step 6: Download the Client VPN endpoint configuration file<a name="cvpn-getting-started-config"></a>
 
 The final step is to download and prepare the Client VPN endpoint configuration file\. The configuration file includes the Client VPN endpoint and certificate information required to establish a VPN connection\. You must provide this file to the clients who need to connect to the Client VPN endpoint to establish a VPN connection\. The client uploads this file into their VPN client application\. For more information about using a client application to connect to the Client VPN endpoint, see the [AWS Client VPN User Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/)\.
 
@@ -205,3 +204,7 @@ After you create the Client VPN endpoint in Step 2, the console displays the DNS
    + Modified DNS name: `asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
 
 1. Distribute the Client VPN endpoint configuration file and the client certificate and key to your clients\. 
+
+## Step 7: Connect to the Client VPN endpoint<a name="cvpn-getting-started-connect"></a>
+
+You can connect to the Client VPN endpoint using the AWS\-provided client or another OpenVPN\-based client application\. For more information, see the [AWS Client VPN User Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/)\.

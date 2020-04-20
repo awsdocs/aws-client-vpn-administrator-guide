@@ -5,15 +5,16 @@ The following topic can help you troubleshoot problems that you might have with 
 For more information about troubleshooting OpenVPN\-based software that clients use to connect to a Client VPN, see [Troubleshooting Your Client VPN Connection](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/troubleshooting.html) in the *AWS Client VPN User Guide*\.
 
 **Topics**
-+ [Unable to Resolve Client VPN Endpoint DNS Name](#resolve-host-name)
-+ [Traffic Is Not Being Split between Subnets](#split-traffic)
-+ [Authorization Rules for Active Directory Groups Not Working as Expected](#ad-group-auth-rules)
-+ [Clients Can't Access a Peered VPC, Amazon S3, or the Internet](#no-internat-access)
-+ [Access to a Peered VPC, Amazon S3, or the Internet Is Intermittent](#intermittent-access)
-+ [Client Software Returns TLS Error](#client-cannot-connect)
-+ [Client Software Returns User Name and Password Errors](#client-user-name-password-mfa)
++ [Unable to resolve Client VPN endpoint DNS name](#resolve-host-name)
++ [Traffic is not being split between subnets](#split-traffic)
++ [Authorization rules for Active Directory groups not working as expected](#ad-group-auth-rules)
++ [Clients can't access a peered VPC, Amazon S3, or the internet](#no-internat-access)
++ [Access to a peered VPC, Amazon S3, or the internet is intermittent](#intermittent-access)
++ [Client software returns TLS error](#client-cannot-connect)
++ [Client software returns user name and password errors \(Active Directory authentication\)](#client-user-name-password-mfa)
++ [Clients cannot connect \(mutual authentication\)](#client-cannot-connect-mutual)
 
-## Unable to Resolve Client VPN Endpoint DNS Name<a name="resolve-host-name"></a>
+## Unable to resolve Client VPN endpoint DNS name<a name="resolve-host-name"></a>
 
 **Problem**  
 I am unable to resolve the Client VPN endpoint's DNS name\.
@@ -26,7 +27,7 @@ Open the Client VPN endpoint configuration file using your preferred text editor
 + Original DNS name: `cvpn-endpoint-0102bc4c2eEXAMPLE.clientvpn.us-west-2.amazonaws.com`
 + Modified DNS name: `asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.clientvpn.us-west-2.amazonaws.com`
 
-## Traffic Is Not Being Split between Subnets<a name="split-traffic"></a>
+## Traffic is not being split between subnets<a name="split-traffic"></a>
 
 **Problem**  
 I am trying to split network traffic between two subnets\. Private traffic should be routed through a private subnet, while internet traffic should be routed through a public subnet\. However, only one route is being used even though I have added both routes to the Client VPN endpoint route table\.
@@ -49,7 +50,7 @@ In this example, clients that land on Subnet\-A when they connect cannot access 
 **Solution**  
 Verify that the Client VPN endpoint has the same route entries with targets for each associated network\. This ensures that clients have access to all routes regardless of the subnet through which their traffic is routed\.
 
-## Authorization Rules for Active Directory Groups Not Working as Expected<a name="ad-group-auth-rules"></a>
+## Authorization rules for Active Directory groups not working as expected<a name="ad-group-auth-rules"></a>
 
 **Problem**  
 I have configured authorization rules for my Active Directory groups, but they are not working as I expected\. I have added an authorization rule for `0.0.0.0/0` to authorize traffic for all networks, but traffic still fails for specific destination CIDRs\.
@@ -69,7 +70,7 @@ In addition, Client VPN uses longest prefix matching when evaluating authorizati
 **Solution**  
 Verify that you create authorization rules that explicitly grant Active Directory groups access to specific network CIDRs\. If you add an authorization rule for `0.0.0.0/0`, keep in mind that it will be evaluated last, and that previous authorization rules may limit the networks to which it grants access\.
 
-## Clients Can't Access a Peered VPC, Amazon S3, or the Internet<a name="no-internat-access"></a>
+## Clients can't access a peered VPC, Amazon S3, or the internet<a name="no-internat-access"></a>
 
 **Problem**  
 I have properly configured my Client VPN endpoint routes, but my clients can't access a peered VPC, Amazon S3, or the internet\. 
@@ -115,7 +116,7 @@ The following flow chart contains the steps to diagnose internet, peered VPC, an
    mssfix 1328
    ```
 
-## Access to a Peered VPC, Amazon S3, or the Internet Is Intermittent<a name="intermittent-access"></a>
+## Access to a peered VPC, Amazon S3, or the internet is intermittent<a name="intermittent-access"></a>
 
 **Problem**  
 I have intermittent connectivity issues when connecting to a peered VPC, Amazon S3, or the internet, but access to associated subnets is unaffected\. I need to disconnect and reconnect in order to resolve the connectivity issues\.
@@ -131,7 +132,7 @@ For example, say that your Client VPN endpoint has three associated subnets \(Su
 + Route 2: `0.0.0.0/0` for Subnet B
 + Route 3: `0.0.0.0/0` for Subnet C
 
-## Client Software Returns TLS Error<a name="client-cannot-connect"></a>
+## Client software returns TLS error<a name="client-cannot-connect"></a>
 
 **Problem**  
 I used to be able to connect my clients to the Client VPN successfully, but now the OpenVPN\-based client returns the following error when it tries to connect: 
@@ -141,7 +142,7 @@ TLS Error: TLS key negotiation failed to occur within 60 seconds (check your net
 TLS Error: TLS handshake failed
 ```
 
-**Possible Causes**  
+**Possible causes**  
 If you use mutual authentication and you imported a client certificate revocation list, the client certificate revocation list might have expired\. During the authentication phase, the Client VPN endpoint checks the client certificate against the client certificate revocation list that you imported\. If the client certificate revocation list has expired, you cannot connect to the Client VPN endpoint\.
 
 Alternatively, there might be an issue with the OpenVPN\-based software that the client is using to connect to the Client VPN\.
@@ -153,16 +154,16 @@ Check the expiry date of your client certificate revocation list by using the Op
 $ openssl crl -in path_to_crl_pem_file -noout -nextupdate
 ```
 
-The output displays the expiry date and time\. If the client certificate revocation list has expired, you must create a new one and import it to the Client VPN endpoint\. For more information, see [Client Certificate Revocation Lists](cvpn-working-certificates.md)\.
+The output displays the expiry date and time\. If the client certificate revocation list has expired, you must create a new one and import it to the Client VPN endpoint\. For more information, see [Client certificate revocation lists](cvpn-working-certificates.md)\.
 
 For more information about troubleshooting OpenVPN\-based software, see [Troubleshooting Your Client VPN Connection](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/troubleshooting.html) in the *AWS Client VPN User Guide*\.
 
-## Client Software Returns User Name and Password Errors<a name="client-user-name-password-mfa"></a>
+## Client software returns user name and password errors \(Active Directory authentication\)<a name="client-user-name-password-mfa"></a>
 
 **Problem**  
 I use Active Directory authentication for my Client VPN endpoint and I used to be able to connect my clients to the Client VPN successfully\. But now, clients are getting invalid user name and password errors\.
 
-**Possible Causes**  
+**Possible causes**  
 If you use Active Directory authentication and if you enabled multi\-factor authentication \(MFA\) after you distributed the client configuration file, the file does not contain the necessary information to prompt users to enter their MFA code\. Users are prompted to enter their user name and password only, and authentication fails\.
 
 **Solution**  
@@ -172,4 +173,15 @@ Download a new client configuration file and distribute it to your clients\. Ver
 static-challenge "Enter MFA code " 1
 ```
 
-For more information, see [Export Client Configuration](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\. Test the MFA configuration for your Active Directory without using the Client VPN endpoint to verify that MFA is working as expected\.
+For more information, see [Export client configuration](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\. Test the MFA configuration for your Active Directory without using the Client VPN endpoint to verify that MFA is working as expected\.
+
+## Clients cannot connect \(mutual authentication\)<a name="client-cannot-connect-mutual"></a>
+
+**Problem**  
+I use mutual authentication for my Client VPN endpoint\. Clients are getting TLS key negotiation failed errors and timeout errors\.
+
+**Possible causes**  
+The configuration file that was provided to the clients does not contain the client certificate and the client private key, or the certificate and key are incorrect\.
+
+**Solution**  
+Ensure that the configuration file contains the correct client certificate and key\. If necessary, fix the configuration file and redistribute it to your clients\. For more information, see [Export client configuration](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\.

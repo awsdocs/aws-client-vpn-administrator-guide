@@ -1,4 +1,4 @@
-# Client Authentication and Authorization<a name="authentication-authorization"></a>
+# Client authentication and authorization<a name="authentication-authorization"></a>
 
 Client VPN provides authentication and authorization capabilities\.
 
@@ -12,15 +12,15 @@ Authentication is implemented at the first point of entry into the AWS Cloud\. I
 
 Client VPN offers two types of client authentication: Active Directory authentication and mutual authentication\. You can choose to use either one or both authentication methods\.
 
-### Active Directory Authentication<a name="ad"></a>
+### Active Directory authentication<a name="ad"></a>
 
 Client VPN provides Active Directory support by integrating with AWS Directory Service\. With Active Directory authentication, clients are authenticated against existing Active Directory groups\. Using AWS Directory Service, Client VPN can connect to existing Active Directories provisioned in AWS or in your on\-premises network\. This allows you to use your existing client authentication infrastructure\. If you are using an on\-premises Active Directory, you must configure an Active Directory Connector \(AD Connector\)\. You can use one Active Directory server to authenticate the users\. For more information about Active Directory integration, see the [AWS Directory Service Administration Guide](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/)\.
 
-To create a Client VPN endpoint, you must provision a server certificate in AWS Certificate Manager\. For more information about creating and provisioning a server certificate, see the steps in [Mutual Authentication](#mutual)\.
+To create a Client VPN endpoint, you must provision a server certificate in AWS Certificate Manager\. For more information about creating and provisioning a server certificate, see the steps in [Mutual authentication](#mutual)\.
 
 Client VPN supports multi\-factor authentication \(MFA\) when it's enabled for AWS Managed Microsoft AD or AD Connector\. If MFA is enabled, clients must enter a user name, password, and MFA code when they connect to a Client VPN endpoint\. For more information about enabling MFA, see [Enable Multi\-Factor Authentication for AWS Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_mfa.html) and [Enable Multi\-Factor Authentication for AD Connector](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_connector_mfa.html) in the *AWS Directory Service Administration Guide*\. 
 
-### Mutual Authentication<a name="mutual"></a>
+### Mutual authentication<a name="mutual"></a>
 
 With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. The server uses client certificates to authenticate clients when they attempt to connect to the Client VPN endpoint\. The server and client certificates must be uploaded to AWS Certificate Manager \(ACM\)\. For more information about provisioning and uploading certificates in ACM, see the [AWS Certificate Manager User Guide](https://docs.aws.amazon.com/acm/latest/userguide/)\. 
 
@@ -30,7 +30,7 @@ You can create a separate client certificate and key for each client that will c
 
 A Client VPN endpoint supports 1024\-bit and 2048\-bit RSA key sizes only\.
 
-The following procedure uses OpenVPN easy\-rsa to generate the server and client certificates and keys, and then uploads the server certificate and key to ACM\. For more information, see the [Easy\-RSA 3 Quickstart README](https://github.com/OpenVPN/easy-rsa/blob/v3.0.6/README.quickstart.md)\.
+The following procedure uses OpenVPN easy\-rsa to generate the server and client certificates and keys, and then uploads the server certificate and key to ACM\. For more information, see the [Easy\-RSA 3 Quickstart README](https://github.com/OpenVPN/easy-rsa/blob/v3.0.6/README.quickstart.md)\. The following procedures require OpenSSL\.
 
 **To generate the server and client certificates and keys and upload them to ACM**
 
@@ -100,7 +100,7 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    $ aws acm import-certificate --certificate file://client1.domain.tld.crt --private-key file://client1.domain.tld.key --certificate-chain file://ca.crt --region region
    ```
 
-   To upload the certificates using the ACM console, see [Import a Certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.  
+   To upload the certificates using the ACM console, see [Import a Certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
 **Note**  
 Be sure to upload the certificates and keys in the same Region in which you intend to create the Client VPN endpoint\.  
 If you're using the AWS CLI version 2, use the `fileb://` prefix instead of the `file://` prefix\. For more information, see the [AWS CLI version 2 migration information](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration.html#cliv2-migration-binaryparam) in the *AWS Command Line Interface User Guide*\.
@@ -109,12 +109,14 @@ If you're using the AWS CLI version 2, use the `fileb://` prefix instead of the 
 
 Client VPN supports two types of authorization: security groups and network\-based authorization \(using authorization rules\)\.
 
-### Security Groups<a name="security-groups"></a>
+### Security groups<a name="security-groups"></a>
 
-Client VPN automatically integrates with security groups\. When you create a Client VPN endpoint, you can specify the security groups from a specific VPC to apply to the Client VPN endpoint\. When you associate a subnet with a Client VPN endpoint, we automatically apply the VPC's default security group\. You can change the security groups after you create the Client VPN endpoint\. 
+Client VPN automatically integrates with VPC security groups\. The security groups are associated with the Client VPN network interfaces\. When you create a Client VPN endpoint, you can specify the security groups from a specific VPC to apply to the Client VPN endpoint\. When you associate a subnet with a Client VPN endpoint, we automatically apply the VPC's default security group\. You can change the security groups after you create the Client VPN endpoint\. 
 
-You can enable Client VPN users to access your applications in a VPC by adding a rule to allow traffic from the security group that was applied to the association\. Conversely, you can restrict access for Client VPN users, by not specifying the security group that was applied to the association\. For more information, see [Apply a Security Group to a Target Network](cvpn-working-target.md#cvpn-working-target-apply)\. The security group rules that you require might also depend on the kind of VPN access you want to configure\. For more information, see [Scenarios and Examples](scenario.md)\.
+You can enable Client VPN users to access your applications in a VPC by adding a rule to your applications' security groups to allow traffic from the security group that was applied to the association\. Conversely, you can restrict access for Client VPN users, by not specifying the security group that was applied to the association\. For more information, see [Apply a security group to a target network](cvpn-working-target.md#cvpn-working-target-apply)\. The security group rules that you require might also depend on the kind of VPN access you want to configure\. For more information, see [Scenarios and examples](scenario.md)\.
 
-### Network\-based Authorization<a name="auth-rules"></a>
+For more information about security groups, see [Security groups for your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) in the *Amazon VPC User Guide*\.
 
-Network\-based authorization is implemented using authorization rules\. For each network that you want to enable access, you must configure authorization rules that limits the users who have access\. For a specified network, you configure the Active Directory group that is allowed access\. Only users who belong to the specified Active Directory group can access the specified network\. If you are not using Active Directory, or you want to open access to all users, you can specify a rule that grants access to all clients\. For more information, see [Authorization Rules](cvpn-working-rules.md)\.
+### Network\-based authorization<a name="auth-rules"></a>
+
+Network\-based authorization is implemented using authorization rules\. For each network that you want to enable access, you must configure authorization rules that limits the users who have access\. For a specified network, you configure the Active Directory group that is allowed access\. Only users who belong to the specified Active Directory group can access the specified network\. If you are not using Active Directory, or you want to open access to all users, you can specify a rule that grants access to all clients\. For more information, see [Authorization rules](cvpn-working-rules.md)\.

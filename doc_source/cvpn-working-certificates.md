@@ -1,16 +1,16 @@
-# Client Certificate Revocation Lists<a name="cvpn-working-certificates"></a>
+# Client certificate revocation lists<a name="cvpn-working-certificates"></a>
 
 You can use client certificate revocation lists to blacklist specific client certificates\. Blacklisting clients revokes their access to a Client VPN endpoint\.
 
 **Note**  
-For more information about generating the server and client certificates and keys, see [Mutual Authentication](authentication-authorization.md#mutual)
+For more information about generating the server and client certificates and keys, see [Mutual authentication](authentication-authorization.md#mutual)
 
 **Topics**
-+ [Generate a Client Certificate Revocation List](#cvpn-working-certificates-generate)
-+ [Import a Client Certificate Revocation List](#cvpn-working-certificates-import)
-+ [Export a Client Certificate Revocation List](#cvpn-working-certificates-export)
++ [Generate a client certificate revocation list](#cvpn-working-certificates-generate)
++ [Import a client certificate revocation list](#cvpn-working-certificates-import)
++ [Export a client certificate revocation list](#cvpn-working-certificates-export)
 
-## Generate a Client Certificate Revocation List<a name="cvpn-working-certificates-generate"></a>
+## Generate a client certificate revocation list<a name="cvpn-working-certificates-generate"></a>
 
 You must generate a client certificate revocation list using the OpenVPN easy\-rsa command line utility\.
 
@@ -37,9 +37,9 @@ You must generate a client certificate revocation list using the OpenVPN easy\-r
 
    Type `yes` when prompted\.
 
-## Import a Client Certificate Revocation List<a name="cvpn-working-certificates-import"></a>
+## Import a client certificate revocation list<a name="cvpn-working-certificates-import"></a>
 
-You must have a client certificate revocation list file to import\. For more information about generating a client certificate revocation list, see [Generate a Client Certificate Revocation List](#cvpn-working-certificates-generate)\.
+You must have a client certificate revocation list file to import\. For more information about generating a client certificate revocation list, see [Generate a client certificate revocation list](#cvpn-working-certificates-generate)\.
 
 You can import a client certificate revocation list using the console and the AWS CLI\.
 
@@ -62,7 +62,7 @@ Use the [import\-client\-vpn\-client\-certificate\-revocation\-list](https://doc
 $ aws ec2 import-client-vpn-client-certificate-revocation-list --certificate-revocation-list file:path_to_CRL_file --client-vpn-endpoint-id endpoint_id --region region
 ```
 
-## Export a Client Certificate Revocation List<a name="cvpn-working-certificates-export"></a>
+## Export a client certificate revocation list<a name="cvpn-working-certificates-export"></a>
 
 You can export client certificate revocation lists using the console and the AWS CLI\.
 
