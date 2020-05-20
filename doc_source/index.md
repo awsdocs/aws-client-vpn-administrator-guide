@@ -17,6 +17,8 @@ Amazon's trademarks and trade dress may not be used in
 + [What is AWS Client VPN?](what-is.md)
 + [How AWS Client VPN works](how-it-works.md)
    + [Client authentication and authorization](authentication-authorization.md)
+      + [Authentication](client-authentication.md)
+      + [Authorization](client-authorization.md)
    + [Split-tunnel on AWS Client VPN endpoints](split-tunnel-vpn.md)
    + [Using service-linked roles for Client VPN](using-service-linked-roles.md)
 + [Scenarios and examples](scenario.md)

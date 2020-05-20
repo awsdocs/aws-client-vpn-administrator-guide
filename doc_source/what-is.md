@@ -5,8 +5,8 @@ AWS Client VPN is a managed client\-based VPN service that enables you to secure
 **Topics**
 + [Features of Client VPN](#what-is-features)
 + [Components of Client VPN](#what-is-components)
-+ [Accessing Client VPN](#what-is-access)
-+ [Limitations of Client VPN](#what-is-limitations)
++ [Working with Client VPN](#what-is-access)
++ [Limitations and rules of Client VPN](#what-is-limitations)
 + [Pricing for Client VPN](#what-is-pricing)
 
 ## Features of Client VPN<a name="what-is-features"></a>
@@ -15,7 +15,7 @@ Client VPN offers the following features and functionality:
 + **Secure connections** — It provides a secure TLS connection from any location using the OpenVPN client\.
 + **Managed service** — It is an AWS managed service, so it removes the operational burden of deploying and managing a third\-party remote access VPN solution\.
 + **High availability and elasticity** — It automatically scales to the number of users connecting to your AWS resources and on\-premises resources\.
-+ **Authentication** — It supports client authentication using Active Directory and certificate\-based authentication\.
++ **Authentication** — It supports client authentication using Active Directory, federated authentication, and certificate\-based authentication\.
 + **Granular control** — It enables you to implement custom security controls by defining network\-based access rules\. These rules can be configured at the granularity of Active Directory groups\. You can also implement access control using security groups\.
 + **Ease of use** — It enables you to access your AWS resources and on\-premises resources using a single VPN tunnel\.
 + **Manageability** — It enables you to view connection logs, which provide details on client connection attempts\. You can also manage active client connections, with the ability to terminate active client connections\.
@@ -35,7 +35,7 @@ A target network is the network that you associate with a Client VPN endpoint\. 
 Each Client VPN endpoint has a route table that describes the available destination network routes\. Each route in the route table specifies the path for traffic to specific resources or networks\.
 
 **Authorization rules**  
-An authorization rule restricts the users who can access a network\. For a specified network, you configure the Active Directory group that is allowed access\. Only users belonging to this Active Directory group can access the specified network\. By default, there are no authorization rules and you must configure authorization rules to enable users to access resources and networks\. 
+An authorization rule restricts the users who can access a network\. For a specified network, you configure the Active Directory or identity provider \(IdP\) group that is allowed access\. Only users belonging to this group can access the specified network\. By default, there are no authorization rules and you must configure authorization rules to enable users to access resources and networks\. 
 
 **Client**  
 The end user connecting to the Client VPN endpoint to establish a VPN session\. End users need to download an OpenVPN client and use the Client VPN configuration file that you created to establish a VPN session\.
@@ -46,7 +46,7 @@ AWS Client VPN supports ports 443 and 1194 for both TCP and UDP\. The default is
 **Client VPN network interfaces**  
 When you associate a subnet with your Client VPN endpoint, we create Client VPN network interfaces in that subnet\. Traffic that's sent to the VPC from the Client VPN endpoint is sent through a Client VPN network interface\. Source network address translation \(SNAT\) is then applied, where the source IP address is translated to the Client VPN network interface IP address\.
 
-## Accessing Client VPN<a name="what-is-access"></a>
+## Working with Client VPN<a name="what-is-access"></a>
 
 You can work with Client VPN in any of the following ways:
 
@@ -62,7 +62,7 @@ AWS provides commands for a broad set of AWS offerings for those who script in t
 **Query API**  
 The Client VPN HTTPS Query API gives you programmatic access to Client VPN and AWS\. The HTTPS Query API lets you issue HTTPS requests directly to the service\. When you use the HTTPS API, you must include code to digitally sign requests using your credentials\. For more information, see the [Client VPN API Reference]()\.
 
-## Limitations of Client VPN<a name="what-is-limitations"></a>
+## Limitations and rules of Client VPN<a name="what-is-limitations"></a>
 
 Client VPN has the following rules and limitations:
 + Client CIDR ranges cannot overlap with the local CIDR of the VPC in which the associated subnet is located, or any routes manually added to the Client VPN endpoint's route table\.

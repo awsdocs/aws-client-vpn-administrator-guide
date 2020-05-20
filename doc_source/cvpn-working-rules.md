@@ -25,13 +25,15 @@ You can add authorization rules to a Client VPN endpoint using the console and t
 
 1. Specify which clients are allowed to access the specified network\. For **For grant access to**, do one of the following:
    + To grant access to all clients, choose **Allow access to all users**\.
-   + To restrict access to specific clients, choose **Allow access to users in a specific Active Directory group**, and then for **Active Directory group name**, enter the security identifier \(SID\) of the Active Directory group to grant access\.
+   + To restrict access to specific clients, choose **Allow access to users in a specific access group**, and then for **Access group ID**, enter the ID for the group to grant access to\. For example, the security identifier \(SID\) of an Active Directory group, or the ID/name of a group defined in a SAML\-based identity provider \(IdP\)\.
+**Note**  
+\(Active Directory\) You can use the Microsoft Powershell [Get\-ADGroup](https://docs.microsoft.com/en-us/powershell/module/addsadministration/get-adgroup?view=win10-ps) cmdlet to get the SID, for example:  
 
-   You can use the Microsoft Powershell Get\-ADGroup cmdlet to get the SID\. For more information about Get\-ADGroup, see the [Get\-ADGroup command page](https://docs.microsoft.com/en-us/powershell/module/addsadministration/get-adgroup?view=win10-ps) in the * Microsoft Windows 10 and Windows Server 2016 PowerShell Module Reference*\.
-
-   Example
-
-   `Get-ADGroup -Filter 'Name -eq "<Name of the AD Group>"'`
+   ```
+   Get-ADGroup -Filter 'Name -eq "<Name of the AD Group>"'
+   ```
+**Note**  
+\(SAML\-based federated authentication\) The group ID/name should match the group attribute information that is returned in the SAML assertion\.
 
 1. For **Description**, enter a brief description of the authorization rule\.
 

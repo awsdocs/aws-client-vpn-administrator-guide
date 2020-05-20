@@ -42,7 +42,7 @@ Use the [associate\-client\-vpn\-target\-network](https://docs.aws.amazon.com/cl
 
 ## Apply a security group to a target network<a name="cvpn-working-target-apply"></a>
 
-When you create a Client VPN endpoint, you can specify the security groups to apply to the target network\. When you associate the first target network with a Client VPN endpoint, we automatically apply the default security group of the VPC in which the associated subnet is located\. For more information, see [Security groups](authentication-authorization.md#security-groups)\.
+When you create a Client VPN endpoint, you can specify the security groups to apply to the target network\. When you associate the first target network with a Client VPN endpoint, we automatically apply the default security group of the VPC in which the associated subnet is located\. For more information, see [Security groups](client-authorization.md#security-groups)\.
 
 You can change the security groups for the Client VPN endpoint\. The security group rules that you require depend on the kind of VPN access you want to configure\. For more information, see [Scenarios and examples](scenario.md)\.
 

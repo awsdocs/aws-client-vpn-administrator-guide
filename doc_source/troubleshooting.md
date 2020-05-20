@@ -13,6 +13,9 @@ For more information about troubleshooting OpenVPN\-based software that clients 
 + [Client software returns TLS error](#client-cannot-connect)
 + [Client software returns user name and password errors \(Active Directory authentication\)](#client-user-name-password-mfa)
 + [Clients cannot connect \(mutual authentication\)](#client-cannot-connect-mutual)
++ [Client returns a credentials exceed max size error \(federated authentication\)](#client-credentials-exceeded)
++ [Client does not open browser \(federated authentication\)](#client-no-browser)
++ [Client returns no available ports error \(federated authentication\)](#client-no-port)
 
 ## Unable to resolve Client VPN endpoint DNS name<a name="resolve-host-name"></a>
 
@@ -185,3 +188,40 @@ The configuration file that was provided to the clients does not contain the cli
 
 **Solution**  
 Ensure that the configuration file contains the correct client certificate and key\. If necessary, fix the configuration file and redistribute it to your clients\. For more information, see [Export client configuration](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\.
+
+## Client returns a credentials exceed max size error \(federated authentication\)<a name="client-credentials-exceeded"></a>
+
+**Problem**  
+I use federated authentication for my Client VPN endpoint\. When clients enter their user name and password in the SAML\-based identity provider \(IdP\) browser window, they get an error that the credentials exceed the maximum supported size\.
+
+**Cause**  
+The SAML response returned by the IdP exceeds the maximum supported size\. For more information, see [Requirements and considerations for SAML\-based federated authentication](client-authentication.md#saml-requirements)\.
+
+**Solution**  
+Try to reduce the number of groups that the user belongs to in the IdP, and try connecting again\.
+
+## Client does not open browser \(federated authentication\)<a name="client-no-browser"></a>
+
+**Problem**  
+I use federated authentication for my Client VPN endpoint\. When clients try to connect to the endpoint, the client software does not open a browser window, and instead displays a user name and password popup window\.
+
+**Cause**  
+The configuration file that was provided to the clients does not contain the `auth-federate` flag\.
+
+**Solution**  
+[Export the latest configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export), import it to the AWS\-provided client, and try connecting again\.
+
+## Client returns no available ports error \(federated authentication\)<a name="client-no-port"></a>
+
+**Problem**  
+I use federated authentication for my Client VPN endpoint\. When clients try to connect to the endpoint, the client software returns the following error:
+
+```
+The authentication flow could not be initiated. There are no available ports. 
+```
+
+**Cause**  
+The AWS\-provided client requires the use of TCP port 35001 to complete authentication\. For more information, see [Requirements and considerations for SAML\-based federated authentication](client-authentication.md#saml-requirements)\.
+
+**Solution**  
+Verify that the client's device is not blocking TCP port 35001 or is using it for a different process\.

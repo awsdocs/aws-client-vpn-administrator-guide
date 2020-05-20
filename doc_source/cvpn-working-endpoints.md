@@ -11,13 +11,14 @@ All client VPN sessions terminate at the Client VPN endpoint\. You configure the
 
 ## Create a Client VPN endpoint<a name="cvpn-working-endpoint-create"></a>
 
-You must create a Client VPN endpoint to enable your clients to establish a VPN session\. After you create a new Client VPN endpoint, its status is `pending-associate`\. Clients can only connect to the Client VPN endpoint after you associate the first target network\.
+Create a Client VPN endpoint to enable your clients to establish a VPN session\.
 
 The Client VPN must be created in the same AWS account in which the intended target network is provisioned\.
 
+**Prerequisites**  
 Before you begin, ensure that you do the following:
-+ Review the rules and limitations in [Limitations of Client VPN](what-is.md#what-is-limitations)\.
-+ Get the server certificate, and if required, the client certificate\. For more information, see [Authentication](authentication-authorization.md#client-authentication)\.
++ Review the rules and limitations in [Limitations and rules of Client VPN](what-is.md#what-is-limitations)\.
++ Generate the server certificate, and if required, the client certificate\. For more information, see [Authentication](client-authentication.md)\.
 
 **To create a Client VPN endpoint \(console\)**
 
@@ -34,10 +35,12 @@ Before you begin, ensure that you do the following:
 The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 
 1. Specify the authentication method to be used to authenticate clients when they establish a VPN connection\. You must select at least one authentication method\.
-   + To use Active Directory authentication, select **Use Active Directory authentication**, and then for **Directory ID**, specify the ID of the Active Directory to use\.
-   + To use mutual certificate authentication, select **Use mutual authentication**, and then for **Client certificate ARN**, specify the ARN of the client certificate\.
+   + To use user\-based authentication, select **Use user\-based authentication**, and then choose one of the following:
+     + **Active Directory authentication**: Choose this option for Active Directory authentication\. For **Directory ID**, specify the ID of the Active Directory to use\.
+     + **Federated authentication**: Choose this option for SAML\-based federated authentication\. For **SAML provider ARN**, specify the ARN of the IAM SAML identity provider\.
+   + To use mutual certificate authentication, select **Use mutual authentication**, and then for **Client certificate ARN**, specify the ARN of the client certificate that's provisioned in AWS Certificate Manager \(ACM\)\.
 **Note**  
-If the client certificate has been issued by the same Certificate Authority \(Issuer\) as the server certificate, you can continue to use the server certificate ARN for the client certificate ARN\. The client certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
+If the client certificate has been issued by the same Certificate Authority \(Issuer\) as the server certificate, you can continue to use the server certificate ARN for the client certificate ARN\. If you've generated a separate client certificate and key for each user using the same CA as the server certificate, you can use the server certificate ARN\.
 
 1. Specify whether to log data about client connections using Amazon CloudWatch Logs\. For **Do you want to log the details on client connections?**, do one of the following:
    + To enable client connection logging, choose **Yes**\. For **CloudWatch Logs log group name**, enter the name of the log group to use, and then for **CloudWatch Logs log stream name**, enter the name of the log stream to use\.
@@ -60,6 +63,12 @@ UDP typically offers better performance than TCP\. You cannot change the transpo
 1. \(Optional\) For **VPN port**, choose the VPN port number\. The default is 443\.
 
 1. Choose **Create Client VPN Endpoint**\.
+
+After you create the Client VPN endpoint, do the following to complete the configuration and enable clients to connect:
++ The initial state of the Client VPN endpoint is `pending-associate`\. Clients can only connect to the Client VPN endpoint after you associate the first [target network](cvpn-working-target.md#cvpn-working-target-associate)\.
++ Create an [authorization rule](cvpn-working-rules.md) to specify which clients have access to the network\.
++ Download and prepare the Client VPN endpoint [configuration file](#cvpn-working-endpoint-export) to distribute to your clients\.
++ Instruct your clients to use the AWS\-provided client or another OpenVPN\-based client application to connect to the Client VPN endpoint\. For more information, see the [AWS Client VPN User Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/)\.
 
 **To create a Client VPN endpoint \(AWS CLI\)**  
 Use the [create\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-client-vpn-endpoint.html) command\.
@@ -131,6 +140,8 @@ key /path/client1.domain.tld.key
 ```
 
 Alternatively, add the contents of the client certificate between `<cert>``</cert>` tags and the contents of the private key between `<key>``</key>` tags to the configuration file\. If you choose this option, you distribute only the configuration file to your clients\.
+
+If you generated separate client certificates and keys for each user that will connect to the Client VPN endpoint, repeat this step for each user\.
 
 ## View Client VPN endpoints<a name="cvpn-working-endpoint-view"></a>
 
