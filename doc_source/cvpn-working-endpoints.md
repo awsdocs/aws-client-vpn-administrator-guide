@@ -43,7 +43,7 @@ The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 If the client certificate has been issued by the same Certificate Authority \(Issuer\) as the server certificate, you can continue to use the server certificate ARN for the client certificate ARN\. If you've generated a separate client certificate and key for each user using the same CA as the server certificate, you can use the server certificate ARN\.
 
 1. Specify whether to log data about client connections using Amazon CloudWatch Logs\. For **Do you want to log the details on client connections?**, do one of the following:
-   + To enable client connection logging, choose **Yes**\. For **CloudWatch Logs log group name**, enter the name of the log group to use, and then for **CloudWatch Logs log stream name**, enter the name of the log stream to use\.
+   + To enable client connection logging, choose **Yes**\. For **CloudWatch Logs log group name**, enter the name of the log group to use\. For **CloudWatch Logs log stream name**, enter the name of the log stream to use, or leave this option blank to let us create a log stream for you\.
    + To disable client connection logging, choose **No**\.
 
 1. Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use VPC DNS server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.

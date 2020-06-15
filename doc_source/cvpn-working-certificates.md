@@ -12,7 +12,10 @@ For more information about generating the server and client certificates and key
 
 ## Generate a client certificate revocation list<a name="cvpn-working-certificates-generate"></a>
 
-You must generate a client certificate revocation list using the OpenVPN easy\-rsa command line utility\.
+------
+#### [ Linux/macOS ]
+
+In the following procedure, you generate a client certificate revocation list using the OpenVPN easy\-rsa command line utility\.
 
 **To generate a client certificate revocation list using OpenVPN easy\-rsa**
 
@@ -36,6 +39,34 @@ You must generate a client certificate revocation list using the OpenVPN easy\-r
    ```
 
    Type `yes` when prompted\.
+
+------
+#### [ Windows ]
+
+The following procedure uses the OpenVPN software to generate a client revocation list\. It assumes that you followed the [steps for using the OpenVPN software](client-authentication.md#mutual) to generate the client and server certificates and keys\.
+
+**To generate a client certificate revocation list**
+
+1. Open a command prompt and navigate to the OpenVPN directory\.
+
+   ```
+   C:\> cd \Program Files\OpenVPN\easy-rsa
+   ```
+
+1. Run the `vars.bat` file\.
+
+   ```
+   C:\> vars
+   ```
+
+1. Revoke the client certificate and generate the client revocation list\.
+
+   ```
+   C:\> revoke-full client_certificate_name
+   C:\> more crl.pem
+   ```
+
+------
 
 ## Import a client certificate revocation list<a name="cvpn-working-certificates-import"></a>
 

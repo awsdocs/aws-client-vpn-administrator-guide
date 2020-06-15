@@ -9,3 +9,4 @@ You can work with Client VPN using the Amazon VPC console or the AWS CLI\.
 + [Routes](cvpn-working-routes.md)
 + [Client certificate revocation lists](cvpn-working-certificates.md)
 + [Client connections](cvpn-working-connections.md)
++ [Connection logs](cvpn-working-with-connection-logs.md)

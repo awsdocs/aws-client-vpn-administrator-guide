@@ -46,6 +46,9 @@ AWS Client VPN supports ports 443 and 1194 for both TCP and UDP\. The default is
 **Client VPN network interfaces**  
 When you associate a subnet with your Client VPN endpoint, we create Client VPN network interfaces in that subnet\. Traffic that's sent to the VPC from the Client VPN endpoint is sent through a Client VPN network interface\. Source network address translation \(SNAT\) is then applied, where the source IP address is translated to the Client VPN network interface IP address\.
 
+**Connection logging**  
+You can enable connection logging for your Client VPN endpoint to log connection events\. You can use this information to run forensics, analyze how your Client VPN endpoint is being used, or debug connection issues\.
+
 ## Working with Client VPN<a name="what-is-access"></a>
 
 You can work with Client VPN in any of the following ways:
@@ -87,3 +90,5 @@ You are billed per active association per Client VPN endpoint on an hourly basis
 You are billed for each client VPN connection per hour\. Billing is pro\-rated for the hour\.
 
 For more information, see [AWS Client VPN Pricing](https://aws.amazon.com/vpn/pricing/)\.
+
+If you enable connection logging for your Client VPN endpoint, you must create a CloudWatch Logs log group in your account\. Charges apply for using log groups\. For more information, see [Amazon CloudWatch pricing](https://aws.amazon.com/cloudwatch/pricing/)\.

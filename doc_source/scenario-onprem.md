@@ -12,11 +12,13 @@ Before you begin, do the following:
 
 **To implement this configuration**
 
-1. Enable communication between the VPC and your own on\-premises network over an AWS Site\-to\-Site VPN connection\. To do this, perform the steps described in [Getting started](https://docs.aws.amazon.com/vpn/latest/s2svpn/SetUpVPNConnections.html) in the *AWS Site\-to\-Site VPN User Guide*\.
+1. Enable communication between the VPC and your own on\-premises network over an AWS Site\-to\-Site VPN connection\. To do this, perform the steps described in [Getting started](https://docs.aws.amazon.com/vpn/latest/s2svpn/SetUpVPNConnections.html) in the *AWS Site\-to\-Site VPN User Guide*\. 
+**Note**  
+Alternatively, you can implement this scenario by using an AWS Direct Connect connection between your VPC and your on\-premises network\. For more information, see the [AWS Direct Connect User Guide](https://docs.aws.amazon.com/directconnect/latest/UserGuide/)\.
 
 1. Test the AWS Site\-to\-Site VPN connection you created in the previous step\. To do this, perform the steps described in [Testing the Site\-to\-Site VPN connection](https://docs.aws.amazon.com/vpn/latest/s2svpn/HowToTestEndToEnd_Linux.html) in the *AWS Site\-to\-Site VPN User Guide*\. If the VPN connection is functioning as expected, continue to the next step\.
 
-1. Create a Client VPN endpoint in the same region as the VPC\. To do this, perform the steps described in [Create a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.
+1. Create a Client VPN endpoint in the same Region as the VPC\. To do this, perform the steps described in [Create a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.
 
 1. Associate the subnet that you identified earlier with the Client VPN endpoint\. To do this, perform the steps described in [Associate a target network with a Client VPN endpoint](cvpn-working-target.md#cvpn-working-target-associate) and select the VPC and the subnet\.
 

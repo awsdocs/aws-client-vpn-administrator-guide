@@ -20,7 +20,7 @@ Before you begin, do the following:
 
 1. Make your subnet public by adding a route to the internet gateway to its route table\. In the VPC console, choose **Subnets**, select the subnet you intend to associate with the Client VPN endpoint, choose **Route Table**, and then choose the route table ID\. Choose **Actions**, choose **Edit routes**, and choose **Add route**\. For **Destination**, enter `0.0.0.0/0`, and for **Target**, choose the internet gateway from the previous step\.
 
-1. Create a Client VPN endpoint in the same region as the VPC\. To do this, perform the steps described in [Create a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.
+1. Create a Client VPN endpoint in the same Region as the VPC\. To do this, perform the steps described in [Create a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.
 
 1. Associate the subnet that you identified earlier with the Client VPN endpoint\. To do this, perform the steps described in [Associate a target network with a Client VPN endpoint](cvpn-working-target.md#cvpn-working-target-associate) and select the VPC and the subnet\.
 

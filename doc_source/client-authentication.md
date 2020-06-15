@@ -30,11 +30,14 @@ You can create a separate client certificate and key for each client that will c
 
 A Client VPN endpoint supports 1024\-bit and 2048\-bit RSA key sizes only\.
 
-The following procedure uses OpenVPN easy\-rsa to generate the server and client certificates and keys, and then uploads the server certificate and key to ACM\. For more information, see the [Easy\-RSA 3 Quickstart README](https://github.com/OpenVPN/easy-rsa/blob/v3.0.6/README.quickstart.md)\. The following procedures require OpenSSL\.
+------
+#### [ Linux/macOS ]
+
+The following procedure uses OpenVPN easy\-rsa to generate the server and client certificates and keys, and then uploads the server certificate and key to ACM\. For more information, see the [Easy\-RSA 3 Quickstart README](https://github.com/OpenVPN/easy-rsa/blob/v3.0.6/README.quickstart.md)\.
 
 **To generate the server and client certificates and keys and upload them to ACM**
 
-1. \(Linux\) Clone the OpenVPN easy\-rsa repo to your local computer and navigate to the `easy-rsa/easyrsa3` folder\.
+1. Clone the OpenVPN easy\-rsa repo to your local computer and navigate to the `easy-rsa/easyrsa3` folder\.
 
    ```
    $ git clone https://github.com/OpenVPN/easy-rsa.git
@@ -43,8 +46,6 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    ```
    $ cd easy-rsa/easyrsa3
    ```
-
-   \(Windows\) Download the latest release for Windows at [https://github\.com/OpenVPN/easy\-rsa/releases](https://github.com/OpenVPN/easy-rsa/releases)\. Unzip the folder and run the EasyRSA\-Start\.bat file\.
 
 1. Initialize a new PKI environment\.
 
@@ -103,8 +104,106 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    To upload the certificates using the ACM console, see [Import a Certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
 **Note**  
 Be sure to upload the certificates and keys in the same Region in which you intend to create the Client VPN endpoint\.  
-You only need to upload the client certificate to ACM when the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.  
-If you're using the AWS CLI version 2, use the `fileb://` prefix instead of the `file://` prefix\. For more information, see the [AWS CLI version 2 migration information](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration.html#cliv2-migration-binaryparam) in the *AWS Command Line Interface User Guide*\.
+You only need to upload the client certificate to ACM when the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.
+
+------
+#### [ Windows ]
+
+The following procedure installs the OpenVPN software, and then uses it to generate the server and client certificates and keys\.
+
+**To generate the server and client certificates and keys and upload them to ACM**
+
+1. Go to the [OpenVPN Community Downloads](https://openvpn.net/community-downloads/) page and download the Windows installer for your version of Windows\.
+
+1. Run the installer\. On the first page of the OpenVPN Setup Wizard, choose **Next**\.
+
+1. On the **License Agreement** page, choose **I Agree**\.
+
+1. On the **Choose Components** page, choose **EasyRSA 2 Certificate Management Scripts**\. Choose **Next**, and then choose **Install**\.
+
+1. Choose **Next**, and then **Finish** to complete the installation\.
+
+1. Open the command prompt as an Administrator, navigate to the OpenVPN directory, and run `init-config`\.
+
+   ```
+   C:\> cd \Program Files\OpenVPN\easy-rsa
+   ```
+
+   ```
+   C:\> init-config
+   ```
+
+1. Open the `vars.bat` file using Notepad\.
+
+   ```
+   C:\> notepad vars.bat
+   ```
+
+1. In the file, do the following and save your changes\.
+   + For `set KEY_SIZE`, change the value to `2048`\.
+   + Provide values for the following parameters\. Do not leave any of the values blank\.
+     + KEY\_COUNTRY
+     + KEY\_PROVINCE
+     + KEY\_CITY
+     + KEY\_ORG
+     + KEY\_EMAIL
+
+1. In the command line, run the `vars.bat` file and then run `clean-all`\.
+
+   ```
+   C:\> vars
+   ```
+
+   ```
+   C:\> clean-all
+   ```
+
+1. Build a new certificate authority \(CA\)\.
+
+   ```
+   C:\> build-ca
+   ```
+
+   Follow the prompts to build the CA\. You can leave the default values for all of the fields\. If you prefer, you can change the Common Name to the server's domain name, for example, `server.example.com`\.
+
+1. Generate the server certificate and key\.
+
+   ```
+   C:\> build-key-server server
+   ```
+
+   Follow the prompts to generate the certificate and key\. You can leave the default values for all of the fields, except Common Name\. For this field, you must specify a server domain in a domain name format\. For example, `server.example.com`\.
+
+   When prompted to sign the certificate, enter `y` for both prompts\.
+
+1. Generate the client certificate and key\.
+
+   ```
+   C:\> build-key client
+   ```
+
+   Follow the prompts to generate the certificate and key\. You can leave the default values for all of the fields, except Common Name\. For this field, you must specify a client domain in a domain name format\. For example, `client.example.com`\.
+
+   When prompted to sign the certificate, enter `y` for both prompts\.
+
+   You can optionally repeat this step for each client \(end user\) that requires a client certificate and key\.
+
+1. Upload the server certificate and key and the client certificate and key to ACM\. The following commands use the AWS CLI\.
+
+   ```
+   C:\> aws acm import-certificate --certificate fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\server.crt" --private-key fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\server.key" --certificate-chain fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\ca.crt" --region region
+   ```
+
+   ```
+   C:\> aws acm import-certificate --certificate fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\client.crt" --private-key fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\client.key" --certificate-chain fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\ca.crt"  --region region
+   ```
+
+   To upload the certificates using the ACM console, see [Import a Certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
+**Note**  
+Be sure to upload the certificates and keys in the same Region in which you intend to create the Client VPN endpoint\.  
+You only need to upload the client certificate to ACM when the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.
+
+------
 
 ## Single sign\-on \(SAML 2\.0\-based federated authentication\)<a name="federated-authentication"></a>
 
@@ -161,6 +260,8 @@ The following are the requirements and considerations for SAML\-based federated 
 + The following browsers are supported for IdP authentication: Apple Safari, Google Chrome, Microsoft Edge, and Mozilla Firefox\.
 + The AWS\-provided client reserves TCP port 35001 on users' devices for the SAML response\.
 + If the metadata document for the IAM SAML identity provider is updated with an incorrect or malicious URL, this can cause authentication issues for users, or result in phishing attacks\. Therefore, we recommend that you use AWS CloudTrail to monitor updates that are made to the IAM SAML identity provider\. For more information, see [Logging IAM and AWS STS calls with AWS CloudTrail](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html) in the *IAM User Guide*\.
++ AWS Client VPN sends an AuthN request to the IdP via an HTTP Redirect binding\. Therefore, the IdP should support HTTP Redirect binding and it should be present in the IdP's metadata document\.
++ For the SAML assertion, you must use an email address format for the `NameID` attribute\.
 
 ### SAML\-based IdP configuration resources<a name="saml-config-resources"></a>
 
@@ -169,4 +270,20 @@ The following table lists the SAML\-based IdPs that we have tested for use with 
 
 | IdP | Resource | 
 | --- | --- | 
-| Okta | [Authenticate AWS Client VPN users with SAML](https://aws.amazon.com/blogs/networking-and-content-delivery/authenticate-aws-client-vpn-users-with-saml/)\. | 
+| Okta | [Authenticate AWS Client VPN users with SAML](https://aws.amazon.com/blogs/networking-and-content-delivery/authenticate-aws-client-vpn-users-with-saml/) | 
+
+#### Service provider information for creating an app<a name="saml-config-service-provider-info"></a>
+
+To create a SAML\-based app using an IdP that's not listed in the preceding table, use the following information to configure the AWS Client VPN service provider information\.
++ Assertion Consumer Service \(ACS\) URL: `http://127.0.0.1:35001`
++ Audience URI: `urn:amazon:webservices:clientvpn`
+
+The following attributes are required\.
+
+
+| Attribute | Description | 
+| --- | --- | 
+| NameID | The email address of the user\. | 
+| FirstName | The first name of the user\. | 
+| LastName | The last name of the user\. | 
+| memberOf | The group or groups that the user belongs to\. | 
