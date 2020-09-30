@@ -40,11 +40,14 @@ An authorization rule restricts the users who can access a network\. For a speci
 **Client**  
 The end user connecting to the Client VPN endpoint to establish a VPN session\. End users need to download an OpenVPN client and use the Client VPN configuration file that you created to establish a VPN session\.
 
+**Client CIDR range**  
+An IP address range from which to assign client IP addresses\. Each connection to the Client VPN endpoint is assigned a unique IP address from the client CIDR range\. You choose the client CIDR range, for example, `10.2.0.0/16`\.
+
 **Client VPN ports**  
 AWS Client VPN supports ports 443 and 1194 for both TCP and UDP\. The default is port 443\.
 
 **Client VPN network interfaces**  
-When you associate a subnet with your Client VPN endpoint, we create Client VPN network interfaces in that subnet\. Traffic that's sent to the VPC from the Client VPN endpoint is sent through a Client VPN network interface\. Source network address translation \(SNAT\) is then applied, where the source IP address is translated to the Client VPN network interface IP address\.
+When you associate a subnet with your Client VPN endpoint, we create Client VPN network interfaces in that subnet\. Traffic that's sent to the VPC from the Client VPN endpoint is sent through a Client VPN network interface\. Source network address translation \(SNAT\) is then applied, where the source IP address from the client CIDR range is translated to the Client VPN network interface IP address\.
 
 **Connection logging**  
 You can enable connection logging for your Client VPN endpoint to log connection events\. You can use this information to run forensics, analyze how your Client VPN endpoint is being used, or debug connection issues\.
@@ -72,11 +75,11 @@ Client VPN has the following rules and limitations:
 + Client CIDR ranges must have a block size of at least /22 and must not be greater than /12\.
 + A portion of the addresses in the client CIDR range are used to support the availability model of the Client VPN endpoint, and cannot be assigned to clients\. Therefore, we recommend that you assign a CIDR block that contains twice the number of IP addresses that are required to enable the maximum number of concurrent connections that you plan to support on the Client VPN endpoint\.
 + The client CIDR range cannot be changed after you create the Client VPN endpoint\.
-+ The Client VPN endpoint and the VPC in which the associated subnet is located must belong to the same account\.
 + The subnets associated with a Client VPN endpoint must be in the same VPC\.
 + You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\. 
++ A Client VPN endpoint does not support subnet associations in a dedicated tenancy VPC\.
 + Client VPN supports IPv4 traffic only\.
-+ Client VPN is not Health Insurance Portability and Accountability Act \(HIPAA\) or Federal Information Processing Standards \(FIPS\) compliant\.
++ Client VPN is not Federal Information Processing Standards \(FIPS\) compliant\.
 + If multi\-factor authentication \(MFA\) is disabled for your Active Directory, a user password cannot be in the following format\.
 
   ```

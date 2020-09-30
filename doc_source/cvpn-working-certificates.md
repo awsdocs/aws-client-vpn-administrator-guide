@@ -1,6 +1,6 @@
 # Client certificate revocation lists<a name="cvpn-working-certificates"></a>
 
-You can use client certificate revocation lists to blacklist specific client certificates\. Blacklisting clients revokes their access to a Client VPN endpoint\.
+You can use client certificate revocation lists to revoke access to a Client VPN endpoint for specific client certificates\.
 
 **Note**  
 For more information about generating the server and client certificates and keys, see [Mutual authentication](client-authentication.md#mutual)

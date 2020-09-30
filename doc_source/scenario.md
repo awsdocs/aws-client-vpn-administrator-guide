@@ -7,4 +7,5 @@ This section provides examples for creating and configuring Client VPN access fo
 + [Access to a peered VPC](scenario-peered.md)
 + [Access to an on\-premises network](scenario-onprem.md)
 + [Access to the internet](scenario-internet.md)
-+ [Restrict access to specific resources in your VPC](scenario-restrict.md)
++ [Client\-to\-client access](scenario-client-to-client.md)
++ [Restrict access to your network](scenario-restrict.md)

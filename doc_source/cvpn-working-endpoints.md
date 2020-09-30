@@ -5,7 +5,7 @@ All client VPN sessions terminate at the Client VPN endpoint\. You configure the
 **Topics**
 + [Create a Client VPN endpoint](#cvpn-working-endpoint-create)
 + [Modify a Client VPN endpoint](#cvpn-working-endpoint-modify)
-+ [Export client configuration](#cvpn-working-endpoint-export)
++ [Export and configure the client configuration file](#cvpn-working-endpoint-export)
 + [View Client VPN endpoints](#cvpn-working-endpoint-view)
 + [Delete a Client VPN endpoint](#cvpn-working-endpoint-delete)
 
@@ -46,7 +46,7 @@ If the client certificate has been issued by the same Certificate Authority \(Is
    + To enable client connection logging, choose **Yes**\. For **CloudWatch Logs log group name**, enter the name of the log group to use\. For **CloudWatch Logs log stream name**, enter the name of the log stream to use, or leave this option blank to let us create a log stream for you\.
    + To disable client connection logging, choose **No**\.
 
-1. Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use VPC DNS server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.
+1. \(Optional\) Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use VPC DNS server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.
 **Note**  
 Verify that the DNS servers can be reached by clients\.
 
@@ -101,18 +101,20 @@ You can modify a Client VPN endpoint by using the console or the AWS CLI\.
 **To modify a Client VPN endpoint \(AWS CLI\)**  
 Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-client-vpn-endpoint.html) command\.
 
-## Export client configuration<a name="cvpn-working-endpoint-export"></a>
+## Export and configure the client configuration file<a name="cvpn-working-endpoint-export"></a>
 
-The Client VPN endpoint configuration file is the file that clients \(users\) use to establish a VPN connection with the Client VPN endpoint\. You must download this file and distribute it to all clients who need access to the VPN\.
+The Client VPN endpoint configuration file is the file that clients \(users\) use to establish a VPN connection with the Client VPN endpoint\. You must download \(export\) this file and distribute it to all clients who need access to the VPN\.
 
-If your Client VPN endpoint uses mutual authentication, you must add the client certificate and the client private key to the \.ovpn configuration file that you download\. After you add the information, clients can import the \.ovpn file into the OpenVPN client software\.
+If your Client VPN endpoint uses mutual authentication, you must [add the client certificate and the client private key to the \.ovpn configuration file](#add-config-file-cert-key) that you download\. After you add the information, clients can import the \.ovpn file into the OpenVPN client software\.
 
 **Important**  
-You must add the client certificate and the client private key information to the \.ovpn configuration file\. If not, clients cannot connect to the Client VPN endpoint\.
+If you do not add the client certificate and the client private key information to the file, clients that authenticate using mutual authentication cannot connect to the Client VPN endpoint\.
 
 By default, the “\-\-remote\-random\-hostname” option in the OpenVPN client configuration enables wildcard DNS\. Because wildcard DNS is enabled, the client does not cache the IP address of the endpoint and you will not be able to ping the DNS name of the endpoint\. 
 
 If your Client VPN endpoint uses Active Directory authentication and if you enable multi\-factor authentication \(MFA\) on your directory after you distribute the client configuration file, you must download a new file and redistribute it to your clients\. Clients cannot use the previous configuration file to connect to the Client VPN endpoint\.
+
+### Export the client configuration file<a name="export-client-config-file"></a>
 
 You can export the client configuration by using the console or the AWS CLI\.
 
@@ -131,17 +133,54 @@ Use the [export\-client\-vpn\-client\-configuration](https://docs.aws.amazon.com
 $ aws ec2 export-client-vpn-client-configuration --client-vpn-endpoint-id endpoint_id --output text>config_filename.ovpn
 ```
 
+### Add the client certificate and key information \(mutual authentication\)<a name="add-config-file-cert-key"></a>
+
+If your Client VPN endpoint uses mutual authentication, you must add the client certificate and the client private key to the \.ovpn configuration file that you download\.
+
 **To add the client certificate and key information \(mutual authentication\)**  
-You can distribute the client certificate and key to clients along with the Client VPN endpoint configuration file\. In this case, specify the path to the certificate and key in the configuration file\. Open the configuration file using your preferred text editor, and add the following to the end of the file\. Replace */path/* with the location of the client certificate and key \(the location is relative to the client that's connecting to the endpoint\)\.
+You can use one of the following options\.
+
+\(Option 1\) Distribute the client certificate and key to clients along with the Client VPN endpoint configuration file\. In this case, specify the path to the certificate and key in the configuration file\. Open the configuration file using your preferred text editor, and add the following to the end of the file\. Replace */path/* with the location of the client certificate and key \(the location is relative to the client that's connecting to the endpoint\)\.
 
 ```
 cert /path/client1.domain.tld.crt
 key /path/client1.domain.tld.key
 ```
 
-Alternatively, add the contents of the client certificate between `<cert>``</cert>` tags and the contents of the private key between `<key>``</key>` tags to the configuration file\. If you choose this option, you distribute only the configuration file to your clients\.
+\(Option 2\) Add the contents of the client certificate between `<cert>``</cert>` tags and the contents of the private key between `<key>``</key>` tags to the configuration file\. If you choose this option, you distribute only the configuration file to your clients\.
 
 If you generated separate client certificates and keys for each user that will connect to the Client VPN endpoint, repeat this step for each user\.
+
+The following is an example of the format of a Client VPN configuration file that includes the client certificate and key\.
+
+```
+client
+dev tun
+proto udp
+remote asdf.cvpn-endpoint-0011abcabcabcabc1.prod.clientvpn.eu-west-2.amazonaws.com 443
+remote-random-hostname
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+remote-cert-tls server
+cipher AES-256-GCM
+verb 3
+
+<ca>
+Contents of CA
+</ca>
+
+<cert>
+Contents of client certificate (.crt) file
+</cert>
+
+<key>
+Contents of private key (.key) file
+</key>
+
+reneg-sec 0
+```
 
 ## View Client VPN endpoints<a name="cvpn-working-endpoint-view"></a>
 

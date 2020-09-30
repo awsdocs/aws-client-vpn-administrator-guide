@@ -20,13 +20,15 @@ Client VPN provides Active Directory support by integrating with AWS Directory S
 
 Client VPN supports multi\-factor authentication \(MFA\) when it's enabled for AWS Managed Microsoft AD or AD Connector\. If MFA is enabled, clients must enter a user name, password, and MFA code when they connect to a Client VPN endpoint\. For more information about enabling MFA, see [Enable Multi\-Factor Authentication for AWS Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_mfa.html) and [Enable Multi\-Factor Authentication for AD Connector](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ad_connector_mfa.html) in the *AWS Directory Service Administration Guide*\. 
 
+For quotas and rules for configuring users and groups in Active Directory, see [Users and groups quotas](limits.md#quotas-users-groups)\.
+
 ## Mutual authentication<a name="mutual"></a>
 
-With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. The server uses client certificates to authenticate clients when they attempt to connect to the Client VPN endpoint\. The server and client certificates must be uploaded to AWS Certificate Manager \(ACM\)\. For more information about provisioning and uploading certificates in ACM, see the [AWS Certificate Manager User Guide](https://docs.aws.amazon.com/acm/latest/userguide/)\. 
+With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. The server uses client certificates to authenticate clients when they attempt to connect to the Client VPN endpoint\. 
 
-You only need to upload the client certificate to ACM when the Certificate Authority \(Issuer\) of the client certificate is different from the Certificate Authority \(Issuer\) of the server certificate\.
+You must upload the server certificate to AWS Certificate Manager \(ACM\) and specify it when you create a Client VPN endpoint\. You only need to upload the client certificate to ACM when the Certificate Authority \(Issuer\) of the client certificate is different from the Certificate Authority \(Issuer\) of the server certificate\. For more information about ACM, see the [AWS Certificate Manager User Guide](https://docs.aws.amazon.com/acm/latest/userguide/)\. 
 
-You can create a separate client certificate and key for each client that will connect to the Client VPN endpoint\. This enables you to revoke a specific client certificate if a user leaves your organization\.
+You can create a separate client certificate and key for each client that will connect to the Client VPN endpoint\. This enables you to revoke a specific client certificate if a user leaves your organization\. In this case, when you create the Client VPN endpoint, you can specify the server certificate ARN for the client certificate, provided that the client certificate has been issued by the same Certificate Authority \(Issuer\) as the server certificate\.
 
 A Client VPN endpoint supports 1024\-bit and 2048\-bit RSA key sizes only\.
 
@@ -246,11 +248,8 @@ The following diagram provides an overview of the authentication workflow for a 
 ### Requirements and considerations for SAML\-based federated authentication<a name="saml-requirements"></a>
 
 The following are the requirements and considerations for SAML\-based federated authentication\.
-+ When you configure users and groups using a SAML\-based IdP, the following rules apply:
-  + Users can belong to a maximum of 25 groups\. We ignore any groups after the 25th group\.
-  + The maximum length for the group ID is 255 characters\.
-  + The maximum length for the name ID is 255 characters\. We truncate characters after the 255th character\.
-+ SAML responses and SAML assertions must be signed and unencrypted\.
++ For quotas and rules for configuring users and groups in a SAML\-based IdP, see [Users and groups quotas](limits.md#quotas-users-groups)\.
++ The SAML response must be signed and unencrypted\.
 + The maximum supported size for SAML responses is 128 KB\.
 + AWS Client VPN does not provide signed authentication requests\.
 + SAML single logout is not supported\. Users can log out by disconnecting from the AWS\-provided client, or you can [terminate the connections](cvpn-working-connections.md#cvpn-working-connections-disassociate)\.
@@ -287,3 +286,5 @@ The following attributes are required\.
 | FirstName | The first name of the user\. | 
 | LastName | The last name of the user\. | 
 | memberOf | The group or groups that the user belongs to\. | 
+
+Attributes are case\-sensitive, and must be configured exactly as specified\.

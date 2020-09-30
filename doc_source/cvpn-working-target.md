@@ -2,6 +2,8 @@
 
 A target network is a subnet in a VPC\. A Client VPN endpoint must have at least one target network to enable clients to connect to it and establish a VPN connection\. 
 
+For more information about the kinds of access you can configure \(such as enabling your clients to access the internet\), see [Scenarios and examples](scenario.md)\.
+
 **Topics**
 + [Associate a target network with a Client VPN endpoint](#cvpn-working-target-associate)
 + [Apply a security group to a target network](#cvpn-working-target-apply)
@@ -14,8 +16,9 @@ You can associate one or more target networks \(subnets\) with a Client VPN endp
 
 The following rules apply:
 + The subnet must have a CIDR block with at least a /27 bitmask, for example 10\.0\.0\.0/27\. The subnet must also have at least 8 available IP addresses\. 
-+ If you associate more that one subnet with a Client VPN endpoint, each subnet must be in a different Availability Zone\. We recommend that you associate at least two subnets to provide Availability Zone redundancy\.
-+ If you specified a VPC when you created the Client VPN endpoint, the subnet must be in the same VPC\. If you haven't yet associated a VPC with the Client VPN endpoint, you can choose any subnet in any VPC that exists in the same account as the Client VPN endpoint\. 
++ The subnet's CIDR block cannot overlap with the client CIDR range of the Client VPN endpoint\.
++ If you associate more than one subnet with a Client VPN endpoint, each subnet must be in a different Availability Zone\. We recommend that you associate at least two subnets to provide Availability Zone redundancy\.
++ If you specified a VPC when you created the Client VPN endpoint, the subnet must be in the same VPC\. If you haven't yet associated a VPC with the Client VPN endpoint, you can choose any subnet in any VPC\. 
 
   All further subnet associations must be from the same VPC\. To associate a subnet from a different VPC, you must first modify the Client VPN endpoint and change the VPC that's associated with it\. For more information, see [Modify a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-modify)\.
 

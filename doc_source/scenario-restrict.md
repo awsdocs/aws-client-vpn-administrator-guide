@@ -1,16 +1,18 @@
-# Restrict access to specific resources in your VPC<a name="scenario-restrict"></a>
+# Restrict access to your network<a name="scenario-restrict"></a>
 
-You can grant or deny access to specific resources in your VPC by adding or removing security group rules that reference the security group that was applied to the target network association \(the Client VPN security group\)\.
+You can configure your Client VPN endpoint to restrict access to specific resources in your VPC\. For user\-based authentication, you can also restrict access to parts of your network, based on the user group that accesses the Client VPN endpoint\.
 
-This configuration expands on the scenario described in [Access to a VPC](scenario-vpc.md)\. This configuration is applied in addition to the authorization rule configured in that scenario\.
+## Restrict access using security groups<a name="scenario-restrict-security-groups"></a>
 
-Before you begin, check if the Client VPN security group is associated with other resources in your VPC\. If you add or remove rules that reference the Client VPN security group, you might grant or deny access for the other associated resources too\. To prevent this, create a security group specifically for use with your Client VPN endpoint\.
+You can grant or deny access to specific resources in your VPC by adding or removing security group rules that reference the security group that was applied to the target network association \(the Client VPN security group\)\. This configuration expands on the scenario described in [Access to a VPC](scenario-vpc.md)\. This configuration is applied in addition to the authorization rule configured in that scenario\.
 
-## Grant access to Client VPN clients only<a name="scenario-restrict-grant"></a>
+To grant access to a specific resource, identify the security group that's associated with the instance on which your resource is running\. Then, create a rule that allows traffic from the Client VPN security group\. 
 
-This configuration grants only Client VPN clients access to a specific resource in a VPC\.
+In the following example, `sg-xyz` is the Client VPN security group, security group `sg-aaa` is associated with instance A, and security group `sg-bbb` is associated with instance B\. You add a rule to `sg-aaa` that allows access from `sg-xyz`, therefore, clients can access your resources in instance A\. Security group `sg-bbb` does not have a rule that allows access from `sg-xyz` or the Client VPN network interface\. Clients cannot access the resources in instance B\.
 
-On the security group that's associated with the instance on which your resource is running, create a security group rule that allows only traffic from the Client VPN security group\.
+![\[Restricting access to resources in a VPC\]](http://docs.aws.amazon.com/vpn/latest/clientvpn-admin/images/client-vpn-scenario-security-groups.png)
+
+Before you begin, check if the Client VPN security group is associated with other resources in your VPC\. If you add or remove rules that reference the Client VPN security group, you might grant or deny access for the other associated resources too\. To prevent this, use a security group that is specifically created for use with your Client VPN endpoint\.
 
 **To create a security group rule**
 
@@ -28,11 +30,7 @@ On the security group that's associated with the instance on which your resource
 
 1. Choose **Save rules**
 
-## Deny Client VPN clients access<a name="scenario-restrict-deny"></a>
-
-This configuration prevents Client VPN clients from accessing a specific resource in a VPC\.
-
-On the instance on which your resource is running, the security group must not allow traffic from the Client VPN security group\.
+To remove access to a specific resource, check the security group that's associated with the instance on which your resource is running\. If there is a rule that allows traffic from the Client VPN security group, delete it\.
 
 **To check your security group rules**
 
@@ -43,3 +41,21 @@ On the instance on which your resource is running, the security group must not a
 1. Choose **Inbound Rules**\.
 
 1. Review the list of rules\. If there is a rule where **Source** is the Client VPN security group, choose **Edit Rules**, and choose **Delete** \(the x icon\) for the rule\. Choose **Save rules**\.
+
+## Restrict access based on user groups<a name="scenario-restrict-groups"></a>
+
+If your Client VPN endpoint is configured for user\-based authentication, you can grant specific groups of users access to specific parts of your network\. To do this, complete the following steps:
+
+1. Configure users and groups in AWS Directory Service or your IdP\. For more information, see the following topics:
+   + [Active Directory authentication](client-authentication.md#ad)
+   + [Requirements and considerations for SAML\-based federated authentication](client-authentication.md#saml-requirements)
+
+1. Create an authorization rule for your Client VPN endpoint that allows a specified group access to all or part of your network\. For more information, see [Authorization rules](cvpn-working-rules.md)\.
+
+If your Client VPN endpoint is configured for mutual authentication, you cannot configure user groups\. When you create an authorization rule, you must grant access to all users\. To enable specific groups of users access to specific parts of your network, you can create multiple Client VPN endpoints\. For example, for each group of users that accesses your network, do the following:
+
+1. Create a set of server and client certificates and keys for that group of users\. For more information, see [Mutual authentication](client-authentication.md#mutual)\.
+
+1. Create a Client VPN endpoint\. For more information, see [Create a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.
+
+1. Create an authorization rule that grants access to all or part of your network\. For example, for a Client VPN endpoint that is used by administrators, you might create an authorization rule that grants access to the entire network\. For more information, see [Add an authorization rule to a Client VPN endpoint](cvpn-working-rules.md#cvpn-working-rule-authorize)\.

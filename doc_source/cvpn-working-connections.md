@@ -8,7 +8,7 @@ Connections are VPN sessions that have been established by clients\. A connectio
 
 ## View client connections<a name="cvpn-working-connections-view"></a>
 
-You can view client connections using the console and the AWS CLI\.
+You can view client connections using the console and the AWS CLI\. The connection information includes the IP address that's assigned from the client CIDR range\.
 
 **To view client connections \(console\)**
 

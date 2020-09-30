@@ -8,7 +8,7 @@ For more information about troubleshooting OpenVPN\-based software that clients 
 + [Unable to resolve Client VPN endpoint DNS name](#resolve-host-name)
 + [Traffic is not being split between subnets](#split-traffic)
 + [Authorization rules for Active Directory groups not working as expected](#ad-group-auth-rules)
-+ [Clients can't access a peered VPC, Amazon S3, or the internet](#no-internat-access)
++ [Clients can't access a peered VPC, Amazon S3, or the internet](#no-internet-access)
 + [Access to a peered VPC, Amazon S3, or the internet is intermittent](#intermittent-access)
 + [Client software returns TLS error](#client-cannot-connect)
 + [Client software returns user name and password errors \(Active Directory authentication\)](#client-user-name-password-mfa)
@@ -73,7 +73,7 @@ In addition, Client VPN uses longest prefix matching when evaluating authorizati
 **Solution**  
 Verify that you create authorization rules that explicitly grant Active Directory groups access to specific network CIDRs\. If you add an authorization rule for `0.0.0.0/0`, keep in mind that it will be evaluated last, and that previous authorization rules may limit the networks to which it grants access\.
 
-## Clients can't access a peered VPC, Amazon S3, or the internet<a name="no-internat-access"></a>
+## Clients can't access a peered VPC, Amazon S3, or the internet<a name="no-internet-access"></a>
 
 **Problem**  
 I have properly configured my Client VPN endpoint routes, but my clients can't access a peered VPC, Amazon S3, or the internet\. 
@@ -93,9 +93,9 @@ The following flow chart contains the steps to diagnose internet, peered VPC, an
 
    If you are unable to resolve the DNS name, verify that you have specified the DNS servers for the Client VPN endpoint\. If you manage your own DNS server, specify its IP address\. Verify that the DNS server is accessible from the VPC\. 
 
-   If you're unsure about which IP address to use, use *VPC DNS resolver \.2 IP*\.
+   If you're unsure about which IP address to specify for the DNS servers, specify the VPC DNS resolver at the \.2 IP address in your VPC\.
 
-1. Check whether you are able to ping an IP address\. If you do not get a response, make sure that the route table for the associated subnets has a default route that targets either an internet gateway or a NAT gateway\. If the default route is in place, verify that the associated subnet does not have network access control list rules that block inbound and outbound traffic\.
+1. For internet access, check if you are able to ping a public IP address or a public website, for example, `amazon.com`\. If you do not get a response, make sure that the route table for the associated subnets has a default route that targets either an internet gateway or a NAT gateway\. If the route is in place, verify that the associated subnet does not have network access control list rules that block inbound and outbound traffic\.
 
    If you are unable to reach a peered VPC, verify that the associated subnet's route table has a route entry for the peered VPC\.
 
@@ -176,7 +176,7 @@ Download a new client configuration file and distribute it to your clients\. Ver
 static-challenge "Enter MFA code " 1
 ```
 
-For more information, see [Export client configuration](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\. Test the MFA configuration for your Active Directory without using the Client VPN endpoint to verify that MFA is working as expected\.
+For more information, see [Export and configure the client configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\. Test the MFA configuration for your Active Directory without using the Client VPN endpoint to verify that MFA is working as expected\.
 
 ## Clients cannot connect \(mutual authentication\)<a name="client-cannot-connect-mutual"></a>
 
@@ -187,7 +187,7 @@ I use mutual authentication for my Client VPN endpoint\. Clients are getting TLS
 The configuration file that was provided to the clients does not contain the client certificate and the client private key, or the certificate and key are incorrect\.
 
 **Solution**  
-Ensure that the configuration file contains the correct client certificate and key\. If necessary, fix the configuration file and redistribute it to your clients\. For more information, see [Export client configuration](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\.
+Ensure that the configuration file contains the correct client certificate and key\. If necessary, fix the configuration file and redistribute it to your clients\. For more information, see [Export and configure the client configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\.
 
 ## Client returns a credentials exceed max size error \(federated authentication\)<a name="client-credentials-exceeded"></a>
 

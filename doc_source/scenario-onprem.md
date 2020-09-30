@@ -5,10 +5,9 @@ The configuration for this scenario includes access to an on\-premises network o
 ![\[Client VPN accessing an on-premises network\]](http://docs.aws.amazon.com/vpn/latest/clientvpn-admin/images/client-vpn-scenario-on-premises.png)
 
 Before you begin, do the following:
-+ Create or identify a VPC with at least one subnet\. Identify the subnet in the VPC that you want to associate with the Client VPN endpoint and note its IPv4 CIDR ranges\. For more information, see [ VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html.html) in the *Amazon VPC User Guide*\.
++ Create or identify a VPC with at least one subnet\. Identify the subnet in the VPC that you want to associate with the Client VPN endpoint and note its IPv4 CIDR ranges\. For more information, see [ VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html) in the *Amazon VPC User Guide*\.
 + Identify a suitable CIDR range for the client IP addresses that does not overlap with the VPC CIDR\. 
 + Review the rules and limitations for Client VPN endpoints in [Limitations and rules of Client VPN](what-is.md#what-is-limitations)\.
-+ Ensure that the security group that you'll use for the Client VPN endpoint allows inbound and outbound traffic to and from your clients\. For more information, see [Security groups](client-authorization.md#security-groups)\.
 
 **To implement this configuration**
 
