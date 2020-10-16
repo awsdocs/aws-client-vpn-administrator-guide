@@ -1,6 +1,6 @@
 # AWS Client VPN quotas<a name="limits"></a>
 
-Your AWS account has the following quotas related to Client VPN endpoints\. You can request an increase for some of these quotas\. 
+Your AWS account has the following quotas related to Client VPN endpoints\. You can request an increase for some? of these quotas\. 
 
 ## Client VPN quotas<a name="quotas-endpoints"></a>
 + Number of Client VPN endpoints per Region: 5
