@@ -174,4 +174,4 @@ For more information about the Client VPN endpoint configuration file, see [Expo
 
 ## Step 7: Connect to the Client VPN endpoint<a name="cvpn-getting-started-connect"></a>
 
-You can connect to the Client VPN endpoint using the AWS\-provided client or another OpenVPN\-based client application\. For more information, see the [AWS Client VPN User Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/)\.
+You can connect to the Client VPN endpoint using the AWS provided client or another OpenVPN\-based client application\. For more information, see the [AWS Client VPN User Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/)\.

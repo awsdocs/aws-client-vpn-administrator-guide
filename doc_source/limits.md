@@ -1,12 +1,17 @@
 # AWS Client VPN quotas<a name="limits"></a>
 
-Your AWS account has the following quotas related to Client VPN endpoints\. You can request an increase for some of these quotas\. 
+Your AWS account has the following quotas related to Client VPN endpoints\.
 
 ## Client VPN quotas<a name="quotas-endpoints"></a>
+
+The following quotas apply to Client VPN\. Unless indicated otherwise, you can request an increase for these quotas\. 
 + Number of Client VPN endpoints per Region: 5
 + Number of authorization rules per Client VPN endpoint: 50
 + Number of routes per Client VPN endpoint: 10
 + Number of concurrent client connections per Client VPN endpoint: 20,000
++ Number of entries in a client certificate revocation list: 20,000
+
+  This quota cannot be increased\.
 + Number of concurrent operations per Client VPN endpoint: 10
 
   Operations include:
@@ -14,6 +19,8 @@ Your AWS account has the following quotas related to Client VPN endpoints\. You 
   + Creating or deleting routes
   + Creating or deleting inbound and outbound rules
   + Creating or deleting security groups
+
+  This quota cannot be increased\.
 
 ## Users and groups quotas<a name="quotas-users-groups"></a>
 

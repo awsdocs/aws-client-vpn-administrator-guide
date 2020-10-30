@@ -16,6 +16,7 @@ For more information about troubleshooting OpenVPN\-based software that clients 
 + [Client returns a credentials exceed max size error \(federated authentication\)](#client-credentials-exceeded)
 + [Client does not open browser \(federated authentication\)](#client-no-browser)
 + [Client returns no available ports error \(federated authentication\)](#client-no-port)
++ [Verify the bandwidth limit for a Client VPN endpoint](#test-throughput)
 
 ## Unable to resolve Client VPN endpoint DNS name<a name="resolve-host-name"></a>
 
@@ -209,7 +210,7 @@ I use federated authentication for my Client VPN endpoint\. When clients try to 
 The configuration file that was provided to the clients does not contain the `auth-federate` flag\.
 
 **Solution**  
-[Export the latest configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export), import it to the AWS\-provided client, and try connecting again\.
+[Export the latest configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export), import it to the AWS provided client, and try connecting again\.
 
 ## Client returns no available ports error \(federated authentication\)<a name="client-no-port"></a>
 
@@ -221,7 +222,28 @@ The authentication flow could not be initiated. There are no available ports.
 ```
 
 **Cause**  
-The AWS\-provided client requires the use of TCP port 35001 to complete authentication\. For more information, see [Requirements and considerations for SAML\-based federated authentication](client-authentication.md#saml-requirements)\.
+The AWS provided client requires the use of TCP port 35001 to complete authentication\. For more information, see [Requirements and considerations for SAML\-based federated authentication](client-authentication.md#saml-requirements)\.
 
 **Solution**  
 Verify that the client's device is not blocking TCP port 35001 or is using it for a different process\.
+
+## Verify the bandwidth limit for a Client VPN endpoint<a name="test-throughput"></a>
+
+**Problem**  
+I need to verify the bandwidth limit for a Client VPN endpoint\. 
+
+**Cause**  
+The throughput depends on multiple factors, such as the capacity of your connection from your location, and the network latency between your Client VPN desktop application on your computer and the VPC endpoint\. 
+
+**Solution**  
+Run the following commands to verify the bandwidth\. 
+
+```
+sudo iperf3 -s -V
+```
+
+On the client:
+
+```
+sudo iperf -c server IP address -p port -w 512k -P 60
+```

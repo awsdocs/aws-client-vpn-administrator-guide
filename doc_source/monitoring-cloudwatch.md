@@ -1,4 +1,4 @@
-# Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
+# Monitoring with Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
 
 AWS Client VPN publishes the following metrics to Amazon CloudWatch for your Client VPN endpoints\. Metrics are published to Amazon CloudWatch every five minutes\.
 
@@ -7,10 +7,12 @@ AWS Client VPN publishes the following metrics to Amazon CloudWatch for your Cli
 | --- | --- | 
 | ActiveConnectionsCount | The number of active connections to the Client VPN endpoint\.Units: Count | 
 | AuthenticationFailures | The number of authentication failures for the Client VPN endpoint\.Units: Count | 
+| CrlDaysToExpiry |  The number of days until the Certificate Revocation List \(CRL\) which is configured on the Client VPN endpoint expires\. Units: Days  | 
 | EgressBytes | The number of bytes sent from the Client VPN endpoint\.Units: Bytes | 
 | EgressPackets | The number of packets sent from the Client VPN endpoint\.Units: Count | 
 | IngressBytes | The number of bytes received by the Client VPN endpoint\.Units: Bytes | 
 | IngressPackets | The number of packets received by the Client VPN endpoint\.Units: Count | 
+| SelfServicePortalClientConfigurationDownloads |  The number of downloads of the Client VPN endpoint configuration file from the self\-service portal\. Unit: Count  | 
 
 You can filter the metrics for your Client VPN endpoint by endpoint\.
 

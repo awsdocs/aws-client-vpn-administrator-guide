@@ -1,4 +1,4 @@
-# AWS CloudTrail<a name="monitoring-cloudtrail"></a>
+# Monitoring with AWS CloudTrail<a name="monitoring-cloudtrail"></a>
 
 AWS Client VPN is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in Client VPN\. CloudTrail captures all API calls for Client VPN as events\. The calls captured include calls from the Client VPN console and code calls to the Client VPN API operations\. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for Client VPN\. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in **Event history**\. Use the information collected by CloudTrail to determine the request that was made to Client VPN, the requesting IP address, the requester, when it was made, and additional details\.
 

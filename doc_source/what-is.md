@@ -52,6 +52,9 @@ When you associate a subnet with your Client VPN endpoint, we create Client VPN 
 **Connection logging**  
 You can enable connection logging for your Client VPN endpoint to log connection events\. You can use this information to run forensics, analyze how your Client VPN endpoint is being used, or debug connection issues\.
 
+**Self\-service portal**  
+You can enable a self\-service portal for your Client VPN endpoint\. Clients can log into the web\-based portal using their credentials and download the latest version of the Client VPN endpoint configuration file, or the latest version of the AWS provided client\.
+
 ## Working with Client VPN<a name="what-is-access"></a>
 
 You can work with Client VPN in any of the following ways:
@@ -85,6 +88,7 @@ Client VPN has the following rules and limitations:
   ```
   SCRV1:<base64_encoded_string>:<base64_encoded_string>
   ```
++ The self\-service portal is not available for clients that authenticate using mutual authentication\.
 
 ## Pricing for Client VPN<a name="what-is-pricing"></a>
 

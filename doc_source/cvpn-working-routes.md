@@ -5,14 +5,14 @@ Each Client VPN endpoint has a route table that describes the available destinat
 When you associate a subnet from a VPC with a Client VPN endpoint, a route for the VPC is automatically added to the Client VPN endpoint's route table\. To enable access for additional networks, such as peered VPCs, on\-premises networks, the local network \(to enable clients to communicate with each other\), or the internet, you must manually add a route to the Client VPN endpoint's route table\.
 
 **Topics**
-+ [Split\-tunnel on AWS Client VPN endpoint considerations](#split-tunnel-routes)
++ [Split\-tunnel on Client VPN endpoint considerations](#split-tunnel-routes)
 + [Create an endpoint route](#cvpn-working-routes-create)
 + [View endpoint routes](#cvpn-working-routes-view)
 + [Delete an endpoint route](#cvpn-working-routes-delete)
 
-## Split\-tunnel on AWS Client VPN endpoint considerations<a name="split-tunnel-routes"></a>
+## Split\-tunnel on Client VPN endpoint considerations<a name="split-tunnel-routes"></a>
 
-When you use split\-tunnel on an AWS Client VPN endpoint, all of the routes that are in the AWS Client VPN route tables are added to the client route table when the VPN is established\. If you add a route after the VPN is established, you must reset the connection so that the new route is sent to the client\.
+When you use split\-tunnel on a Client VPN endpoint, all of the routes that are in the Client VPN route tables are added to the client route table when the VPN is established\. If you add a route after the VPN is established, you must reset the connection so that the new route is sent to the client\.
 
 We recommend that you account for the number of routes that the client device can handle before you modify the Client VPN endpoint route table\.
 

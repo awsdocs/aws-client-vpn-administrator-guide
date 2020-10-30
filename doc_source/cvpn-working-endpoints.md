@@ -37,7 +37,11 @@ The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 1. Specify the authentication method to be used to authenticate clients when they establish a VPN connection\. You must select at least one authentication method\.
    + To use user\-based authentication, select **Use user\-based authentication**, and then choose one of the following:
      + **Active Directory authentication**: Choose this option for Active Directory authentication\. For **Directory ID**, specify the ID of the Active Directory to use\.
-     + **Federated authentication**: Choose this option for SAML\-based federated authentication\. For **SAML provider ARN**, specify the ARN of the IAM SAML identity provider\.
+     + **Federated authentication**: Choose this option for SAML\-based federated authentication\. 
+
+       For **SAML provider ARN**, specify the ARN of the IAM SAML identity provider\. 
+
+       \(Optional\) For **Self\-service SAML provider ARN**, specify the ARN of the IAM SAML identity provider that you created to [support the self\-service portal](client-authentication.md#saml-self-service-support), if applicable\.
    + To use mutual certificate authentication, select **Use mutual authentication**, and then for **Client certificate ARN**, specify the ARN of the client certificate that's provisioned in AWS Certificate Manager \(ACM\)\.
 **Note**  
 If the client certificate has been issued by the same Certificate Authority \(Issuer\) as the server certificate, you can continue to use the server certificate ARN for the client certificate ARN\. If you've generated a separate client certificate and key for each user using the same CA as the server certificate, you can use the server certificate ARN\.
@@ -62,13 +66,15 @@ UDP typically offers better performance than TCP\. You cannot change the transpo
 
 1. \(Optional\) For **VPN port**, choose the VPN port number\. The default is 443\.
 
+1. \(Optional\) To generate a [self\-service portal URL](#cvpn-self-service-portal) for clients, choose **Enable self\-service portal**\.
+
 1. Choose **Create Client VPN Endpoint**\.
 
 After you create the Client VPN endpoint, do the following to complete the configuration and enable clients to connect:
 + The initial state of the Client VPN endpoint is `pending-associate`\. Clients can only connect to the Client VPN endpoint after you associate the first [target network](cvpn-working-target.md#cvpn-working-target-associate)\.
 + Create an [authorization rule](cvpn-working-rules.md) to specify which clients have access to the network\.
 + Download and prepare the Client VPN endpoint [configuration file](#cvpn-working-endpoint-export) to distribute to your clients\.
-+ Instruct your clients to use the AWS\-provided client or another OpenVPN\-based client application to connect to the Client VPN endpoint\. For more information, see the [AWS Client VPN User Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/)\.
++ Instruct your clients to use the AWS provided client or another OpenVPN\-based client application to connect to the Client VPN endpoint\. For more information, see the [AWS Client VPN User Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/)\.
 
 **To create a Client VPN endpoint \(AWS CLI\)**  
 Use the [create\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-client-vpn-endpoint.html) command\.
@@ -83,6 +89,7 @@ After a Client VPN has been created, you can modify any of the following setting
 + The split\-tunnel option
 + The VPC and security group associations
 + The VPN port number
++ The self\-service portal option
 
 You cannot modify the client IPv4 CIDR range, authentication options, or transport protocol after the Client VPN endpoint has been created\.
 
@@ -103,7 +110,7 @@ Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/r
 
 ## Export and configure the client configuration file<a name="cvpn-working-endpoint-export"></a>
 
-The Client VPN endpoint configuration file is the file that clients \(users\) use to establish a VPN connection with the Client VPN endpoint\. You must download \(export\) this file and distribute it to all clients who need access to the VPN\.
+The Client VPN endpoint configuration file is the file that clients \(users\) use to establish a VPN connection with the Client VPN endpoint\. You must download \(export\) this file and distribute it to all clients who need access to the VPN\. Alternatively, if you've enabled the self\-service portal for your Client VPN endpoint, clients can log into the portal and download the configuration file themselves\. For more information, see [Access the self\-service portal](#cvpn-self-service-portal)\.
 
 If your Client VPN endpoint uses mutual authentication, you must [add the client certificate and the client private key to the \.ovpn configuration file](#add-config-file-cert-key) that you download\. After you add the information, clients can import the \.ovpn file into the OpenVPN client software\.
 
@@ -181,6 +188,27 @@ Contents of private key (.key) file
 
 reneg-sec 0
 ```
+
+### Access the self\-service portal<a name="cvpn-self-service-portal"></a>
+
+If you enabled the self\-service portal for your Client VPN endpoint, you can provide your clients with a self\-service portal URL\. Clients can access the portal in a web browser, and use their user\-based credentials to log in\. In the portal, clients can download the Client VPN endpoint configuration file and they can download the latest version of the AWS provided client\.
+
+The following rules apply:
++ The self\-service portal is not available for clients that authenticate using mutual authentication\.
++ The configuration file that's available in the self\-service portal is the same configuration file that you export using the Amazon VPC console or AWS CLI\. If you need to customize the configuration file before distributing it to clients, you must distribute the customized file to clients yourself\.
++ You must enable the self\-service portal option for your Client VPN endpoint, or clients cannot access the portal\. If this option is not enabled, you can modify your Client VPN endpoint to enable it\.
+
+After you have enabled the self\-service portal option, provide your clients with one of the following URLs:
++ `https://self-service.clientvpn.amazonaws.com/`
+
+  If clients access the portal using this URL, they must enter the ID of the Client VPN endpoint before they can log in\.
++ `https://self-service.clientvpn.amazonaws.com/endpoints/<endpoint-id>`
+
+  Replace *<endpoint\-id>* in the preceding URL with the ID of your Client VPN endpoint, for example, `cvpn-endpoint-0123456abcd123456`\.
+
+You can also view the URL for the self\-service portal in the output of the [describe\-client\-vpn\-endpoints](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-endpoints.html) AWS CLI command\. Alternatively, the URL is available in the **Summary** tab on the **Client VPN Endpoints** page in the Amazon VPC console\.
+
+For more information about configuring the self\-service portal for use with federated authentication, see [Support for the self\-service portal](client-authentication.md#saml-self-service-support)\.
 
 ## View Client VPN endpoints<a name="cvpn-working-endpoint-view"></a>
 

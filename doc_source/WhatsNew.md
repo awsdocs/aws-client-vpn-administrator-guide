@@ -4,6 +4,7 @@ The following table describes the AWS Client VPN Administrator Guide updates\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Self\-service portal](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-endpoints.html) | You can enable a self\-service portal on your Client VPN endpoint for your clients\. | October 29, 2020 | 
 | [Client\-to\-client access](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/scenario-client-to-client.html) | You can enable clients that connect to a Client VPN endpoint to connect to each other\. | September 29, 2020 | 
 | [SAML 2\.0\-based federated authentication](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/client-authentication.html#federated-authentication) | You can authenticate Client VPN users using SAML 2\.0\-based federated authentication\. | May 19, 2020 | 
 | [Specify security groups during creation](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-endpoints.html#cvpn-working-endpoint-create) | You can specify a VPC and security groups when you create your AWS Client VPN endpoint\. | March 5, 2020 | 

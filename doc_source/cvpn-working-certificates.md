@@ -5,6 +5,8 @@ You can use client certificate revocation lists to revoke access to a Client VPN
 **Note**  
 For more information about generating the server and client certificates and keys, see [Mutual authentication](client-authentication.md#mutual)
 
+For more information about the number of entries you can add to a client certificate revocation list, see [Client VPN quotas](limits.md#quotas-endpoints)\.
+
 **Topics**
 + [Generate a client certificate revocation list](#cvpn-working-certificates-generate)
 + [Import a client certificate revocation list](#cvpn-working-certificates-import)

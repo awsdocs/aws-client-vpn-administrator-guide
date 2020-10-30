@@ -24,11 +24,11 @@ For quotas and rules for configuring users and groups in Active Directory, see [
 
 ## Mutual authentication<a name="mutual"></a>
 
-With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. The server uses client certificates to authenticate clients when they attempt to connect to the Client VPN endpoint\. 
+With mutual authentication, Client VPN uses certificates to perform authentication between the client and the server\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. The server uses client certificates to authenticate clients when they attempt to connect to the Client VPN endpoint\. You must create a server certificate and key, and at least one client certificate and key\.
 
-You must upload the server certificate to AWS Certificate Manager \(ACM\) and specify it when you create a Client VPN endpoint\. You only need to upload the client certificate to ACM when the Certificate Authority \(Issuer\) of the client certificate is different from the Certificate Authority \(Issuer\) of the server certificate\. For more information about ACM, see the [AWS Certificate Manager User Guide](https://docs.aws.amazon.com/acm/latest/userguide/)\. 
+You must upload the server certificate to AWS Certificate Manager \(ACM\) and specify it when you create a Client VPN endpoint\. When you upload the server certificate to ACM, you also specify the certificate authority \(CA\)\. You only need to upload the client certificate to ACM when the CA of the client certificate is different from the CA of the server certificate\. For more information about ACM, see the [AWS Certificate Manager User Guide](https://docs.aws.amazon.com/acm/latest/userguide/)\. 
 
-You can create a separate client certificate and key for each client that will connect to the Client VPN endpoint\. This enables you to revoke a specific client certificate if a user leaves your organization\. In this case, when you create the Client VPN endpoint, you can specify the server certificate ARN for the client certificate, provided that the client certificate has been issued by the same Certificate Authority \(Issuer\) as the server certificate\.
+You can create a separate client certificate and key for each client that will connect to the Client VPN endpoint\. This enables you to revoke a specific client certificate if a user leaves your organization\. In this case, when you create the Client VPN endpoint, you can specify the server certificate ARN for the client certificate, provided that the client certificate has been issued by the same CA as the server certificate\.
 
 A Client VPN endpoint supports 1024\-bit and 2048\-bit RSA key sizes only\.
 
@@ -117,78 +117,71 @@ The following procedure installs the OpenVPN software, and then uses it to gener
 
 1. Go to the [OpenVPN Community Downloads](https://openvpn.net/community-downloads/) page and download the Windows installer for your version of Windows\.
 
-1. Run the installer\. On the first page of the OpenVPN Setup Wizard, choose **Next**\.
+1. Run the installer\. On the first page of the OpenVPN installer, choose **Customize**\.
 
-1. On the **License Agreement** page, choose **I Agree**\.
+1. On the **Custom Installation** page, choose **EasyRSA 3 Certificate Management Scripts**, and choose **Will be installed on local hard drive**\.
 
-1. On the **Choose Components** page, choose **EasyRSA 2 Certificate Management Scripts**\. Choose **Next**, and then choose **Install**\.
+1. Choose **Install now**\.
+**Note**  
+When the installation is complete, you might get an error message that states that no readable connection profiles can be found\. You can close this message by choosing **OK**\.
 
-1. Choose **Next**, and then **Finish** to complete the installation\.
-
-1. Open the command prompt as an Administrator, navigate to the OpenVPN directory, and run `init-config`\.
+1. Open the command prompt as an Administrator, navigate to the OpenVPN directory, and run `EasyRSA-Start` to open the EasyRSA 3 shell\.
 
    ```
    C:\> cd \Program Files\OpenVPN\easy-rsa
    ```
 
    ```
-   C:\> init-config
+   C:\> EasyRSA-Start
    ```
 
-1. Open the `vars.bat` file using Notepad\.
+1. Initialize a new PKI environment\.
 
    ```
-   C:\> notepad vars.bat
-   ```
-
-1. In the file, do the following and save your changes\.
-   + For `set KEY_SIZE`, change the value to `2048`\.
-   + Provide values for the following parameters\. Do not leave any of the values blank\.
-     + KEY\_COUNTRY
-     + KEY\_PROVINCE
-     + KEY\_CITY
-     + KEY\_ORG
-     + KEY\_EMAIL
-
-1. In the command line, run the `vars.bat` file and then run `clean-all`\.
-
-   ```
-   C:\> vars
-   ```
-
-   ```
-   C:\> clean-all
+   # ./easyrsa init-pki
    ```
 
 1. Build a new certificate authority \(CA\)\.
 
    ```
-   C:\> build-ca
+   # ./easyrsa build-ca nopass
    ```
 
-   Follow the prompts to build the CA\. You can leave the default values for all of the fields\. If you prefer, you can change the Common Name to the server's domain name, for example, `server.example.com`\.
+   Follow the prompts to build the CA\.
 
 1. Generate the server certificate and key\.
 
    ```
-   C:\> build-key-server server
+   # ./easyrsa build-server-full server nopass
    ```
-
-   Follow the prompts to generate the certificate and key\. You can leave the default values for all of the fields, except Common Name\. For this field, you must specify a server domain in a domain name format\. For example, `server.example.com`\.
-
-   When prompted to sign the certificate, enter `y` for both prompts\.
 
 1. Generate the client certificate and key\.
 
    ```
-   C:\> build-key client
+   # ./easyrsa build-client-full client1.domain.tld nopass
    ```
 
-   Follow the prompts to generate the certificate and key\. You can leave the default values for all of the fields, except Common Name\. For this field, you must specify a client domain in a domain name format\. For example, `client.example.com`\.
-
-   When prompted to sign the certificate, enter `y` for both prompts\.
-
    You can optionally repeat this step for each client \(end user\) that requires a client certificate and key\.
+
+1. Exit the EasyRSA 3 shell\.
+
+   ```
+   # exit
+   ```
+
+1. Copy the server certificate and key and the client certificate and key to a custom folder and then navigate into the custom folder\.
+
+   Before you copy the certificates and keys, create the custom folder by using the `mkdir` command\. The following example creates a custom folder in your C:\\ drive\.
+
+   ```
+   C:\> mkdir C:\custom_folder
+   C:\> copy pki\ca.crt C:\custom_folder
+   C:\> copy pki\issued\server.crt C:custom_folder
+   C:\> copy pki\private\server.key C:\custom_folder
+   C:\> copy pki\issued\client1.domain.tld.crt C:\custom_folder
+   C:\> copy pki\private\client1.domain.tld.key C:\custom_folder
+   C:\> cd C:\custom_folder
+   ```
 
 1. Upload the server certificate and key and the client certificate and key to ACM\. The following commands use the AWS CLI\.
 
@@ -225,7 +218,7 @@ You do not need to create an IAM role to use the IAM SAML identity provider\.
 
 1. Create a Client VPN endpoint\. Specify federated authentication as the authentication type, and specify the IAM SAML identity provider that you created\. For more information, see [Create a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.
 
-1. Export the [client configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export) and distribute it to your users\. Instruct your users to download the latest version of the [AWS\-provided client](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/connect-aws-client-vpn-connect.html), and to use it to load the configuration file and connect to the Client VPN endpoint\.
+1. Export the [client configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export) and distribute it to your users\. Instruct your users to download the latest version of the [AWS provided client](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/connect-aws-client-vpn-connect.html), and to use it to load the configuration file and connect to the Client VPN endpoint\. Alternatively, if you enabled the self\-service portal for your Client VPN endpoint, instruct your users to go to the self\-service portal to get the configuration file and AWS provided client\. For more information, see [Access the self\-service portal](cvpn-working-endpoints.md#cvpn-self-service-portal)\.
 
 ### Authentication workflow<a name="federated-authentication-workflow"></a>
 
@@ -233,15 +226,15 @@ The following diagram provides an overview of the authentication workflow for a 
 
 ![\[Authentication workflow\]](http://docs.aws.amazon.com/vpn/latest/clientvpn-admin/images/federated-auth-workflow.png)
 
-1. The user opens the AWS\-provided client on their device and initiates a connection to the Client VPN endpoint\.
+1. The user opens the AWS provided client on their device and initiates a connection to the Client VPN endpoint\.
 
 1. The Client VPN endpoint sends an IdP URL and authentication request back to the client, based on the information that was provided in the IAM SAML identity provider\.
 
-1. The AWS\-provided client opens a new browser window on the user's device\. The browser makes a request to the IdP and displays a login page\.
+1. The AWS provided client opens a new browser window on the user's device\. The browser makes a request to the IdP and displays a login page\.
 
 1. The user enters their credentials on the login page, and the IdP sends a signed SAML assertion back to the client\.
 
-1. The AWS\-provided client sends the SAML assertion to the Client VPN endpoint\.
+1. The AWS provided client sends the SAML assertion to the Client VPN endpoint\.
 
 1. The Client VPN endpoint validates the assertion and either allows or denies access to the user\.
 
@@ -252,12 +245,12 @@ The following are the requirements and considerations for SAML\-based federated 
 + The SAML response must be signed and unencrypted\.
 + The maximum supported size for SAML responses is 128 KB\.
 + AWS Client VPN does not provide signed authentication requests\.
-+ SAML single logout is not supported\. Users can log out by disconnecting from the AWS\-provided client, or you can [terminate the connections](cvpn-working-connections.md#cvpn-working-connections-disassociate)\.
++ SAML single logout is not supported\. Users can log out by disconnecting from the AWS provided client, or you can [terminate the connections](cvpn-working-connections.md#cvpn-working-connections-disassociate)\.
 + A Client VPN endpoint supports a single IdP only\.
 + Multi\-factor authentication \(MFA\) is supported when it's enabled in your IdP\.
-+ Users must use the AWS\-provided client to connect to the Client VPN endpoint\. They must use version 1\.2\.0 or later\. For more information, see [Connect using the AWS\-provided client](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/connect-aws-client-vpn-connect.html)\.
++ Users must use the AWS provided client to connect to the Client VPN endpoint\. They must use version 1\.2\.0 or later\. For more information, see [Connect using the AWS provided client](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/connect-aws-client-vpn-connect.html)\.
 + The following browsers are supported for IdP authentication: Apple Safari, Google Chrome, Microsoft Edge, and Mozilla Firefox\.
-+ The AWS\-provided client reserves TCP port 35001 on users' devices for the SAML response\.
++ The AWS provided client reserves TCP port 35001 on users' devices for the SAML response\.
 + If the metadata document for the IAM SAML identity provider is updated with an incorrect or malicious URL, this can cause authentication issues for users, or result in phishing attacks\. Therefore, we recommend that you use AWS CloudTrail to monitor updates that are made to the IAM SAML identity provider\. For more information, see [Logging IAM and AWS STS calls with AWS CloudTrail](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html) in the *IAM User Guide*\.
 + AWS Client VPN sends an AuthN request to the IdP via an HTTP Redirect binding\. Therefore, the IdP should support HTTP Redirect binding and it should be present in the IdP's metadata document\.
 + For the SAML assertion, you must use an email address format for the `NameID` attribute\.
@@ -288,3 +281,29 @@ The following attributes are required\.
 | memberOf | The group or groups that the user belongs to\. | 
 
 Attributes are case\-sensitive, and must be configured exactly as specified\.
+
+#### Support for the self\-service portal<a name="saml-self-service-support"></a>
+
+If you enable the self\-service portal for your Client VPN endpoint, users log into the portal using their SAML\-based IdP credentials\.
+
+If your IdP supports multiple Assertion Consumer Service \(ACS\) URLs, add the following ACS URL to your app\.
+
+```
+https://self-service.clientvpn.amazonaws.com/api/auth/sso/saml
+```
+
+If your IdP does not support multiple ACS URLs, do the following: 
+
+1. Create an additional SAML\-based app in your IdP and specify the following ACS URL\.
+
+   ```
+   https://self-service.clientvpn.amazonaws.com/api/auth/sso/saml
+   ```
+
+1. Generate and download a federation metadata document\.
+
+1. Create an IAM SAML identity provider in the same AWS account as the Client VPN endpoint\. For more information, see [Creating IAM SAML Identity Providers](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml.html) in the *IAM User Guide*\. 
+**Note**  
+You create this IAM SAML identity provider in addition to the one you [create for the main app](#federated-authentication)\.
+
+1. [Create the Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create), and specify both of the IAM SAML identity providers that you created\.
