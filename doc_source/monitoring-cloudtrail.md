@@ -26,3 +26,5 @@ For more information, see the [ CloudTrail userIdentity Element](https://docs.aw
 ## Understanding Client VPN log file entries<a name="cloudtrail-entries"></a>
 
 A trail is a configuration that enables delivery of events as log files to an Amazon S3 bucket that you specify\. CloudTrail log files contain one or more log entries\. An event represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. CloudTrail log files aren't an ordered stack trace of the public API calls, so they don't appear in any specific order\.
+
+For more information, see [Logging Amazon EC2, Amazon EBS, and Amazon VPC API calls with AWS CloudTrail](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/using-cloudtrail.html) in the *Amazon EC2 API Reference*\.

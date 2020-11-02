@@ -9,5 +9,10 @@ Security is a shared responsibility between AWS and you\. The [shared responsibi
 This documentation helps you understand how to apply the shared responsibility model when using Client VPN\. The following topics show you how to configure Client VPN to meet your security and compliance objectives\. You also learn how to use other AWS services that help you to monitor and secure your Client VPN resources\. 
 
 **Topics**
++ [Data protection in AWS Client VPN](data-protection.md)
 + [Identity and access management for Client VPN](cvpn-authentication.md)
 + [Compliance validation for AWS Client VPN](client-vpn-compliance.md)
++ [Logging and monitoring](logging-monitoring.md)
++ [Resilience in AWS Client VPN](disaster-recovery-resiliency.md)
++ [Infrastructure security in AWS Client VPN](infrastructure-security.md)
++ [Security best practices for AWS Client VPN](security-best-practices.md)
