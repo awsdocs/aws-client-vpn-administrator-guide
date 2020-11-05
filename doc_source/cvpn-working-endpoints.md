@@ -50,6 +50,8 @@ If the client certificate has been issued by the same Certificate Authority \(Is
    + To enable client connection logging, choose **Yes**\. For **CloudWatch Logs log group name**, enter the name of the log group to use\. For **CloudWatch Logs log stream name**, enter the name of the log stream to use, or leave this option blank to let us create a log stream for you\.
    + To disable client connection logging, choose **No**\.
 
+1. \(Optional\) For **Client Connect Handler**, choose **Yes** to enable the [client connect handler](connection-authorization.md) to run custom code that allows or denies a new connection to the Client VPN endpoint\. For **Client Connect Handler ARN**, specify the Amazon Resource Name \(ARN\) of the Lambda function that contains the logic that allows or denies connections\.
+
 1. \(Optional\) Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use VPC DNS server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.
 **Note**  
 Verify that the DNS servers can be reached by clients\.
@@ -89,6 +91,7 @@ After a Client VPN has been created, you can modify any of the following setting
 + The split\-tunnel option
 + The VPC and security group associations
 + The VPN port number
++ The client connect handler option
 + The self\-service portal option
 
 You cannot modify the client IPv4 CIDR range, authentication options, or transport protocol after the Client VPN endpoint has been created\.

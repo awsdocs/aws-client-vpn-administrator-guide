@@ -99,3 +99,5 @@ You are billed for each client VPN connection per hour\. Billing is pro\-rated f
 For more information, see [AWS Client VPN Pricing](https://aws.amazon.com/vpn/pricing/)\.
 
 If you enable connection logging for your Client VPN endpoint, you must create a CloudWatch Logs log group in your account\. Charges apply for using log groups\. For more information, see [Amazon CloudWatch pricing](https://aws.amazon.com/cloudwatch/pricing/)\.
+
+If you enable the client connect handler for your Client VPN endpoint, you must create and invoke a Lambda function\. Charges apply for invoking Lambda functions\. For more information, see [AWS Lambda pricing](https://aws.amazon.com/lambda/pricing/)\.

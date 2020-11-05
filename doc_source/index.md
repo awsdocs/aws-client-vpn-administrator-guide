@@ -19,6 +19,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Client authentication and authorization](authentication-authorization.md)
       + [Authentication](client-authentication.md)
       + [Authorization](client-authorization.md)
+   + [Connection authorization](connection-authorization.md)
    + [Split-tunnel on AWS Client VPN endpoints](split-tunnel-vpn.md)
    + [Connection logging](connection-logging.md)
    + [Using service-linked roles for Client VPN](using-service-linked-roles.md)

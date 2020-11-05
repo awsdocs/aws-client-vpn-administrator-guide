@@ -54,5 +54,6 @@ A connection log entry contains the following keys:
 + `ingress-packets` — The number of ingress \(inbound\) packets for the connection\. This value is periodically updated in the logs\.
 + `egress-packets` — The number of egress \(outbound\) packets for the connection\. This value is periodically updated in the logs\.
 + `connection-end-time` — The end time of the connection\. The value is `NA` if the connection is still in progress or if the connection attempt failed\.
++ `posture-compliance-statuses` — The posture compliance statuses returned by the [client connect handler](connection-authorization.md), if applicable\.
 
 For more information about enabling connection logging, see [Working with connection logs](cvpn-working-with-connection-logs.md)\.
