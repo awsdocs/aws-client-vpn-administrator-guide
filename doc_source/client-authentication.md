@@ -176,7 +176,7 @@ When the installation is complete, you might get an error message that states th
    ```
    C:\> mkdir C:\custom_folder
    C:\> copy pki\ca.crt C:\custom_folder
-   C:\> copy pki\issued\server.crt C:custom_folder
+   C:\> copy pki\issued\server.crt C:\custom_folder
    C:\> copy pki\private\server.key C:\custom_folder
    C:\> copy pki\issued\client1.domain.tld.crt C:\custom_folder
    C:\> copy pki\private\client1.domain.tld.key C:\custom_folder

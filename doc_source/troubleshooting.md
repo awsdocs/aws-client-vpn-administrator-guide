@@ -62,12 +62,14 @@ I have configured authorization rules for my Active Directory groups, but they a
 **Cause**  
 Authorization rules are indexed on network CIDRs\. Authorization rules must grant Active Directory groups access to specific network CIDRs\. Authorization rules for `0.0.0.0/0` are handled as a special case, and are therefore evaluated last, regardless of the order in which the authorization rules are created\.
 
-For example, say that you create three authorization rules in the following order:
+For example, say that you create five authorization rules in the following order:
 + Rule 1: Group 1 access to `10.1.0.0/16`
-+ Rule 2: Group 1, Group 2, and Group 3 access to `0.0.0.0/0`
-+ Rule 3: Group 2 access to `172.131.0.0/16`
++ Rule 2: Group 1 access to `0.0.0.0/0`
++ Rule 3: Group 2 access to `0.0.0.0/0`
++ Rule 4: Group 3 access to `0.0.0.0/0`
++ Rule 5: Group 2 access to `172.131.0.0/16`
 
-In this example, Rule 2 is evaluated last\. Group 1 has access to `10.1.0.0/16` only, and Group 2 has access to `172.131.0.0/16` only\. Group 3 does not have access to `10.1.0.0/16` or `172.131.0.0/16`, but it has access to all other networks\. If you remove Rules 1 and 3, all three groups have access to all networks\.
+In this example, Rule 2, Rule 3, and Rule 4 are evaluated last\. Group 1 has access to `10.1.0.0/16` only, and Group 2 has access to `172.131.0.0/16` only\. Group 3 does not have access to `10.1.0.0/16` or `172.131.0.0/16`, but it has access to all other networks\. If you remove Rules 1 and 5, all three groups have access to all networks\.
 
 In addition, Client VPN uses longest prefix matching when evaluating authorization rules\.
 

@@ -22,6 +22,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Connection authorization](connection-authorization.md)
    + [Split-tunnel on AWS Client VPN endpoints](split-tunnel-vpn.md)
    + [Connection logging](connection-logging.md)
+   + [Client VPN scaling considerations](scaling-considerations.md)
 + [Scenarios and examples](scenario.md)
    + [Access to a VPC](scenario-vpc.md)
    + [Access to a peered VPC](scenario-peered.md)

@@ -8,7 +8,8 @@ The following quotas apply to Client VPN\. Unless indicated otherwise, you can r
 + Number of Client VPN endpoints per Region: 5
 + Number of authorization rules per Client VPN endpoint: 50
 + Number of routes per Client VPN endpoint: 10
-+ Number of concurrent client connections per Client VPN endpoint: 20,000
++ Number of concurrent client connections per Client VPN endpoint: This value depends on the number of subnet associations per Client VPN endpoint\.    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/vpn/latest/clientvpn-admin/limits.html)
 + Number of entries in a client certificate revocation list: 20,000
 
   This quota cannot be increased\.
