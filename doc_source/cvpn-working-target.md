@@ -24,6 +24,11 @@ The following rules apply:
 
 When you associate a subnet with a Client VPN endpoint, we automatically add the local route of the VPC in which the associated subnet is provisioned to the Client VPN endpoint's route table\.
 
+**Note**  
+After your target networks are associated, when you add or remove additional CIDRs to your attached VPC, you must perform one of the following operations to update the local route for your Client VPN endpoint route table:  
+Disassociate your Client VPN endpoint from the target network, and then associate the Client VPN endpoint to the target network\.
+Manually add the route to, or remove the route from the Client VPN endpoint route table\.
+
 After you associate the first subnet with the Client VPN endpoint, the Client VPN endpoint's status changes from `pending-associate` to `available` and clients are able to establish a VPN connection\.
 
 **To associate a target network with a Client VPN endpoint \(console\)**

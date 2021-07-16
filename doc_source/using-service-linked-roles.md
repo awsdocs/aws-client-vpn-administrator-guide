@@ -29,7 +29,7 @@ AWS Client VPN uses the service\-linked role named **AWSServiceRoleForClientVPN*
 
 The **AWSServiceRoleForClientVPN** service\-linked role trusts the clientvpn\.amazonaws\.com principal to assume the role\.
 
-If you use the client connect handler for your Client VPN endpoint, Client VPN uses a service\-linked role called **AWSServiceRoleForClientVPNConnections** to call the `lambda:InvokeFunction` action on your behalf\. For more information, see [Connection authorization](connection-authorization.md)\.
+If you use the client connect handler for your Client VPN endpoint, Client VPN uses a service\-linked role called **AWSServiceRoleForClientVPNConnections**\. This role gets permissions from the **ClientVPNServiceConnectionsRolePolicy** policy that allows Client VPN to invoke Lambda functions on your behalf\. The policy allows the `lambda:InvokeFunction` action only on Lambda functions with the `AWSClientVPN-` prefix\. For more information, see [Connection authorization](connection-authorization.md)\.
 
 ## Creating service\-linked roles for Client VPN<a name="create-slr"></a>
 

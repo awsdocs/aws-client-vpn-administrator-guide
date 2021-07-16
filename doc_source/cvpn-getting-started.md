@@ -165,6 +165,8 @@ The final step is to download and prepare the Client VPN endpoint configuration 
 1. Prepend a random string to the Client VPN endpoint DNS name\. Locate the line that specifies the Client VPN endpoint DNS name, and prepend a random string to it so that the format is *random\_string\.displayed\_DNS\_name*\. For example:
    + Original DNS name: `cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
    + Modified DNS name: `asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
+**Note**  
+It is recommended to always use the DNS name provided for the Client VPN endpoint in your configuration file, as described above\. The IP addresses the DNS name will resolve to are subject to change\. 
 
 1. Save and close the Client VPN endpoint configuration file\.
 

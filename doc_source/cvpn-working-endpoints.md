@@ -24,7 +24,7 @@ Before you begin, ensure that you do the following:
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 
-1. In the navigation pane, choose **Client VPN Endpoints** and then choose **Create Client VPN Endpoint\.**
+1. In the navigation pane, choose **Client VPN Endpoints**\.
 
 1. \(Optional\) For **Description**, enter a brief description for the Client VPN endpoint\.
 
@@ -34,7 +34,7 @@ Before you begin, ensure that you do the following:
 **Note**  
 The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
 
-1. Specify the authentication method to be used to authenticate clients when they establish a VPN connection\. You must select at least one authentication method\.
+1. Specify the authentication method to be used to authenticate clients when they establish a VPN connection\. You must select an authentication method\.
    + To use user\-based authentication, select **Use user\-based authentication**, and then choose one of the following:
      + **Active Directory authentication**: Choose this option for Active Directory authentication\. For **Directory ID**, specify the ID of the Active Directory to use\.
      + **Federated authentication**: Choose this option for SAML\-based federated authentication\. 
@@ -96,6 +96,15 @@ After a Client VPN has been created, you can modify any of the following setting
 
 You cannot modify the client IPv4 CIDR range, authentication options, or transport protocol after the Client VPN endpoint has been created\.
 
+When you modify any of the following parameters on a Client VPN endpoint, the connection resets:
++ The server certificate
++ The DNS servers
++ The split\-tunnel option \(turning support on or off\)
++ Routes \(when you use the split\-tunnel option\)
++  Certificate Revocation List \(CRL\)
++ Authorization rules
++ The VPN port number
+
 You can modify a Client VPN endpoint by using the console or the AWS CLI\. 
 
 **To modify a Client VPN endpoint \(console\)**
@@ -106,7 +115,35 @@ You can modify a Client VPN endpoint by using the console or the AWS CLI\.
 
 1. Select the Client VPN endpoint to modify, choose **Actions**, and then choose **Modify Client VPN Endpoint**\.
 
-1. Make the required changes and choose **Modify Client VPN Endpoint**\.
+1. For **Description**, enter a brief description for the Client VPN endpoint\.
+
+1. For **Client IPv4 CIDR**, specify an IP address range, in CIDR notation, from which to assign client IP addresses\.
+
+1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\.
+**Note**  
+The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
+
+1. Specify whether to log data about client connections using Amazon CloudWatch Logs\. For **Do you want to log the details on client connections?**, do one of the following:
+   + To enable client connection logging, choose **Yes**\. For **CloudWatch Logs log group name**, enter the name of the log group to use\. For **CloudWatch Logs log stream name**, enter the name of the log stream to use, or leave this option blank to let us create a log stream for you\.
+   + To disable client connection logging, choose **No**\.
+
+1. For **Client Connect Handler**, choose **Yes** to enable the [client connect handler](connection-authorization.md) to run custom code that allows or denies a new connection to the Client VPN endpoint\. For **Client Connect Handler ARN**, specify the Amazon Resource Name \(ARN\) of the Lambda function that contains the logic that allows or denies connections\.
+
+1. Specify which DNS servers to use for DNS resolution\. To use custom DNS servers, for **DNS Server 1 IP address** and **DNS Server 2 IP address**, specify the IP addresses of the DNS servers to use\. To use VPC DNS server, for either **DNS Server 1 IP address** or **DNS Server 2 IP address**, specify the IP addresses, and add the VPC DNS server IP address\.
+**Note**  
+Verify that the DNS servers can be reached by clients\.
+
+1. To have the endpoint be a split\-tunnel VPN endpoint, select **Enable split\-tunnel**\.
+
+   By default, split\-tunnel on a VPN endpoint is disabled\.
+
+1. \(For **VPC ID**, choose the VPC to associate with the Client VPN endpoint\. For **Security Group IDs**, choose one or more of the VPC's security groups to apply to the Client VPN endpoint\.
+
+1. For **VPN port**, choose the VPN port number\. The default is 443\.
+
+1. To generate a [self\-service portal URL](#cvpn-self-service-portal) for clients, choose **Enable self\-service portal**\.
+
+1. Choose **Modify Client VPN Endpoint**\.
 
 **To modify a Client VPN endpoint \(AWS CLI\)**  
 Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-client-vpn-endpoint.html) command\.
@@ -146,6 +183,8 @@ $ aws ec2 export-client-vpn-client-configuration --client-vpn-endpoint-id endpoi
 ### Add the client certificate and key information \(mutual authentication\)<a name="add-config-file-cert-key"></a>
 
 If your Client VPN endpoint uses mutual authentication, you must add the client certificate and the client private key to the \.ovpn configuration file that you download\.
+
+You cannot modify the client certificate when you use mutual authentication\.
 
 **To add the client certificate and key information \(mutual authentication\)**  
 You can use one of the following options\.
@@ -226,6 +265,8 @@ You can view information about Client VPN endpoints by using the console or the 
 1. Select the Client VPN endpoint to view\.
 
 1. Use tabs to view the associated target networks, authorization rules, routes, and client connections\.
+
+   You can use filters to help refine your search\.
 
 **To view Client VPN endpoints using the AWS CLI**  
 Use the [describe\-client\-vpn\-endpoints](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-endpoints.html) command\.

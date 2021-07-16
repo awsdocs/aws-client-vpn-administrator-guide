@@ -2,6 +2,8 @@
 
 AWS Client VPN is a managed client\-based VPN service that enables you to securely access your AWS resources and resources in your on\-premises network\. With Client VPN, you can access your resources from any location using an OpenVPN\-based VPN client\.
 
+
+
 **Topics**
 + [Features of Client VPN](#what-is-features)
 + [Components of Client VPN](#what-is-components)
@@ -69,7 +71,7 @@ The AWS CLI provides direct access to the Client VPN public APIs\. It is support
 AWS provides commands for a broad set of AWS offerings for those who script in the PowerShell environment\. For more information about getting started with the AWS Tools for Windows PowerShell, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\. For more information about the cmdlets for Client VPN, see the [AWS Tools for Windows PowerShell Cmdlet Reference](https://docs.aws.amazon.com/powershell/latest/reference/)\.
 
 **Query API**  
-The Client VPN HTTPS Query API gives you programmatic access to Client VPN and AWS\. The HTTPS Query API lets you issue HTTPS requests directly to the service\. When you use the HTTPS API, you must include code to digitally sign requests using your credentials\. For more information, see the [Client VPN API Reference]()\.
+The Client VPN HTTPS Query API gives you programmatic access to Client VPN and AWS\. The HTTPS Query API lets you issue HTTPS requests directly to the service\. When you use the HTTPS API, you must include code to digitally sign requests using your credentials\. For more information, see the [AWS Client VPN actions](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/OperationList-query-cvpn.html)\.
 
 ## Limitations and rules of Client VPN<a name="what-is-limitations"></a>
 
@@ -89,6 +91,7 @@ Client VPN has the following rules and limitations:
   SCRV1:<base64_encoded_string>:<base64_encoded_string>
   ```
 + The self\-service portal is not available for clients that authenticate using mutual authentication\.
++ It is not recommended to connect to the Client VPN endpoint by using IP addresses\. Since Client VPN is a managed service, you will occasionally see the IP addresses the DNS name resolves to change\. In addition, you will see Client VPN network interfaces deleted and recreated in your Cloud Trail logs as well and this is expected behavior\. It is recommended to connect to the Client VPN endpoint using the DNS name provided\. 
 
 ## Pricing for Client VPN<a name="what-is-pricing"></a>
 

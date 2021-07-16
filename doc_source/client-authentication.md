@@ -55,13 +55,11 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    $ ./easyrsa init-pki
    ```
 
-1. Build a new certificate authority \(CA\)\.
+1. To build a new certificate authority \(CA\), run this command and follow the prompts\.
 
    ```
    $ ./easyrsa build-ca nopass
    ```
-
-   Follow the prompts to build the CA\.
 
 1. Generate the server certificate and key\.
 
@@ -93,20 +91,17 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    $ cd ~/custom_folder/
    ```
 
-1. Upload the server certificate and key and the client certificate and key to ACM\. The following commands use the AWS CLI\.
+1. Upload the server certificate and key and the client certificate and key to ACM\. Be sure to upload them in the same Region in which you intend to create the Client VPN endpoint\. The following commands use the AWS CLI to upload the certificates\. To upload the certificates using the ACM console instead, see [Import a certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
 
    ```
-   $ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt --region region
+   $ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
    ```
 
    ```
-   $ aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt --region region
+   $ aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt
    ```
 
-   To upload the certificates using the ACM console, see [Import a Certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
-**Note**  
-Be sure to upload the certificates and keys in the same Region in which you intend to create the Client VPN endpoint\.  
-You only need to upload the client certificate to ACM when the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.
+   You do not need to upload the client certificate to ACM unless the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.
 
 ------
 #### [ Windows ]
@@ -115,24 +110,14 @@ The following procedure installs the OpenVPN software, and then uses it to gener
 
 **To generate the server and client certificates and keys and upload them to ACM**
 
-1. Go to the [OpenVPN Community Downloads](https://openvpn.net/community-downloads/) page and download the Windows installer for your version of Windows\.
+1. Open the [OpenVPN Community Downloads](https://openvpn.net/community-downloads/) page, download the Windows installer for your version of Windows, and run the installer\.
 
-1. Run the installer\. On the first page of the OpenVPN installer, choose **Customize**\.
+1. Open the [EasyRSA releases](https://github.com/OpenVPN/easy-rsa/releases) page and download the ZIP file for your version of Windows\. Extract the ZIP file and copy the `EasyRSA` folder to the `\Program Files\OpenVPN` folder\.
 
-1. On the **Custom Installation** page, choose **EasyRSA 3 Certificate Management Scripts**, and choose **Will be installed on local hard drive**\.
-
-1. Choose **Install now**\.
-**Note**  
-When the installation is complete, you might get an error message that states that no readable connection profiles can be found\. You can close this message by choosing **OK**\.
-
-1. Open the command prompt as an Administrator, navigate to the OpenVPN directory, and run `EasyRSA-Start` to open the EasyRSA 3 shell\.
+1. Open the command prompt as an Administrator, navigate to the `\Program Files\OpenVPN\EasyRSA` directory, and run the following command to open the EasyRSA 3 shell\.
 
    ```
-   C:\> cd \Program Files\OpenVPN\easy-rsa
-   ```
-
-   ```
-   C:\> EasyRSA-Start
+   C:\Program Files\OpenVPN\EasyRSA> EasyRSA-Start
    ```
 
 1. Initialize a new PKI environment\.
@@ -141,13 +126,11 @@ When the installation is complete, you might get an error message that states th
    # ./easyrsa init-pki
    ```
 
-1. Build a new certificate authority \(CA\)\.
+1. To build a new certificate authority \(CA\), run this command and follow the prompts\.
 
    ```
    # ./easyrsa build-ca nopass
    ```
-
-   Follow the prompts to build the CA\.
 
 1. Generate the server certificate and key\.
 
@@ -174,29 +157,26 @@ When the installation is complete, you might get an error message that states th
    Before you copy the certificates and keys, create the custom folder by using the `mkdir` command\. The following example creates a custom folder in your C:\\ drive\.
 
    ```
-   C:\> mkdir C:\custom_folder
-   C:\> copy pki\ca.crt C:\custom_folder
-   C:\> copy pki\issued\server.crt C:\custom_folder
-   C:\> copy pki\private\server.key C:\custom_folder
-   C:\> copy pki\issued\client1.domain.tld.crt C:\custom_folder
-   C:\> copy pki\private\client1.domain.tld.key C:\custom_folder
-   C:\> cd C:\custom_folder
+   C:\Program Files\OpenVPN\EasyRSA> mkdir C:\custom_folder
+   C:\Program Files\OpenVPN\EasyRSA> copy pki\ca.crt C:\custom_folder
+   C:\Program Files\OpenVPN\EasyRSA> copy pki\issued\server.crt C:\custom_folder
+   C:\Program Files\OpenVPN\EasyRSA> copy pki\private\server.key C:\custom_folder
+   C:\Program Files\OpenVPN\EasyRSA> copy pki\issued\client1.domain.tld.crt C:\custom_folder
+   C:\Program Files\OpenVPN\EasyRSA> copy pki\private\client1.domain.tld.key C:\custom_folder
+   C:\Program Files\OpenVPN\EasyRSA> cd C:\custom_folder
    ```
 
-1. Upload the server certificate and key and the client certificate and key to ACM\. The following commands use the AWS CLI\.
+1. Upload the server certificate and key and the client certificate and key to ACM\. Be sure to upload them in the same Region in which you intend to create the Client VPN endpoint\. The following commands use the AWS CLI to upload the certificates\. To upload the certificates using the ACM console instead, see [Import a certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
 
    ```
-   C:\> aws acm import-certificate --certificate fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\server.crt" --private-key fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\server.key" --certificate-chain fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\ca.crt" --region region
+   aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
    ```
 
    ```
-   C:\> aws acm import-certificate --certificate fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\client.crt" --private-key fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\client.key" --certificate-chain fileb://"C:\Program Files\OpenVPN\easy-rsa\keys\ca.crt"  --region region
+   aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt
    ```
 
-   To upload the certificates using the ACM console, see [Import a Certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
-**Note**  
-Be sure to upload the certificates and keys in the same Region in which you intend to create the Client VPN endpoint\.  
-You only need to upload the client certificate to ACM when the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.
+   You do not need to upload the client certificate to ACM unless the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.
 
 ------
 
@@ -263,6 +243,7 @@ The following table lists the SAML\-based IdPs that we have tested for use with 
 | IdP | Resource | 
 | --- | --- | 
 | Okta | [Authenticate AWS Client VPN users with SAML](https://aws.amazon.com/blogs/networking-and-content-delivery/authenticate-aws-client-vpn-users-with-saml/) | 
+| Microsoft Azure Active Directory | For more information, see [Tutorial: Azure Active Directory single sign\-on \(SSO\) integration with AWS ClientVPN](https://docs.microsoft.com/en-gb/azure/active-directory/saas-apps/aws-clientvpn-tutorial) on the Microsoft documentation website\. | 
 
 #### Service provider information for creating an app<a name="saml-config-service-provider-info"></a>
 
@@ -290,6 +271,12 @@ If your IdP supports multiple Assertion Consumer Service \(ACS\) URLs, add the f
 
 ```
 https://self-service.clientvpn.amazonaws.com/api/auth/sso/saml
+```
+
+If you are using the Client VPN endpoint in a GovCloud region, use the following ACS URL instead\. If you use the same IDP app to authenticate for both standard and GovCloud regions, you can add both URLs\.
+
+```
+https://gov.self-service.clientvpn.amazonaws.com/api/auth/sso/saml
 ```
 
 If your IdP does not support multiple ACS URLs, do the following: 

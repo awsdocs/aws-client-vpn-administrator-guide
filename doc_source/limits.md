@@ -1,6 +1,6 @@
 # AWS Client VPN quotas<a name="limits"></a>
 
-Your AWS account has the following quotas related to Client VPN endpoints\.
+Your AWS account has the following quotas related to Client VPN endpoints\. Unless indicated otherwise, you can [request an increase](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=vpc) for these quotas\. For some of these quotas, you can view your current quota using the **Limits** page of the Amazon EC2 console\.
 
 ## Client VPN quotas<a name="quotas-endpoints"></a>
 
@@ -22,6 +22,9 @@ The following quotas apply to Client VPN\. Unless indicated otherwise, you can r
   + Creating or deleting security groups
 
   This quota cannot be increased\.
++ Default Client VPN disconnect timeout: 24 hours
+
+  This quota cannot be modified or increased\.
 
 ## Users and groups quotas<a name="quotas-users-groups"></a>
 

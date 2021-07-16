@@ -11,7 +11,7 @@ Currently, the only type of client connect handler that is supported is a Lambda
 
 The following are the requirements and considerations for the client connect handler:
 + The name of the Lambda function must begin with the `AWSClientVPN-` prefix\.
-+ Lambda function versions are not supported\. When you specify the Lambda function in your Client VPN endpoint, you must specify an [unqualified Amazon Resource Name \(ARN\)](https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html#versioning-versions-using)\.
++ Qualified Lambda functions are supported\. 
 + The Lambda function must be in the same AWS Region and the same AWS account as the Client VPN endpoint\.
 + The Lambda function times out after 30 seconds\. This value cannot be changed\.
 + The Lambda function is invoked synchronously\. It's invoked after device and user authentication, and before the authorization rules are evaluated\.
@@ -37,7 +37,8 @@ The Lambda function takes a JSON blob containing the following fields as input\.
     "platform-version": <OS version>,
     "public-ip": <public IP address>,
     "client-openvpn-version": <client OpenVPN version>,
-    "schema-version": "v1"
+    "groups": <group identifier>,
+    "schema-version": "v2"
 }
 ```
 + `connection-id` — The ID of the client connection to the Client VPN endpoint\.
@@ -48,7 +49,8 @@ The Lambda function takes a JSON blob containing the following fields as input\.
 + `platform-version` — The version of the operating system\. The Client VPN service provides a value when the `--push-peer-info` directive is present in the OpenVPN client configuration when clients connect to a Client VPN endpoint, and when the client is running the Windows platform\.
 + `public-ip` — The public IP address of the connecting device\.
 + `client-openvpn-version` — The OpenVPN version that the client is using\.
-+ `schema-version` — The schema version\. The default is `v1`\.
++ `groups` — The group identifier, if applicable\. For Active Directory authentication, this will be a list of Active Directory groups\. For SAML\-based federated authentication, this will be a list of identity provider \(IdP\) groups\. For mutual authentication, this field is empty\.
++ `schema-version` — The schema version\. The default is `v2`\.
 
 **Response schema**  
 The Lambda function must return the following fields\.
@@ -56,19 +58,19 @@ The Lambda function must return the following fields\.
 ```
 {
     "allow": boolean,
-    "error-msg-on-failed-posture-compliance": "",
+    "error-msg-on-denied-connection": "",
     "posture-compliance-statuses": [],
-    "schema-version": "v1"
+    "schema-version": "v2"
 }
 ```
 + `allow` — Required\. A boolean \(`true` \| `false`\) that indicates whether to allow or deny the new connection\.
-+ `error-msg-on-failed-posture-compliance` — Required\. A string of up to 255 characters that can be used to provide steps and guidance to clients if the connection is denied by the Lambda function\. In the event of failures during the running of the Lambda function \(for example, due to throttling\) the following default message is returned to clients\.
++ `error-msg-on-denied-connection` — Required\. A string of up to 255 characters that can be used to provide steps and guidance to clients if the connection is denied by the Lambda function\. In the event of failures during the running of the Lambda function \(for example, due to throttling\) the following default message is returned to clients\.
 
   ```
   Error establishing connection. Please contact your administrator.
   ```
 + `posture-compliance-statuses` — Required\. If you use the Lambda function for [posture assessment](#connection-authorization-posture-assessment), this is a list of statuses for the connecting device\. You define the status names according to your posture assessment categories for devices, for example, `compliant`, `quarantined`, `unknown`, and so on\. Each name can be up to 255 characters in length\. You can specify up to 10 statuses\.
-+ `schema-version` — Required\. The schema version\. The default is `v1`\.
++ `schema-version` — Required\. The schema version\. The default is `v2`\.
 
 You can use the same Lambda function for multiple Client VPN endpoints in the same Region\.
 
