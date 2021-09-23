@@ -15,3 +15,4 @@ This documentation helps you understand how to apply the shared responsibility m
 + [Resilience in AWS Client VPN](disaster-recovery-resiliency.md)
 + [Infrastructure security in AWS Client VPN](infrastructure-security.md)
 + [Security best practices for AWS Client VPN](security-best-practices.md)
++ [IPv6 Considerations](ipv6-considerations.md)

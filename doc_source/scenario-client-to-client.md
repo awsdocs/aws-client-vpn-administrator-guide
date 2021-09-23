@@ -9,6 +9,9 @@ Before you begin, do the following:
 + Identify a suitable CIDR range for the client IP addresses that does not overlap with the VPC CIDR\. 
 + Review the rules and limitations for Client VPN endpoints in [Limitations and rules of Client VPN](what-is.md#what-is-limitations)\.
 
+**Note**  
+Network\-based authorization rules using Active Directory groups or SAML\-based IdP groups are not supported in this scenario\.
+
 **To implement this configuration**
 
 1. Create a Client VPN endpoint in the same Region as the VPC\. To do this, perform the steps described in [Create a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.

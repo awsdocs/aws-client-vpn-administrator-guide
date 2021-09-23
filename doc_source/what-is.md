@@ -55,7 +55,7 @@ When you associate a subnet with your Client VPN endpoint, we create Client VPN 
 You can enable connection logging for your Client VPN endpoint to log connection events\. You can use this information to run forensics, analyze how your Client VPN endpoint is being used, or debug connection issues\.
 
 **Self\-service portal**  
-You can enable a self\-service portal for your Client VPN endpoint\. Clients can log into the web\-based portal using their credentials and download the latest version of the Client VPN endpoint configuration file, or the latest version of the AWS provided client\.
+Client VPN provides a self\-service portal as a web page to end users to download the latest version of the AWS VPN Desktop Client and the latest version of the Client VPN endpoint configuration file, which contains the settings required to connect to their endpoint\. The Client VPN endpoint administrator can enable or disable the self\-service portal for the Client VPN endpoint\. Self\-service portal is a Global service backed by service stacks in the Asia Pacific \(Tokyo\), US East \(N\. Virginia\), and Europe \(Ireland\) Regions, and in AWS GovCloud \(US\-West\)\.
 
 ## Working with Client VPN<a name="what-is-access"></a>
 
@@ -83,7 +83,7 @@ Client VPN has the following rules and limitations:
 + The subnets associated with a Client VPN endpoint must be in the same VPC\.
 + You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\. 
 + A Client VPN endpoint does not support subnet associations in a dedicated tenancy VPC\.
-+ Client VPN supports IPv4 traffic only\.
++ Client VPN supports IPv4 traffic only\. See [IPv6 Considerations](ipv6-considerations.md) for details regarding IPv6\.
 + Client VPN is not Federal Information Processing Standards \(FIPS\) compliant\.
 + If multi\-factor authentication \(MFA\) is disabled for your Active Directory, a user password cannot be in the following format\.
 

@@ -47,6 +47,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Resilience in AWS Client VPN](disaster-recovery-resiliency.md)
    + [Infrastructure security in AWS Client VPN](infrastructure-security.md)
    + [Security best practices for AWS Client VPN](security-best-practices.md)
+   + [IPv6 Considerations](ipv6-considerations.md)
 + [Monitoring Client VPN](monitoring-overview.md)
    + [Monitoring with Amazon CloudWatch](monitoring-cloudwatch.md)
    + [Monitoring with AWS CloudTrail](monitoring-cloudtrail.md)
