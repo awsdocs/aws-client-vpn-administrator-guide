@@ -244,6 +244,7 @@ The following table lists the SAML\-based IdPs that we have tested for use with 
 | --- | --- | 
 | Okta | [Authenticate AWS Client VPN users with SAML](https://aws.amazon.com/blogs/networking-and-content-delivery/authenticate-aws-client-vpn-users-with-saml/) | 
 | Microsoft Azure Active Directory | For more information, see [Tutorial: Azure Active Directory single sign\-on \(SSO\) integration with AWS ClientVPN](https://docs.microsoft.com/en-gb/azure/active-directory/saas-apps/aws-clientvpn-tutorial) on the Microsoft documentation website\. | 
+| JumpCloud | [Single Sign On (SSO) with AWS Client VPN](https://support.jumpcloud.com/support/s/article/Single-Sign-On-SSO-with-AWS-Client-VPN) |
 
 #### Service provider information for creating an app<a name="saml-config-service-provider-info"></a>
 
