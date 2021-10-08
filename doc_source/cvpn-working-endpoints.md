@@ -180,6 +180,12 @@ Use the [export\-client\-vpn\-client\-configuration](https://docs.aws.amazon.com
 $ aws ec2 export-client-vpn-client-configuration --client-vpn-endpoint-id endpoint_id --output text>config_filename.ovpn
 ```
 
+### Prepend random string to the endpoint DNS name
+
+Prepend a random string to the Client VPN endpoint DNS name\. Locate the line that specifies the Client VPN endpoint DNS name, and prepend a random string to it so that the format is *random\_string\.displayed\_DNS\_name*\. For example:
+   + Original DNS name: `cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
+   + Modified DNS name: `asdfa.cvpn-endpoint-0102bc4c2eEXAMPLE.prod.clientvpn.us-west-2.amazonaws.com`
+
 ### Add the client certificate and key information \(mutual authentication\)<a name="add-config-file-cert-key"></a>
 
 If your Client VPN endpoint uses mutual authentication, you must add the client certificate and the client private key to the \.ovpn configuration file that you download\.
