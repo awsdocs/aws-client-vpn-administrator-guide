@@ -154,10 +154,10 @@ The following procedure installs the OpenVPN software, and then uses it to gener
 
 1. Copy the server certificate and key and the client certificate and key to a custom folder and then navigate into the custom folder\.
 
-   Before you copy the certificates and keys, create the custom folder by using the `mkdir` command\. The following example creates a custom folder in your C:\\ drive\.
+   Before you copy the certificates and keys, create the custom folder by using the `md` command\. The following example creates a custom folder in your C:\\ drive\.
 
    ```
-   C:\Program Files\OpenVPN\EasyRSA> mkdir C:\custom_folder
+   C:\Program Files\OpenVPN\EasyRSA> md C:\custom_folder
    C:\Program Files\OpenVPN\EasyRSA> copy pki\ca.crt C:\custom_folder
    C:\Program Files\OpenVPN\EasyRSA> copy pki\issued\server.crt C:\custom_folder
    C:\Program Files\OpenVPN\EasyRSA> copy pki\private\server.key C:\custom_folder
