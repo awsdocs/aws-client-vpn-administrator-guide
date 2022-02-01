@@ -4,6 +4,9 @@ Each Client VPN endpoint has a route table that describes the available destinat
 
 When you associate a subnet from a VPC with a Client VPN endpoint, a route for the VPC is automatically added to the Client VPN endpoint's route table\. To enable access for additional networks, such as peered VPCs, on\-premises networks, the local network \(to enable clients to communicate with each other\), or the internet, you must manually add a route to the Client VPN endpoint's route table\.
 
+**Note**  
+If you are associating multiple subnets to the Client VPN endpoint, you should make sure to create a route for each subnet as described here [Access to a peered VPC, Amazon S3, or the internet is intermittent](troubleshooting.md#intermittent-access)\. Each associated subnet should have an identical set of routes\.
+
 **Topics**
 + [Split\-tunnel on Client VPN endpoint considerations](#split-tunnel-routes)
 + [Create an endpoint route](#cvpn-working-routes-create)

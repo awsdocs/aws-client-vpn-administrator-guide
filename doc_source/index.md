@@ -39,6 +39,8 @@ Amazon's trademarks and trade dress may not be used in
    + [Client certificate revocation lists](cvpn-working-certificates.md)
    + [Client connections](cvpn-working-connections.md)
    + [Working with connection logs](cvpn-working-with-connection-logs.md)
+   + [Client login banner](cvpn-working-login-banner.md)
+   + [VPN session maximum duration](cvpn-working-max-duration.md)
 + [Security in AWS Client VPN](security.md)
    + [Data protection in AWS Client VPN](data-protection.md)
    + [Identity and access management for Client VPN](cvpn-authentication.md)

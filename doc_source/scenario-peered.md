@@ -2,6 +2,9 @@
 
 The configuration for this scenario includes a target VPC \(VPC A\) that is peered with an additional VPC \(VPC B\)\. We recommend this configuration if you need to give clients access to the resources inside a target VPC and other VPCs that are peered with it \(such as VPC B\)\.
 
+**Note**  
+The procedure for allowing access to a peered VPC outlined below, is only required if the Client VPN endpoint was configured for split\-tunnel mode\. In full\-tunnel mode, access to the peered VPC would be allowed by default\.
+
 ![\[Client VPN accessing a peer VPC\]](http://docs.aws.amazon.com/vpn/latest/clientvpn-admin/images/client-vpn-scenario-peer-vpc.png)
 
 Before you begin, do the following:

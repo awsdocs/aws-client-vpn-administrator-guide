@@ -24,7 +24,7 @@ Before you begin, ensure that you do the following:
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 
-1. In the navigation pane, choose **Client VPN Endpoints**\.
+1. In the navigation pane, choose **Client VPN Endpoints** and then choose **Create Client VPN Endpoint**\.
 
 1. \(Optional\) For **Description**, enter a brief description for the Client VPN endpoint\.
 
@@ -32,7 +32,7 @@ Before you begin, ensure that you do the following:
 
 1. For **Server certificate ARN**, specify the ARN for the TLS certificate to be used by the server\. Clients use the server certificate to authenticate the Client VPN endpoint to which they are connecting\.
 **Note**  
-The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
+The server certificate must be present in AWS Certificate Manager \(ACM\) in the region you are creating the Client VPN endpoint\. The certificate can either be provisioned with ACM or imported into ACM\.
 
 1. Specify the authentication method to be used to authenticate clients when they establish a VPN connection\. You must select an authentication method\.
    + To use user\-based authentication, select **Use user\-based authentication**, and then choose one of the following:
@@ -44,7 +44,7 @@ The server certificate must be provisioned in AWS Certificate Manager \(ACM\)\.
        \(Optional\) For **Self\-service SAML provider ARN**, specify the ARN of the IAM SAML identity provider that you created to [support the self\-service portal](client-authentication.md#saml-self-service-support), if applicable\.
    + To use mutual certificate authentication, select **Use mutual authentication**, and then for **Client certificate ARN**, specify the ARN of the client certificate that's provisioned in AWS Certificate Manager \(ACM\)\.
 **Note**  
-If the client certificate has been issued by the same Certificate Authority \(Issuer\) as the server certificate, you can continue to use the server certificate ARN for the client certificate ARN\. If you've generated a separate client certificate and key for each user using the same CA as the server certificate, you can use the server certificate ARN\.
+If the server and client certificates have been issued by the same Certificate Authority \(CA\), you can use the server certificate ARN for both server and client\. If the client certificate was issued by a different CA, then the client certificate ARN should be specified\.
 
 1. Specify whether to log data about client connections using Amazon CloudWatch Logs\. For **Do you want to log the details on client connections?**, do one of the following:
    + To enable client connection logging, choose **Yes**\. For **CloudWatch Logs log group name**, enter the name of the log group to use\. For **CloudWatch Logs log stream name**, enter the name of the log stream to use, or leave this option blank to let us create a log stream for you\.
@@ -56,19 +56,25 @@ If the client certificate has been issued by the same Certificate Authority \(Is
 **Note**  
 Verify that the DNS servers can be reached by clients\.
 
-1. \(Optional\) To have the endpoint be a split\-tunnel VPN endpoint, select **Enable split\-tunnel**\.
-
-   By default, split\-tunnel on a VPN endpoint is disabled\.
-
 1. \(Optional\) By default, the Client VPN server uses the `UDP` transport protocol\. To use the `TCP` transport protocol instead, for **Transport Protocol**, select **TCP**\.
 **Note**  
 UDP typically offers better performance than TCP\. You cannot change the transport protocol after you create the Client VPN endpoint\.
+
+1. \(Optional\) To have the endpoint be a split\-tunnel Client VPN endpoint, select **Enable split\-tunnel**\.
+
+   By default, split\-tunnel on a Client VPN endpoint is disabled\.
 
 1. \(Optional\) For **VPC ID**, choose the VPC to associate with the Client VPN endpoint\. For **Security Group IDs**, choose one or more of the VPC's security groups to apply to the Client VPN endpoint\.
 
 1. \(Optional\) For **VPN port**, choose the VPN port number\. The default is 443\.
 
 1. \(Optional\) To generate a [self\-service portal URL](#cvpn-self-service-portal) for clients, choose **Enable self\-service portal**\.
+
+1. \(Optional\) For **Session timeout hours**, choose the desired maximum VPN session duration time in hours from the available options, or leave set to default of 24 hours\.
+
+1. Specify whether to enable client login banner text\. For **Do you want to enable Client Login Banner?**, do one of the following:
+   + To enable client login banner text, choose **Yes**\. Then for **Client Login Banner Text** enter the text that will be displayed in a banner on AWS provided clients when a VPN session is established\. UTF\-8 encoded characters only\. Maximum of 1400 characters\.
+   + To disable client login banner text, choose **No**\.
 
 1. Choose **Create Client VPN Endpoint**\.
 
@@ -93,6 +99,9 @@ After a Client VPN has been created, you can modify any of the following setting
 + The VPN port number
 + The client connect handler option
 + The self\-service portal option
++ The maximum VPN session duration
++ Enable or disable client login banner text
++ Client login banner text
 
 You cannot modify the client IPv4 CIDR range, authentication options, or transport protocol after the Client VPN endpoint has been created\.
 
@@ -142,6 +151,12 @@ Verify that the DNS servers can be reached by clients\.
 1. For **VPN port**, choose the VPN port number\. The default is 443\.
 
 1. To generate a [self\-service portal URL](#cvpn-self-service-portal) for clients, choose **Enable self\-service portal**\.
+
+1. \(Optional\) For **Session timeout hours**, choose the desired maximum VPN session duration time in hours from the available options, or leave set to default of 24 hours\.
+
+1. Specify whether to enable client login banner text\. For **Do you want to enable Client Login Banner?**, do one of the following:
+   + To enable client login banner text, choose **Yes**\. Then for **Client Login Banner Text** enter the text that will be displayed in a banner on AWS provided clients when a VPN session is established\. UTF\-8 encoded characters only\. Maximum of 1400 characters\.
+   + To disable client login banner text, choose **No**\.
 
 1. Choose **Modify Client VPN Endpoint**\.
 
@@ -210,8 +225,6 @@ remote asdf.cvpn-endpoint-0011abcabcabcabc1.prod.clientvpn.eu-west-2.amazonaws.c
 remote-random-hostname
 resolv-retry infinite
 nobind
-persist-key
-persist-tun
 remote-cert-tls server
 cipher AES-256-GCM
 verb 3

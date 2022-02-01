@@ -30,7 +30,8 @@ You must upload the server certificate to AWS Certificate Manager \(ACM\) and sp
 
 You can create a separate client certificate and key for each client that will connect to the Client VPN endpoint\. This enables you to revoke a specific client certificate if a user leaves your organization\. In this case, when you create the Client VPN endpoint, you can specify the server certificate ARN for the client certificate, provided that the client certificate has been issued by the same CA as the server certificate\.
 
-A Client VPN endpoint supports 1024\-bit and 2048\-bit RSA key sizes only\.
+**Note**  
+A Client VPN endpoint supports 1024\-bit and 2048\-bit RSA key sizes only\. Also, the client certificate must have the CN attribute in the Subject field\.
 
 ------
 #### [ Linux/macOS ]
@@ -101,7 +102,7 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
    $ aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt
    ```
 
-   You do not need to upload the client certificate to ACM unless the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.
+   You do not necessarily need to upload the client certificate to ACM\. If the server and client certificates have been issued by the same Certificate Authority \(CA\), you can use the server certificate ARN for both server and client when you create the Client VPN endpoint\. In the steps above, the same CA has been used to create both certificates\. However, the steps to upload the client certificate are included for completeness\.
 
 ------
 #### [ Windows ]
@@ -176,7 +177,7 @@ The following procedure installs the OpenVPN software, and then uses it to gener
    aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt
    ```
 
-   You do not need to upload the client certificate to ACM unless the CA of the client certificate is different from the CA of the server certificate\. In the steps above, the client certificate uses the same CA as the server certificate, however, the steps to upload the client certificate are included here for completeness\.
+   You do not necessarily need to upload the client certificate to ACM\. If the server and client certificates have been issued by the same Certificate Authority \(CA\), you can use the server certificate ARN for both server and client when you create the Client VPN endpoint\. In the steps above, the same CA has been used to create both certificates\. However, the steps to upload the client certificate are included for completeness\.
 
 ------
 
@@ -251,14 +252,11 @@ To create a SAML\-based app using an IdP that's not listed in the preceding tabl
 + Assertion Consumer Service \(ACS\) URL: `http://127.0.0.1:35001`
 + Audience URI: `urn:amazon:webservices:clientvpn`
 
-The following attributes are required\.
+The following attribute is required\.
 
 
 | Attribute | Description | 
 | --- | --- | 
-| NameID | The email address of the user\. | 
-| FirstName | The first name of the user\. | 
-| LastName | The last name of the user\. | 
 | memberOf | The group or groups that the user belongs to\. | 
 
 Attributes are case\-sensitive, and must be configured exactly as specified\.

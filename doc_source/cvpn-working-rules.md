@@ -1,6 +1,9 @@
 # Authorization rules<a name="cvpn-working-rules"></a>
 
-Authorization rules act as ﬁrewall rules that grant access to networks\. You should have an authorization rule for each network for which you want to grant access\.
+Authorization rules act as ﬁrewall rules that grant access to networks\. By adding authorization rules, you grant specific clients access to the specified network\. You should have an authorization rule for each network you want to grant access to\. You can add authorization rules to a Client VPN endpoint using the console and the AWS CLI\.
+
+**Note**  
+Client VPN uses longest prefix matching when evaluating authorization rules\. See the troubleshooting topic [Authorization rules for Active Directory groups not working as expected](troubleshooting.md#ad-group-auth-rules) and [Route priority](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html#route-tables-priority) in the *Amazon VPC User Guide* for more details\.
 
 **Topics**
 + [Add an authorization rule to a Client VPN endpoint](#cvpn-working-rule-authorize)
@@ -9,11 +12,7 @@ Authorization rules act as ﬁrewall rules that grant access to networks\. You s
 
 ## Add an authorization rule to a Client VPN endpoint<a name="cvpn-working-rule-authorize"></a>
 
-By adding authorization rules, you grant the specific clients access to the specified network\. 
-
-You can add authorization rules to a Client VPN endpoint using the console and the AWS CLI\.
-
-**To add an authorization rule to a Client VPN endpoint \(console\)**
+**To add an authorization rule to a Client VPN endpoint using AWS Management Console**
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 

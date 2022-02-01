@@ -71,7 +71,7 @@ For example, say that you create five authorization rules in the following order
 
 In this example, Rule 2, Rule 3, and Rule 4 are evaluated last\. Group 1 has access to `10.1.0.0/16` only, and Group 2 has access to `172.131.0.0/16` only\. Group 3 does not have access to `10.1.0.0/16` or `172.131.0.0/16`, but it has access to all other networks\. If you remove Rules 1 and 5, all three groups have access to all networks\.
 
-In addition, Client VPN uses longest prefix matching when evaluating authorization rules\.
+Client VPN uses longest prefix matching when evaluating authorization rules\. See [Route priority](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html#route-tables-priority) in the *Amazon VPC User Guide* for more details\.
 
 **Solution**  
 Verify that you create authorization rules that explicitly grant Active Directory groups access to specific network CIDRs\. If you add an authorization rule for `0.0.0.0/0`, keep in mind that it will be evaluated last, and that previous authorization rules may limit the networks to which it grants access\.

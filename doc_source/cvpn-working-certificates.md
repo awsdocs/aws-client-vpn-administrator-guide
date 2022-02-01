@@ -47,7 +47,41 @@ In the following procedure, you generate a client certificate revocation list us
 
 The following procedure uses the OpenVPN software to generate a client revocation list\. It assumes that you followed the [steps for using the OpenVPN software](client-authentication.md#mutual) to generate the client and server certificates and keys\.
 
-**To generate a client certificate revocation list**
+**To generate a client certificate revocation list using EasyRSA version 3\.x\.x**
+
+1. Open a command prompt and navigate to the EasyRSA\-3\.x\.x directory, which will depend on where it is installed on your system\.
+
+   ```
+   C:\> cd c:\Users\windows\EasyRSA-3.x.x
+   ```
+
+1. Run the "EasyRSA\-Start\.bat" file to start the EasyRSA shell\.
+
+   ```
+   C:\> .\EasyRSA-Start.bat
+   ```
+
+1. In the EasyRSA shell, revoke the client certificate\.
+
+   ```
+   # ./easyrsa revoke client_certificate_name
+   ```
+
+1. Type "yes" when prompted\.
+
+1. Generate the client revocation list\.
+
+   ```
+   # ./easyrsa gen-crl
+   ```
+
+1. The client revocation list will be created in the following location:
+
+   ```
+   c:\Users\windows\EasyRSA-3.x.x\pki\crl.pem
+   ```
+
+**To generate a client certificate revocation list using previous EasyRSA versions**
 
 1. Open a command prompt and navigate to the OpenVPN directory\.
 

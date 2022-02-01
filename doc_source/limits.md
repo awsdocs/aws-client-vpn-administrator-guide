@@ -10,7 +10,6 @@ To request a quota increase for an adjustable quota, choose **Yes** in the Clien
 | Name | Default | Adjustable | 
 | --- | --- | --- | 
 | Authorization rules per Client VPN endpoint | 50 | [Yes](https://console.aws.amazon.com/servicequotas/home/services/ec2/quotas/L-9A1BC94B) | 
-| Client VPN disconnect timeout | 24 hours | No | 
 | Client VPN endpoints per Region | 5 | [Yes](https://console.aws.amazon.com/servicequotas/home/services/ec2/quotas/L-8EA77D34) | 
 | Concurrent client connections per Client VPN endpoint |  This value depends on the number of subnet associations per endpoint\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/vpn/latest/clientvpn-admin/limits.html)  | [Yes](https://console.aws.amazon.com/servicequotas/home/services/ec2/quotas/L-C4B238BF) | 
 | Concurrent operations per Client VPN endpoint † | 10 | No | 
