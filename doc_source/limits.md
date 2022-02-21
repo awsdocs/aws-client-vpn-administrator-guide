@@ -2,7 +2,7 @@
 
 Your AWS account has the following quotas, formerly referred to as limits, related to Client VPN endpoints\. Unless otherwise noted, each quota is Region\-specific\. You can request increases for some quotas, and other quotas cannot be increased\.
 
-To request a quota increase for an adjustable quota, choose **Yes** in the Client VPN quotas table\. For more information, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) in the *Service Quotas User Guide*\.
+To request a quota increase for an adjustable quota, choose **Yes** in the **Adjustable** column\. For more information, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) in the *Service Quotas User Guide*\.
 
 ## Client VPN quotas<a name="quotas-endpoints"></a>
 

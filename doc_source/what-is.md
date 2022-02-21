@@ -96,12 +96,10 @@ Client VPN has the following rules and limitations:
 
 ## Pricing for Client VPN<a name="what-is-pricing"></a>
 
-You are billed per active association per Client VPN endpoint on an hourly basis\. Billing is pro\-rated for the hour\.
+You are charged for each endpoint association and each VPN connection on an hourly basis\. For more information, see [AWS Client VPN pricing](http://aws.amazon.com/vpn/pricing/#AWS_Client_VPN_pricing)\.
 
-You are billed for each client VPN connection per hour\. Billing is pro\-rated for the hour\.
+You are charged for data transfer out from Amazon EC2 to the internet\. For more information, see [Data Transfer](http://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer) on the Amazon EC2 On\-Demand Pricing age\.
 
-For more information, see [AWS Client VPN Pricing](https://aws.amazon.com/vpn/pricing/)\.
-
-If you enable connection logging for your Client VPN endpoint, you must create a CloudWatch Logs log group in your account\. Charges apply for using log groups\. For more information, see [Amazon CloudWatch pricing](https://aws.amazon.com/cloudwatch/pricing/)\.
+If you enable connection logging for your Client VPN endpoint, you must create a CloudWatch Logs log group in your account\. Charges apply for using log groups\. For more information, see [Amazon CloudWatch pricing](https://aws.amazon.com/cloudwatch/pricing/) \(under **Paid tier**, choose **Logs**\)\.
 
 If you enable the client connect handler for your Client VPN endpoint, you must create and invoke a Lambda function\. Charges apply for invoking Lambda functions\. For more information, see [AWS Lambda pricing](https://aws.amazon.com/lambda/pricing/)\.
