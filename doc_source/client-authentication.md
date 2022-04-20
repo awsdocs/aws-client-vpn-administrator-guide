@@ -1,13 +1,13 @@
-# Authentication<a name="client-authentication"></a>
+# Client authentication<a name="client-authentication"></a>
 
-Authentication is implemented at the first point of entry into the AWS Cloud\. It is used to determine whether clients are allowed to connect to the Client VPN endpoint\. If authentication succeeds, clients connect to the Client VPN endpoint and establish a VPN session\. If authentication fails, the connection is denied and the client is prevented from establishing a VPN session\.
+Client authentication is implemented at the first point of entry into the AWS Cloud\. It is used to determine whether clients are allowed to connect to the Client VPN endpoint\. If authentication succeeds, clients connect to the Client VPN endpoint and establish a VPN session\. If authentication fails, the connection is denied and the client is prevented from establishing a VPN session\.
 
 Client VPN offers the following types of client authentication: 
 + [Active Directory authentication](#ad) \(user\-based\)
 + [Mutual authentication](#mutual) \(certificate\-based\)
 + [Single sign\-on \(SAML\-based federated authentication\)](#federated-authentication) \(user\-based\)
 
-You can use one or a combination of the following:
+You can use one of methods listed above alone, or a combination of mutual authentication with a user\-based method such as the following:
 + Mutual authentication and federated authentication
 + Mutual authentication and Active Directory authentication
 
@@ -107,18 +107,18 @@ The following procedure uses OpenVPN easy\-rsa to generate the server and client
 ------
 #### [ Windows ]
 
-The following procedure installs the OpenVPN software, and then uses it to generate the server and client certificates and keys\.
+The following procedure installs Easy\-RSA 3\.x software and uses it to generate server and client certificates and keys\.
 
-**To generate the server and client certificates and keys and upload them to ACM**
+**To generate server and client certificates and keys and upload them to ACM**
 
-1. Open the [OpenVPN Community Downloads](https://openvpn.net/community-downloads/) page, download the Windows installer for your version of Windows, and run the installer\.
+1. Open the [EasyRSA releases](https://github.com/OpenVPN/easy-rsa/releases) page and download the ZIP file for your version of Windows and extract it\.
 
-1. Open the [EasyRSA releases](https://github.com/OpenVPN/easy-rsa/releases) page and download the ZIP file for your version of Windows\. Extract the ZIP file and copy the `EasyRSA` folder to the `\Program Files\OpenVPN` folder\.
+1. Open a command prompt and navigate to the location that the `EasyRSA-3.x` folder was extracted to\.
 
-1. Open the command prompt as an Administrator, navigate to the `\Program Files\OpenVPN\EasyRSA` directory, and run the following command to open the EasyRSA 3 shell\.
+1. Run the following command to open the EasyRSA 3 shell\.
 
    ```
-   C:\Program Files\OpenVPN\EasyRSA> EasyRSA-Start
+   C:\Program Files\EasyRSA-3.x> .\EasyRSA-Start.bat
    ```
 
 1. Initialize a new PKI environment\.
@@ -158,13 +158,13 @@ The following procedure installs the OpenVPN software, and then uses it to gener
    Before you copy the certificates and keys, create the custom folder by using the `mkdir` command\. The following example creates a custom folder in your C:\\ drive\.
 
    ```
-   C:\Program Files\OpenVPN\EasyRSA> mkdir C:\custom_folder
-   C:\Program Files\OpenVPN\EasyRSA> copy pki\ca.crt C:\custom_folder
-   C:\Program Files\OpenVPN\EasyRSA> copy pki\issued\server.crt C:\custom_folder
-   C:\Program Files\OpenVPN\EasyRSA> copy pki\private\server.key C:\custom_folder
-   C:\Program Files\OpenVPN\EasyRSA> copy pki\issued\client1.domain.tld.crt C:\custom_folder
-   C:\Program Files\OpenVPN\EasyRSA> copy pki\private\client1.domain.tld.key C:\custom_folder
-   C:\Program Files\OpenVPN\EasyRSA> cd C:\custom_folder
+   C:\Program Files\EasyRSA-3.x> mkdir C:\custom_folder
+   C:\Program Files\EasyRSA-3.x> copy pki\ca.crt C:\custom_folder
+   C:\Program Files\EasyRSA-3.x> copy pki\issued\server.crt C:\custom_folder
+   C:\Program Files\EasyRSA-3.x> copy pki\private\server.key C:\custom_folder
+   C:\Program Files\EasyRSA-3.x> copy pki\issued\client1.domain.tld.crt C:\custom_folder
+   C:\Program Files\EasyRSA-3.x> copy pki\private\client1.domain.tld.key C:\custom_folder
+   C:\Program Files\EasyRSA-3.x> cd C:\custom_folder
    ```
 
 1. Upload the server certificate and key and the client certificate and key to ACM\. Be sure to upload them in the same Region in which you intend to create the Client VPN endpoint\. The following commands use the AWS CLI to upload the certificates\. To upload the certificates using the ACM console instead, see [Import a certificate](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-api-cli.html) in the *AWS Certificate Manager User Guide*\.
@@ -199,7 +199,7 @@ You do not need to create an IAM role to use the IAM SAML identity provider\.
 
 1. Create a Client VPN endpoint\. Specify federated authentication as the authentication type, and specify the IAM SAML identity provider that you created\. For more information, see [Create a Client VPN endpoint](cvpn-working-endpoints.md#cvpn-working-endpoint-create)\.
 
-1. Export the [client configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export) and distribute it to your users\. Instruct your users to download the latest version of the [AWS provided client](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/connect-aws-client-vpn-connect.html), and to use it to load the configuration file and connect to the Client VPN endpoint\. Alternatively, if you enabled the self\-service portal for your Client VPN endpoint, instruct your users to go to the self\-service portal to get the configuration file and AWS provided client\. For more information, see [Access the self\-service portal](cvpn-working-endpoints.md#cvpn-self-service-portal)\.
+1. Export the [client configuration file](cvpn-working-endpoint-export.md) and distribute it to your users\. Instruct your users to download the latest version of the [AWS provided client](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/connect-aws-client-vpn-connect.html), and to use it to load the configuration file and connect to the Client VPN endpoint\. Alternatively, if you enabled the self\-service portal for your Client VPN endpoint, instruct your users to go to the self\-service portal to get the configuration file and AWS provided client\. For more information, see [Access the self\-service portal](cvpn-self-service-portal.md)\.
 
 ### Authentication workflow<a name="federated-authentication-workflow"></a>
 

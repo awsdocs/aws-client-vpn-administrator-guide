@@ -172,7 +172,7 @@ It is recommended to always use the DNS name provided for the Client VPN endpoin
 
 1. Distribute the Client VPN endpoint configuration file to your clients\.
 
-For more information about the Client VPN endpoint configuration file, see [Export and configure the client configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\.
+For more information about the Client VPN endpoint configuration file, see [Export and configure the client configuration file](cvpn-working-endpoint-export.md)\.
 
 ## Step 7: Connect to the Client VPN endpoint<a name="cvpn-getting-started-connect"></a>
 

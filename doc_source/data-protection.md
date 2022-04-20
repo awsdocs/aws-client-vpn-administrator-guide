@@ -14,7 +14,7 @@ We strongly recommend that you never put confidential or sensitive information, 
 
 ## Encryption in transit<a name="encryption-in-transit"></a>
 
-AWS Client VPN provides a secure TLS connection from any location using an OpenVPN client\.
+AWS Client VPN provides secure connections from any location using Transport Layer Security \(TLS\) 1\.2 or later\.
 
 ## Internetwork traffic privacy<a name="internetwork-traffic-privacy"></a>
 

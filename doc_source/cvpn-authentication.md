@@ -56,5 +56,3 @@ You can also use resource\-level permissions to restrict what resources users ca
 ```
 
 For more information about IAM, see the [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\. For a list of Amazon EC2 actions, including Client VPN actions, see [Actions, Resources, and Condition Keys for Amazon EC2](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazonec2.html) in the *IAM User Guide*\.
-
-For more information about authentication and authorization for connecting to a Client VPN endpoint, see [Client authentication and authorization](authentication-authorization.md)\.

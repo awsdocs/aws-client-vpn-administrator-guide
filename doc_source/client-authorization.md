@@ -1,6 +1,6 @@
-# Authorization<a name="client-authorization"></a>
+# Client authorization<a name="client-authorization"></a>
 
-Client VPN supports two types of authorization: security groups and network\-based authorization \(using authorization rules\)\.
+Client VPN supports two types of client authorization: security groups and network\-based authorization \(using authorization rules\)\.
 
 ## Security groups<a name="security-groups"></a>
 

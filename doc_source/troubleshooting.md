@@ -179,7 +179,7 @@ Download a new client configuration file and distribute it to your clients\. Ver
 static-challenge "Enter MFA code " 1
 ```
 
-For more information, see [Export and configure the client configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\. Test the MFA configuration for your Active Directory without using the Client VPN endpoint to verify that MFA is working as expected\.
+For more information, see [Export and configure the client configuration file](cvpn-working-endpoint-export.md)\. Test the MFA configuration for your Active Directory without using the Client VPN endpoint to verify that MFA is working as expected\.
 
 ## Clients cannot connect \(mutual authentication\)<a name="client-cannot-connect-mutual"></a>
 
@@ -190,7 +190,7 @@ I use mutual authentication for my Client VPN endpoint\. Clients are getting TLS
 The configuration file that was provided to the clients does not contain the client certificate and the client private key, or the certificate and key are incorrect\.
 
 **Solution**  
-Ensure that the configuration file contains the correct client certificate and key\. If necessary, fix the configuration file and redistribute it to your clients\. For more information, see [Export and configure the client configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export)\.
+Ensure that the configuration file contains the correct client certificate and key\. If necessary, fix the configuration file and redistribute it to your clients\. For more information, see [Export and configure the client configuration file](cvpn-working-endpoint-export.md)\.
 
 ## Client returns a credentials exceed max size error \(federated authentication\)<a name="client-credentials-exceeded"></a>
 
@@ -212,7 +212,7 @@ I use federated authentication for my Client VPN endpoint\. When clients try to 
 The configuration file that was provided to the clients does not contain the `auth-federate` flag\.
 
 **Solution**  
-[Export the latest configuration file](cvpn-working-endpoints.md#cvpn-working-endpoint-export), import it to the AWS provided client, and try connecting again\.
+[Export the latest configuration file](cvpn-working-endpoint-export.md), import it to the AWS provided client, and try connecting again\.
 
 ## Client returns no available ports error \(federated authentication\)<a name="client-no-port"></a>
 

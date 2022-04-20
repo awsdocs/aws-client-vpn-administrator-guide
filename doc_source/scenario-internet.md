@@ -13,7 +13,7 @@ Before you begin, do the following:
 
 **To implement this configuration**
 
-1. Ensure that the security group that you'll use for the Client VPN endpoint allows inbound and outbound traffic to and from the internet\. To do this, add inbound and outbound rules that allow traffic to and from 0\.0\.0\.0/0 for HTTP and HTTPS traffic\.
+1. Ensure that the security group that you'll use for the Client VPN endpoint allows outbound traffic to the internet\. To do this, add outbound rules that allow traffic to 0\.0\.0\.0/0 for HTTP and HTTPS traffic\.
 
 1. Create an internet gateway and attach it to your VPC\. For more information, see [Creating and Attaching an Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html#Add_IGW_Attach_Gateway) in the *Amazon VPC User Guide*\.
 
@@ -29,4 +29,4 @@ Before you begin, do the following:
 
 1. Add an authorization rule to give clients access to the internet\. To do this, perform the steps described in [Add an authorization rule to a Client VPN endpoint](cvpn-working-rules.md#cvpn-working-rule-authorize); for **Destination network**, enter `0.0.0.0/0`\.
 
-1. Ensure that the security group for the subnet association in step 5 has an outbound rule that allows internet access \(the destination is `0.0.0.0/0`\)\.
+1. Ensure that the security groups for the resources in your VPC have a rule that allows access from the security group associated with the Client VPN endpoint\. This enables your clients to access the resources in your VPC\.
