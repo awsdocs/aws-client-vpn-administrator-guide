@@ -37,13 +37,13 @@ After you associate the first subnet with the Client VPN endpoint, the Client VP
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint with which to associate the target network, choose **Associations**, and then choose **Associate**\.
+1. Select the Client VPN endpoint with which to associate the target network, choose **Target network associations**, and then choose **Associate target network**\.
 
 1. For **VPC**, choose the VPC in which the subnet is located\. If you specified a VPC when you created the Client VPN endpoint or if you have previous subnet associations, it must be the same VPC\.
 
-1. For **Subnet to associate**, choose the subnet to associate with the Client VPN endpoint\.
+1. For **Choose a subnet to associate**, choose the subnet to associate with the Client VPN endpoint\.
 
-1. Choose **Associate**\.
+1. Choose **Associate target network**\.
 
 **To associate a target network with a Client VPN endpoint \(AWS CLI\)**  
 Use the [associate\-client\-vpn\-target\-network](https://docs.aws.amazon.com/cli/latest/reference/ec2/associate-client-vpn-target-network.html) command\.
@@ -62,9 +62,11 @@ You can change the security groups for the Client VPN endpoint\. The security gr
 
 1. Select the Client VPN endpoint to which to apply the security groups\.
 
-1. Choose **Security Groups**, select the current security group, and then choose **Apply Security Groups**\.
+1. Choose **Security Groups**, and then choose **Apply Security Groups**\.
 
-1. Select the new security groups in the list and choose **Apply Security Groups**\.
+1. Select the appropriate security group\(s\) from **Security group IDs**\.
+
+1. Choose **Apply Security Groups**\.
 
 **To apply a security group to a target network \(AWS CLI\)**  
 Use the [apply\-security\-groups\-to\-client\-vpn\-target\-network](https://docs.aws.amazon.com/cli/latest/reference/ec2/apply-security-groups-to-client-vpn-target-network.html) command\.
@@ -79,9 +81,9 @@ If you disassociate all target networks from a Client VPN endpoint, clients can 
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint with which the target network is associated and choose **Associations**\.
+1. Select the Client VPN endpoint with which the target network is associated and choose **Target network associations**\.
 
-1. Select the target network to disassociate, choose **Disassociate**, and then choose **Yes, Disassociate**\.
+1. Select the target network to disassociate, choose **Disassociate**, and then choose **Disassociate target network**\.
 
 **To disassociate a target network from a Client VPN endpoint \(AWS CLI\)**  
 Use the [disassociate\-client\-vpn\-target\-network](https://docs.aws.amazon.com/cli/latest/reference/ec2/disassociate-client-vpn-target-network.html) command\.
@@ -96,7 +98,7 @@ You can view the targets associated with a Client VPN endpoint using the console
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint and choose **Associations**\.
+1. Select the appropriate Client VPN endpoint and choose **Target network associations**\.
 
 **To view target networks using the AWS CLI**  
 Use the [describe\-client\-vpn\-target\-networks](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-target-networks.html) command\.

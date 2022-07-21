@@ -18,9 +18,9 @@ Client VPN uses longest prefix matching when evaluating authorization rules\. Se
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint to which to add the authorization rule, choose **Authorization**, and choose **Authorize ingress**\.
+1. Select the Client VPN endpoint to which to add the authorization rule, choose **Authorization rules**, and choose **Add authorization rule**\.
 
-1. For **Destination network**, enter the IP address, in CIDR notation, of the network that you want users to access \(for example, the CIDR block of your VPC\)\.
+1. For **Destination network to enable access**, enter the IP address, in CIDR notation, of the network that you want users to access \(for example, the CIDR block of your VPC\)\.
 
 1. Specify which clients are allowed to access the specified network\. For **For grant access to**, do one of the following:
    + To grant access to all clients, choose **Allow access to all users**\.
@@ -53,9 +53,9 @@ You can remove authorization rules from a Client VPN endpoint using the console 
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint to which the authorization rule is added and choose **Authorization**\.
+1. Select the Client VPN endpoint to which the authorization rule is added and choose **Authorization rules**\.
 
-1. Select the authorization rule to delete, choose **Revoke ingress**, and choose **Revoke ingress**\.
+1. Select the authorization rule to delete, choose **Remove authorization rule**, and choose **Remove authorization rule**\.
 
 **To remove an authorization rule from a Client VPN endpoint \(AWS CLI\)**  
 Use the [revoke\-client\-vpn\-ingress](https://docs.aws.amazon.com/cli/latest/reference/ec2/revoke-client-vpn-ingress.html) command\.
@@ -70,7 +70,7 @@ You can view authorization rules for a specific Client VPN endpoint using the co
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint for which to view authorization rules and choose **Authorization**\.
+1. Select the Client VPN endpoint for which to view authorization rules and choose **Authorization rules**\.
 
 **To view authorization rules \(AWS CLI\)**  
 Use the [describe\-client\-vpn\-authorization\-rules](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-authorization-rules.html) command\.

@@ -16,7 +16,10 @@ Split\-tunnel on Client VPN endpoints offers the following benefits:
 
 ## Routing considerations<a name="split-tunnel-routing"></a>
 
-When you enable split\-tunnel on a Client VPN endpoint, all of the routes that are in the Client VPN route tables are added to the client route table when the VPN is established\. This operation is different from the default Client VPN endpoint operation, which overwrites the client route table with the entry 0\.0\.0\.0/0 to route all traffic over the VPN\.
+When you enable split\-tunnel mode, all the routes in the Client VPN endpoint's route table are added to the client's route table when the VPN connection is established\. This operation is different from the default behavior, which overwrites the client's route table with the entry `0.0.0.0/0` to route all traffic over the VPN\.
+
+**Note**  
+It is not recommended to add a `0.0.0.0/0` route to the Client VPN endpoint's route table when using split\-tunnel mode\.
 
 ## Enabling\-split\-tunnel<a name="split-tunnel-enable"></a>
 

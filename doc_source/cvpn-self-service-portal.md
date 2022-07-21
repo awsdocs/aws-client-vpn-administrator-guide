@@ -15,6 +15,6 @@ After you have enabled the self\-service portal option, provide your clients wit
 
   Replace *<endpoint\-id>* in the preceding URL with the ID of your Client VPN endpoint, for example, `cvpn-endpoint-0123456abcd123456`\.
 
-You can also view the URL for the self\-service portal in the output of the [describe\-client\-vpn\-endpoints](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-endpoints.html) AWS CLI command\. Alternatively, the URL is available in the **Summary** tab on the **Client VPN Endpoints** page in the Amazon VPC console\.
+You can also view the URL for the self\-service portal in the output of the [describe\-client\-vpn\-endpoints](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-endpoints.html) AWS CLI command\. Alternatively, the URL is available in the **Details** tab on the **Client VPN Endpoints** page in the Amazon VPC console\.
 
 For more information about configuring the self\-service portal for use with federated authentication, see [Support for the self\-service portal](client-authentication.md#saml-self-service-support)\.

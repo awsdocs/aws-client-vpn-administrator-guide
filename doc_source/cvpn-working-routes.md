@@ -33,21 +33,21 @@ You can add routes to a Client VPN endpoint by using the console and the AWS CLI
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint to which to add the route, choose **Route Table**, and then choose **Create Route**\.
+1. Select the Client VPN endpoint to which to add the route, choose **Route table**, and then choose **Create route**\.
 
 1. For **Route destination**, specify the IPv4 CIDR range for the destination network\. For example:
+   + To add a route for the VPC of the Client VPN endpoint, enter the VPC's IPv4 CIDR range\.
    + To add a route for internet access, enter `0.0.0.0/0`\.
    + To add a route for a peered VPC, enter the peered VPC's IPv4 CIDR range\.
    + To add a route for an on\-premises network, enter the AWS Site\-to\-Site VPN connection's IPv4 CIDR range\.
-   + To add a route for the local network, enter the client CIDR range\.
 
-1. For **Target VPC Subnet ID**, select the subnet that is associated with the Client VPN endpoint\.
+1. For **Subnet ID for target network association**, select the subnet that is associated with the Client VPN endpoint\.
 
-   Alternatively, if you're adding a route for the local network, select `local`\.
+   Alternatively, if you're adding a route for the local Client VPN endpoint network, select `local`\.
 
-1. For **Description**, enter a brief description for the route\.
+1. \(Optional\) For **Description**, enter a brief description for the route\.
 
-1. Choose **Create Route**\.
+1. Choose **Create route**\.
 
 **To create a Client VPN endpoint route \(AWS CLI\)**  
 Use the [create\-client\-vpn\-route](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-client-vpn-route.html) command\.
@@ -60,7 +60,7 @@ You can view the routes for a specific Client VPN endpoint by using the console 
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint for which to view routes and choose **Route Table**\.
+1. Select the Client VPN endpoint for which to view routes and choose **Route table**\.
 
 **To view Client VPN endpoint routes \(AWS CLI\)**  
 Use the [describe\-client\-vpn\-routes](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-routes.html) command\.
@@ -77,9 +77,9 @@ You can delete a route from a Client VPN endpoint by using the console or the AW
 
 1. In the navigation pane, choose **Client VPN Endpoints**\.
 
-1. Select the Client VPN endpoint from which to delete the route and choose **Route Table**\.
+1. Select the Client VPN endpoint from which to delete the route and choose **Route table**\.
 
-1. Select the route to delete, choose **Delete Route**, and choose **Delete Route**\.
+1. Select the route to delete, choose **Delete route**, and choose **Delete route**\.
 
 **To delete a Client VPN endpoint route \(AWS CLI\)**  
 Use the [delete\-client\-vpn\-route](https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-client-vpn-route.html) command\.

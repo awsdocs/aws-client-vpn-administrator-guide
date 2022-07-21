@@ -28,7 +28,7 @@ Client VPN offers the following features and functionality:
 The following are the key concepts for Client VPN:
 
 **Client VPN endpoint**  
-The Client VPN endpoint is the resource that you create and configure to enable and manage client VPN sessions\. It is the resource where all client VPN sessions are terminated\.
+The Client VPN endpoint is the resource that you create and configure to enable and manage client VPN sessions\. It's the termination point for all client VPN sessions\.
 
 **Target network**  
 A target network is the network that you associate with a Client VPN endpoint\. A subnet from a VPC is a target network\. Associating a subnet with a Client VPN endpoint enables you to establish VPN sessions\. You can associate multiple subnets with a Client VPN endpoint for high availability\. All subnets must be from the same VPC\. Each subnet must belong to a different Availability Zone\.

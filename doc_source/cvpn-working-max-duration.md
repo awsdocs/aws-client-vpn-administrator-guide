@@ -28,9 +28,9 @@ Use the following steps to view current maximum VPN session duration\.
 
 1. Select the Client VPN endpoint that you want to view\.
 
-1. Verify that the **Summary** tab is selected\.
+1. Verify that the **Details** tab is selected\.
 
-1. View the current maximum VPN session duration next to **Session timeout hours**\. You can also view other details displayed under the **Summary** tab\.
+1. View the current maximum VPN session duration next to **Session timeout hours**\. 
 
 **View current maximum VPN session duration for a Client VPN endpoint \(AWS CLI\)**  
 Use the [describe\-client\-vpn\-endpoints](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-client-vpn-endpoints.html) command\.
@@ -43,13 +43,13 @@ Use the following steps to modify an existing maximum VPN session duration\.
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 
-1. In the navigation pane, choose **Client VPN Endpoints**\.
+1. In the navigation pane, choose **Client VPN endpoints**\.
 
 1. Select the Client VPN endpoint that you want to modify, choose **Actions**, and then choose **Modify Client VPN Endpoint**\.
 
 1. For **Session timeout hours**, choose the desired maximum VPN session duration time in hours\.
 
-1. Choose **Modify Client VPN Endpoint**\.
+1. Choose **Modify Client VPN endpoint**\.
 
 **Modify an existing maximum VPN session duration for a Client VPN endpoint \(AWS CLI\)**  
 Use the [modify\-client\-vpn\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-client-vpn-endpoint.html) command\.
