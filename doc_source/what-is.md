@@ -93,6 +93,8 @@ Client VPN has the following rules and limitations:
 + The self\-service portal is not available for clients that authenticate using mutual authentication\.
 + It is not recommended to connect to the Client VPN endpoint by using IP addresses\. Since Client VPN is a managed service, you will occasionally see the IP addresses the DNS name resolves to change\. In addition, you will see Client VPN network interfaces deleted and recreated in your Cloud Trail logs as well and this is expected behavior\. It is recommended to connect to the Client VPN endpoint using the DNS name provided\. 
 + IP forwarding is currently disabled when using the AWS Client VPN Desktop Application\. It has been disabled since the launch of the service on December 18, 2018, in order to address an issue reported by [NIST](https://nvd.nist.gov/vuln/detail/CVE-2020-15590)\. We understand, however, that some customers may need this functionality for their services\. While we do not have a specific date at this time, we do plan to safely enable IP forwarding in an upcoming release\.
++ Client VPN does not support multi-Region replication in AWS Managed Microsoft AD. The Client VPN endpoint must be in the same Region as the AWS Managed Microsoft AD resource.
+
 
 ## Pricing for Client VPN<a name="what-is-pricing"></a>
 
