@@ -4,13 +4,13 @@
 *****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
-Amazon's trademarks and trade dress may not be used in 
-     connection with any product or service that is not Amazon's, 
-     in any manner that is likely to cause confusion among customers, 
-     or in any manner that disparages or discredits Amazon. All other 
-     trademarks not owned by Amazon are the property of their respective
-     owners, who may or may not be affiliated with, connected to, or 
-     sponsored by Amazon.
+Amazon's trademarks and trade dress may not be used in
+connection with any product or service that is not Amazon's,
+in any manner that is likely to cause confusion among customers,
+or in any manner that disparages or discredits Amazon. All other
+trademarks not owned by Amazon are the property of their respective
+owners, who may or may not be affiliated with, connected to, or
+sponsored by Amazon.
 
 -----
 ## Contents
@@ -33,6 +33,7 @@ Amazon's trademarks and trade dress may not be used in
 + [Working with Client VPN](cvpn-working.md)
    + [Access the self-service portal](cvpn-self-service-portal.md)
    + [Authorization rules](cvpn-working-rules.md)
+      + [Example scenarios for authorization rules](auth-rule-example-scenarios.md)
    + [Client certificate revocation lists](cvpn-working-certificates.md)
    + [Client connections](cvpn-working-connections.md)
    + [Client login banner](cvpn-working-login-banner.md)
@@ -44,9 +45,13 @@ Amazon's trademarks and trade dress may not be used in
    + [VPN session maximum duration](cvpn-working-max-duration.md)
 + [Security in AWS Client VPN](security.md)
    + [Data protection in AWS Client VPN](data-protection.md)
-   + [Identity and access management for Client VPN](cvpn-authentication.md)
+   + [Identity and Access Management for AWS Client VPN](security-iam.md)
+      + [How AWS Client VPN works with IAM](security_iam_service-with-iam.md)
+      + [Identity-based policy examples for AWS Client VPN](security_iam_id-based-policy-examples.md)
+      + [Troubleshooting AWS Client VPN identity and access](security_iam_troubleshoot.md)
       + [Using service-linked roles for Client VPN](using-service-linked-roles.md)
-   + [Logging and monitoring](logging-monitoring.md)
+         + [Using roles for Client VPN](using-service-linked-roles-cvpn-slr.md)
+         + [Using roles for connection authorization](using-service-linked-roles-client-connect-handler.md)
    + [Resilience in AWS Client VPN](disaster-recovery-resiliency.md)
    + [Infrastructure security in AWS Client VPN](infrastructure-security.md)
    + [Security best practices for AWS Client VPN](security-best-practices.md)

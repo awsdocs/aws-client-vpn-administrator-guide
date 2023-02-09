@@ -4,6 +4,7 @@ The following table describes the AWS Client VPN Administrator Guide updates\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Authorization rule examples](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/auth-rule-example-scenarios.html) | Addition of example scenarios for authorization rules\. | September 15, 2022 | 
 | [VPN session maximum duration](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-max-duration.html) | You can configure a shorter maximum VPN session duration to meet security and compliance requirements\. | January 20, 2022 | 
 | [Client login banner](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-login-banner.html) | You can enable a text banner on AWS provided Client VPN desktop applications when a VPN session is established to meet regulatory and compliance needs\. | January 20, 2022 | 
 | [Client connect handler](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/connection-authorization.html) | You can enable the client connect handler for your Client VPN endpoint to run custom logic that authorizes new connections\. | November 4, 2020 | 

@@ -9,6 +9,7 @@ Client VPN uses longest prefix matching when evaluating authorization rules\. Se
 + [Add an authorization rule to a Client VPN endpoint](#cvpn-working-rule-authorize)
 + [Remove an authorization rule from a Client VPN endpoint](#cvpn-working-rule-revoke)
 + [View authorization rules](#cvpn-working-rule-view)
++ [Example scenarios](auth-rule-example-scenarios.md)
 
 ## Add an authorization rule to a Client VPN endpoint<a name="cvpn-working-rule-authorize"></a>
 

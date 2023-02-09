@@ -15,7 +15,7 @@ For more information about the kinds of access you can configure \(such as enabl
 You can associate one or more target networks \(subnets\) with a Client VPN endpoint\. 
 
 The following rules apply:
-+ The subnet must have a CIDR block with at least a /27 bitmask, for example 10\.0\.0\.0/27\. The subnet must also have at least 8 available IP addresses\. 
++ The subnet must have a CIDR block with at least a /27 bitmask, for example 10\.0\.0\.0/27\. The subnet must also have at least 20 available IP addresses at all times\.
 + The subnet's CIDR block cannot overlap with the client CIDR range of the Client VPN endpoint\.
 + If you associate more than one subnet with a Client VPN endpoint, each subnet must be in a different Availability Zone\. We recommend that you associate at least two subnets to provide Availability Zone redundancy\.
 + If you specified a VPC when you created the Client VPN endpoint, the subnet must be in the same VPC\. If you haven't yet associated a VPC with the Client VPN endpoint, you can choose any subnet in any VPC\. 

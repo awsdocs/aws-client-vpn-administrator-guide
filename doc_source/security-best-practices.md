@@ -15,4 +15,4 @@ Use client certificate revocation lists to revoke access to a Client VPN endpoin
 Use monitoring tools to keep track of availability and performance of your Client VPN endpoints\. For more information, see [Monitoring Client VPN](monitoring-overview.md)\.
 
 **Identity and access management**  
-Manage access to Client VPN resources and APIs by using IAM policies for your IAM users and IAM roles\. For more information, see [Identity and access management for Client VPN](cvpn-authentication.md)\.
+Manage access to Client VPN resources and APIs by using IAM policies for your IAM users and IAM roles\. For more information, see [Identity and Access Management for AWS Client VPN](security-iam.md)\.

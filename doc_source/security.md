@@ -12,8 +12,7 @@ This documentation helps you understand how to apply the shared responsibility m
 
 **Topics**
 + [Data protection in AWS Client VPN](data-protection.md)
-+ [Identity and access management for Client VPN](cvpn-authentication.md)
-+ [Logging and monitoring](logging-monitoring.md)
++ [Identity and Access Management for AWS Client VPN](security-iam.md)
 + [Resilience in AWS Client VPN](disaster-recovery-resiliency.md)
 + [Infrastructure security in AWS Client VPN](infrastructure-security.md)
 + [Security best practices for AWS Client VPN](security-best-practices.md)

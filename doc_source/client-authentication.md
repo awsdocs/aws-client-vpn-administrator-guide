@@ -223,7 +223,8 @@ The following diagram provides an overview of the authentication workflow for a 
 
 The following are the requirements and considerations for SAML\-based federated authentication\.
 + For quotas and rules for configuring users and groups in a SAML\-based IdP, see [Users and groups quotas](limits.md#quotas-users-groups)\.
-+ The SAML response must be signed and unencrypted\.
++ The SAML assertion and SAML documents must be signed\.
++ AWS Client VPN only supports "AudienceRestriction" and "NotBefore and NotOnOrAfter" conditions in SAML assertions\.
 + The maximum supported size for SAML responses is 128 KB\.
 + AWS Client VPN does not provide signed authentication requests\.
 + SAML single logout is not supported\. Users can log out by disconnecting from the AWS provided client, or you can [terminate the connections](cvpn-working-connections.md#cvpn-working-connections-disassociate)\.

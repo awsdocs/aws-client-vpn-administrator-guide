@@ -6,6 +6,9 @@ A connection log contains *connection log entries*\. Each connection log entry c
 
 Connection logging is available in all Regions where AWS Client VPN is available\. Connection logs are published to a CloudWatch Logs log group in your account\.
 
+**Note**  
+Failed mutual authentication attempts are not logged\.
+
 ## Connection log entries<a name="connection-log-entries"></a>
 
 A connection log entry is a JSON\-formatted blob of key\-value pairs\. The following is an example connection log entry\.
@@ -30,8 +33,9 @@ A connection log entry is a JSON\-formatted blob of key\-value pairs\. The follo
     "egress-bytes": "0",
     "ingress-packets": "0",
     "egress-packets": "0",
-    "connection-end-time": "NA"
-}
+    "connection-end-time": "NA",
+    "username": "joe"
+    }
 ```
 
 A connection log entry contains the following keys:
@@ -55,5 +59,7 @@ A connection log entry contains the following keys:
 + `egress-packets` — The number of egress \(outbound\) packets for the connection\. This value is periodically updated in the logs\.
 + `connection-end-time` — The end time of the connection\. The value is `NA` if the connection is still in progress or if the connection attempt failed\.
 + `posture-compliance-statuses` — The posture compliance statuses returned by the [client connect handler](connection-authorization.md), if applicable\.
++ `username` — The username is recorded when user\-based authentication \(AD or SAML\) is used for the endpoint\.
++ `connection-duration-seconds` — The duration of a connection in seconds\. Equal to the difference between "connection\-start\-time" and "connection\-end\-time"\.
 
 For more information about enabling connection logging, see [Working with connection logs](cvpn-working-with-connection-logs.md)\.

@@ -55,16 +55,16 @@ When you associate a subnet with your Client VPN endpoint, we create Client VPN 
 You can enable connection logging for your Client VPN endpoint to log connection events\. You can use this information to run forensics, analyze how your Client VPN endpoint is being used, or debug connection issues\.
 
 **Self\-service portal**  
-Client VPN provides a self\-service portal as a web page to end users to download the latest version of the AWS VPN Desktop Client and the latest version of the Client VPN endpoint configuration file, which contains the settings required to connect to their endpoint\. The Client VPN endpoint administrator can enable or disable the self\-service portal for the Client VPN endpoint\. Self\-service portal is a Global service backed by service stacks in the Asia Pacific \(Tokyo\), US East \(N\. Virginia\), and Europe \(Ireland\) Regions, and in AWS GovCloud \(US\-West\)\.
+Client VPN provides a self\-service portal as a web page to end users to download the latest version of the AWS VPN Desktop Client and the latest version of the Client VPN endpoint configuration file, which contains the settings required to connect to their endpoint\. The Client VPN endpoint administrator can enable or disable the self\-service portal for the Client VPN endpoint\. Self\-service portal is a Global service backed by service stacks in the following Regions: US East \(N\. Virginia\), Asia Pacific \(Tokyo\), Europe \(Ireland\), and AWS GovCloud \(US\-West\)\.
 
 ## Working with Client VPN<a name="what-is-access"></a>
 
 You can work with Client VPN in any of the following ways:
 
-**Amazon VPC console**  
-The Amazon VPC console provides a web\-based user interface for Client VPN\. If you've signed up for an AWS account, you can sign into the [Amazon VPC](https://console.aws.amazon.com/vpc/) console and select Client VPN in the navigation pane\.
+**AWS Management Console**  
+The console provides a web\-based user interface for Client VPN\. If you've signed up for an AWS account, you can sign into the [Amazon VPC](https://console.aws.amazon.com/vpc/) console and select Client VPN in the navigation pane\.
 
-**AWS Command Line Interface \(CLI\)**  
+**AWS Command Line Interface \(AWS CLI\)**  
 The AWS CLI provides direct access to the Client VPN public APIs\. It is supported on Windows, macOS, and Linux\. For more information about getting started with the AWS CLI, see the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/)\. For more information about the commands for Client VPN, see the [AWS CLI Command Reference](https://docs.aws.amazon.com/cli/latest/reference/)\.
 
 **AWS Tools for Windows PowerShell**  
@@ -81,20 +81,19 @@ Client VPN has the following rules and limitations:
 + A portion of the addresses in the client CIDR range are used to support the availability model of the Client VPN endpoint, and cannot be assigned to clients\. Therefore, we recommend that you assign a CIDR block that contains twice the number of IP addresses that are required to enable the maximum number of concurrent connections that you plan to support on the Client VPN endpoint\.
 + The client CIDR range cannot be changed after you create the Client VPN endpoint\.
 + The subnets associated with a Client VPN endpoint must be in the same VPC\.
-+ You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\. 
++ You cannot associate multiple subnets from the same Availability Zone with a Client VPN endpoint\.
 + A Client VPN endpoint does not support subnet associations in a dedicated tenancy VPC\.
 + Client VPN supports IPv4 traffic only\. See [IPv6 Considerations](ipv6-considerations.md) for details regarding IPv6\.
 + Client VPN is not Federal Information Processing Standards \(FIPS\) compliant\.
-+ If multi\-factor authentication \(MFA\) is disabled for your Active Directory, a user password cannot be in the following format\.
-
-  ```
-  SCRV1:<base64_encoded_string>:<base64_encoded_string>
-  ```
 + The self\-service portal is not available for clients that authenticate using mutual authentication\.
-+ It is not recommended to connect to the Client VPN endpoint by using IP addresses\. Since Client VPN is a managed service, you will occasionally see the IP addresses the DNS name resolves to change\. In addition, you will see Client VPN network interfaces deleted and recreated in your Cloud Trail logs as well and this is expected behavior\. It is recommended to connect to the Client VPN endpoint using the DNS name provided\. 
++ We do not recommend connecting to a Client VPN endpoint using IP addresses\. Because Client VPN is a managed service, you will occasionally see changes in the IP addresses to which the DNS name resolves\. In addition, you will see Client VPN network interfaces deleted and recreated in your CloudTrail logs\. We recommend connecting to the Client VPN endpoint using the DNS name provided\.
 + IP forwarding is currently disabled when using the AWS Client VPN Desktop Application\. It has been disabled since the launch of the service on December 18, 2018, in order to address an issue reported by [NIST](https://nvd.nist.gov/vuln/detail/CVE-2020-15590)\. We understand, however, that some customers may need this functionality for their services\. While we do not have a specific date at this time, we do plan to safely enable IP forwarding in an upcoming release\.
-+ Client VPN does not support multi-Region replication in AWS Managed Microsoft AD. The Client VPN endpoint must be in the same Region as the AWS Managed Microsoft AD resource.
++ Client VPN does not support multi\-Region replication in AWS Managed Microsoft AD\. The Client VPN endpoint must be in the same Region as the AWS Managed Microsoft AD resource\.
++ If multi\-factor authentication \(MFA\) is disabled for your Active Directory, user passwords cannot use the following format\.
 
+  ```
+  SCRV1:base64_encoded_string:base64_encoded_string
+  ```
 
 ## Pricing for Client VPN<a name="what-is-pricing"></a>
 
