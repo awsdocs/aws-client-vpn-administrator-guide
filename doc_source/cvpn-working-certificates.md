@@ -126,7 +126,7 @@ You can import a client certificate revocation list using the console and the AW
 Use the [import\-client\-vpn\-client\-certificate\-revocation\-list](https://docs.aws.amazon.com/cli/latest/reference/ec2/import-client-vpn-client-certificate-revocation-list.html) command\.
 
 ```
-$ aws ec2 import-client-vpn-client-certificate-revocation-list --certificate-revocation-list file:path_to_CRL_file --client-vpn-endpoint-id endpoint_id --region region
+$ aws ec2 import-client-vpn-client-certificate-revocation-list --certificate-revocation-list file://path_to_CRL_file --client-vpn-endpoint-id endpoint_id --region region
 ```
 
 ## Export a client certificate revocation list<a name="cvpn-working-certificates-export"></a>

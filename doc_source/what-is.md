@@ -94,6 +94,7 @@ Client VPN has the following rules and limitations:
   ```
   SCRV1:base64_encoded_string:base64_encoded_string
   ```
++ You can't establish a VPN connection from a computer if there are multiple users logged into the operating system\.
 
 ## Pricing for Client VPN<a name="what-is-pricing"></a>
 
